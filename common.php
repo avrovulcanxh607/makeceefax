@@ -29,6 +29,7 @@ function pageHeader($mpp=800,$ss=0000,$ps=8000)
 */
 function outputLine($lineNumber,$colour,$text,$maxline)
 {
+	$out=array();
 	$utext=	htmlspecialchars_decode ($text,ENT_QUOTES);		// Decode html entities
 	$utext=explode('\r\n',wordwrap($utext,39,'\r\n'));		// Wrap the text into separate lines
 	if (count($utext)+$lineNumber>$maxline)					// This would overflow so forget it
