@@ -13,5 +13,3 @@ function newsInserter($de="News Page", $t=10, $ct="t")
 {
 	return array("DS,inserter\r\n","SP,/home/pi/Pages\r\n","DE,$de\r\n","CT,$t,$ct\r\n");
 }
-/*
-	array newsSubpage(
