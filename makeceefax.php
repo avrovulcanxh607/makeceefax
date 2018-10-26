@@ -19,7 +19,6 @@ foreach ($moduledir as $key=>$module)
 	if(file_exists("make$module/make$module.php"))
 	{
 		include "make$module/make$module.php";
-		${$module}=file("make$module/pages.txt");
 		echo "Loaded ".ucfirst($module)." module\r\n";
 	}
 	else
@@ -30,9 +29,3 @@ foreach ($moduledir as $key=>$module)
 }
 
 echo "Saving to ".PAGEDIR."\r\n";
-print_r($moduledir);
-
-foreach($moduledir as $module)
-{
-	print_r ($$module);
-}

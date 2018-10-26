@@ -87,6 +87,63 @@ function newsHeader($title="default")
 		}
 		return array("header goes here");
 }
-$test=newsPageDecode(file_get_html("https://www.bbc.co.uk/news/business-45981436"));
-$out=newsPage($test,105);
-file_put_contents("test.tti",$out);
+
+$rssfeed="http://feeds.bbci.co.uk/news/uk/rss.xml?edition=uk";	// BBC UK stories
+$rawFeed = file_get_contents($rssfeed);
+$xml = new SimpleXmlElement($rawFeed);
+$count=104;
+foreach($xml->channel->item as $chan) {
+	// Don't want video/sport stories. They don't render too well on teletext
+	if (strncmp($chan->title,"VIDEO:",6)) 
+	if (strncmp($chan->link,"http://www.bbc.co.uk/sport/",26))
+	{
+		$url=$chan->link; 
+		$str = file_get_html($url);
+		$title=$str->find("link[rel=canonical]");
+		$title=substr ($title[0],35);
+		$title=substr($title, 0, strpos( $title, '"'));
+		echo $title."\n";
+		if (!strncmp($title,"www.bbc.co.uk/news/av/",21))
+		{
+			continue 1;
+		}
+		echo $chan->title."\n";
+		$name="news".$count;
+		$$name=newsPageDecode($str);
+		$count++;
+		if ($count>106) break;	// Stop after we get the pages that we want
+	}
+} 
+$rssfeed="http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk";	// BBC world stories
+$rawFeed = file_get_contents($rssfeed);
+$xml = new SimpleXmlElement($rawFeed);
+foreach($xml->channel->item as $chan) {
+	// Don't want video/sport stories. They don't render too well on teletext
+	if (strncmp($chan->title,"VIDEO:",6)) 
+    if (strncmp($chan->link,"http://www.bbc.co.uk/sport/",25))
+	{
+		$url=$chan->link; 
+		$str = file_get_html($url);
+		$title=$str->find("link[rel=canonical]");
+		$title=substr ($title[0],35);
+		$title=substr($title, 0, strpos( $title, '"'));
+		echo $title."\n";
+		if (!strncmp($title,"www.bbc.co.uk/news/av/",21))
+		{
+			continue 1;
+		}
+		echo $chan->title."\n";
+		$name="news".$count;
+		$$name=newsPageDecode($str);
+		$count++;
+		if ($count>109) break;	// Stop after we get the pages that we want
+	}
+} 
+$news=file("/home/pi/makeceefax/makenews/pages.txt");
+
+foreach($news as $mpp)
+{
+	$mpp=rtrim($mpp);
+	$name="news".$mpp;
+	file_put_contents(PREFIX."$mpp.tti",(newsPage($$name,$mpp)));
+}

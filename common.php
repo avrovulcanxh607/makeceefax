@@ -50,3 +50,17 @@ function outputLine($lineNumber,$colour,$text,$maxline)
 	}
 	return array ($count,$out); 	// return the number lines used
 }
+
+function intHeader($i='')
+{
+	$dd = date('d');
+	$mm = date('m');
+	$hh = date('H');
+	$nn = date('i');
+	$ss = date('s');
+	exec("hostname $i",$host);
+	$host=substr($host[0],0,16);
+	$host=trim($host);
+	$host=str_pad($host,16);
+	echo "OL,0,XXXXXXXXB$hostE$dd/$mmC$hh:$nn:$ss\r\n";
+}
