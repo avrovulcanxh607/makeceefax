@@ -111,7 +111,7 @@ function newsFooter($region,$mpp,$type="normal")
 			$FT='OL,24,AIn Depth BNews IndxCHeadlinesFMain Menu'."\r\n";
 		else
 			$FT='OL,24,ANext NewsBNews IndxCHeadlinesFMain Menu'."\r\n";
-		$FL="FL,$next,102,101,100,F,100\r\n";
+		$FL="FL,$next,102,101,100,F,199\r\n";
 	}
 	if ($type == "normal" && $region)
 	{
@@ -130,7 +130,7 @@ function newsFooter($region,$mpp,$type="normal")
 	}
 }
 
-function newsHeadlinesfooter($region=false);
+function newsHeadlinesfooter($region=false)
 {
 	if ($region)
 	{
@@ -141,7 +141,7 @@ function newsHeadlinesfooter($region=false);
 		"OL,22,T]G$regionCHeadlinesG160CSport   G390\r\n",
 		"OL,23,D]GNATIONALC Main menuG100CWeatherG 400\r\n",
 		"OL,24,ANext PageBTop StoryCReg SportFMain Menu\r\n",
-		"FL,161,161,390,100,F,100\r\n");
+		"FL,161,161,390,100,F,199\r\n");
 	}
 	else
 	{
