@@ -18,9 +18,10 @@ function pageInserter($de="News Page", $t=10, $ct="t")
 	array pageHeader(mixed $pageno, mixed $subcode, mixed $options)
 	Returns an array with all the lines need for subpages.
 */
-function pageHeader($mpp=800,$ss='0000',$ps=8000)
+function pageHeader($mpp=800,$ssss='0000',$ps=8000)
 {
-	return array("PN,$mpp$ss\r\n","SC,$ss\r\n","PS,$ps\r\n");
+	$ss=substr($ssss,0,2);
+	return array("PN,$mpp$ss\r\n","SC,$ssss\r\n","PS,$ps\r\n");
 }
 
 /*
