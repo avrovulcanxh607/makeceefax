@@ -84,6 +84,11 @@ function newsHeader($title="default")
 		"OL,2,Wj \$kj \$kj 'kT]S j7#juju0  ju0s{5 \r\n",
 		"OL,3,W\"###\"###\"###T///-./-,,-,.,/,/,-,.,,.///\r\n");
 		break;
+	case "headlines" : ;
+		return array(array(
+		"OL,1,Wj#3kj#3kj#3kT]Sh4|h<h<|h<th4h4xl0|$|,  \r\n",
+		"OL,2,Wj \$kj \$kj 'kT]Sj7jwj7ju?juj5j51s  \r\n",
+		"OL,3,W\"###\"###\"###T//-.,-,-.,-,.-,-.,-.,.,,//\r\n"));
 	default;
 		$return=array("OL,2,            Header goes here            \r\n");
 		break;

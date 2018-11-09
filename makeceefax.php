@@ -12,7 +12,7 @@ define ("REGION","Northern Ireland");	// What UK TV Region are you in?
 
 include "common.php";
 echo "MAKECEEFAX.PHP ".VERSION." (c) Nathan Dane, 2018\r\n";
-echo "Saving to ".PAGEDIR."/\r\n";
+echo "Saving to ".PAGEDIR."/\r\n\r\n";
 
 // Load Modules
 $moduledir=file_get_contents("modules.txt");
@@ -23,7 +23,6 @@ foreach ($moduledir as $key=>$module)
 	if(file_exists("make$module/make$module.php"))
 	{
 		include "make$module/make$module.php";
-		echo "Loaded ".ucfirst($module)." module\r\n";
 	}
 	else
 	{
