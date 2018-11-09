@@ -51,6 +51,7 @@ function newsHeadlines($pages,$region=false)
 		$pheader=pageHeader('160');
 		$iheader=intHeader();
 		$nheader=newsHeader(REGION);
+		$footer=newsHeadlinesfooter($region);
 	}
 	else
 	{
@@ -58,6 +59,7 @@ function newsHeadlines($pages,$region=false)
 		$pheader=pageHeader('101');
 		$iheader=intHeader();
 		$nheader=newsHeader('headlines');
+		$footer=newsHeadlinesfooter($region);
 	}
 	$lines=array();
 	$OL=4;
@@ -96,7 +98,7 @@ function newsHeadlines($pages,$region=false)
 		if ($i==8)
 			break;
 	}
-	return array_merge($inserter,$pheader,$iheader,$nheader[0],$lines);
+	return array_merge($inserter,$pheader,$iheader,$nheader[0],$lines,$footer);
 }
 
 function makenews()

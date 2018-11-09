@@ -101,6 +101,7 @@ function newsHeader($title="default")
 		
 		return array($return,$region);
 }
+
 function newsFooter($region,$mpp,$type="normal")
 {
 	$next=$mpp+1;
@@ -126,6 +127,29 @@ function newsFooter($region,$mpp,$type="normal")
 		return array(
 		"OL,22,D]CHome news digestG141CWorld digestG142\r\n",
 		"OL,23,D]CNews IndexG102CFlashG150CRegionalG160\r\n",$FT,$FL);
+	}
+}
+
+function newsHeadlinesfooter($region=false);
+{
+	if ($region)
+	{
+		$region=str_replace("Northern Ireland", "N IRELAND", REGION);
+		$region=strtoupper($region);
+		$region=str_pad($region,9,' ');
+		return array(
+		"OL,22,T]G$regionCHeadlinesG160CSport   G390\r\n",
+		"OL,23,D]GNATIONALC Main menuG100CWeatherG 400\r\n",
+		"OL,24,ANext PageBTop StoryCReg SportFMain Menu\r\n",
+		"FL,161,161,390,100,F,100\r\n");
+	}
+	else
+	{
+		return array(
+		"OL,22,W]DGet BBC News on your mobile phone 153\r\n",
+		"OL,23,D]CCATCH UP WITH N. IRELAND NEWS    G160\r\n",
+		"OL,24,ANews IndexBTop StoryCTV/RadioFMain Menu\r\n",
+		"FL,102,104,600,100,f,199");
 	}
 }
 ?>
