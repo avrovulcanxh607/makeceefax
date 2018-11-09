@@ -18,7 +18,7 @@ function pageInserter($de="News Page", $t=10, $ct="t")
 	array pageHeader(mixed $pageno, mixed $subcode, mixed $options)
 	Returns an array with all the lines need for subpages.
 */
-function pageHeader($mpp=800,$ss=0000,$ps=8000)
+function pageHeader($mpp=800,$ss='0000',$ps=8000)
 {
 	return array("PN,$mpp$ss\r\n","SC,$ss\r\n","PS,$ps\r\n");
 }
@@ -31,10 +31,9 @@ function outputLine($lineNumber,$colour,$utext,$maxline)
 {
 	$out=array();
 	$utext=explode('\r\n',wordwrap($utext,39,'\r\n'));		// Wrap the text into separate lines
-	print_r($utext);
 	if (count($utext)+$lineNumber>$maxline)					// This would overflow so forget it
 	{	
-		return 0;
+		return array (0,false);
 	}
 	$count=0;
 	foreach ($utext as $key=>&$value) {

@@ -11,7 +11,7 @@ function newsPage($page,$mpp)
 	$line=4;
 	$found=false;
 	$para=array();
-	$inserter=pageInserter("News Page $mpp");
+	$inserter=pageInserter("News Page $mpp $page[4]");
 	$pheader=pageHeader($mpp);
 	$nheader=newsHeader($page[4]);	// Need to add other stuff for this
 	$title=outputLine($line,"C",$page[0],21);
@@ -25,9 +25,12 @@ function newsPage($page,$mpp)
 			break;
 		$ln++;
 		$out=outputLine($ln,"F",$element,22);
-		foreach($out[1] as $line)
+		if ($out[1] !== false)
 		{
-			array_push($para,$line);
+			foreach($out[1] as $line)
+			{
+				array_push($para,$line);
+			}
 		}
 		$ln+=$out[0];
 	}
@@ -43,11 +46,20 @@ function newsHeader($title="default")
 {
 	switch ($title)
 	{
-	case "health" : ;
+	case "Health" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kT]S | |h<$|,|h4h||4| | \r\n",
+		"OL,2,Wj \$kj \$kj 'kT]S #jw1#ju0j5 #  \r\n",
+		"OL,3,W\"###\"###\"###T///,/,-,.,/,-,.-./,/,/////\r\n");
 		break;
 	case "technology" : ;
 		break;
-	case "home" : ;
+	case "UK" : ;
+	case "Cambridgeshire" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
+		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
+		"OL,3,W\"###\"###\"###T//////-.-.,,,-..,-,.//////\r\n");
 		break;
 	case "scotland" : ;
 		break;
@@ -60,6 +72,7 @@ function newsHeader($title="default")
 	case "World" : ;
 		break;
 	case "Politics" : ;
+		
 		break;
 	default;
 		break;
@@ -90,9 +103,10 @@ foreach($xml->channel->item as $chan) {
 		echo $chan->title."\n";
 		$name="news".$count;
 		$$name=getNews($url,4);	// REEEALLY inefficiant. We're effectively downloading the page twice
+		file_put_contents(PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
 		$stories[]=$$name;
 		$count++;
-		if ($count>105) break;	// Stop after we get the pages that we want
+		if ($count>115) break;	// Stop after we get the pages that we want
 	}
 } 
 $rssfeed="http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk";	// BBC world stories
@@ -116,16 +130,9 @@ foreach($xml->channel->item as $chan) {
 		echo $chan->title."\n";
 		$name="news".$count;
 		$$name=getNews($url,4);
+		file_put_contents(PREFIX."$count.tti",(newsPage($$name,$count)));
 		$stories[]=$$name;
 		$count++;
-		if ($count>106) break;	// Stop after we get the pages that we want
+		if ($count>124) break;	// Stop after we get the pages that we want
 	}
 } 
-$news=file("/home/pi/makeceefax/makenews/pages.txt");
-
-foreach($news as $mpp)
-{
-	$mpp=rtrim($mpp);
-	$name="news".$mpp;
-	file_put_contents(PREFIX."$mpp.tti",(newsPage($$name,$mpp)));
-}
