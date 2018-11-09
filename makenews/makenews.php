@@ -4,6 +4,7 @@
 	Creates Ceefax Magazine 1 from http://bbc.co.uk/news
 	Nathan Dane, 2018
 */
+include "simplenews.php";
 
 function newsPage($page,$mpp)
 {
@@ -12,48 +13,26 @@ function newsPage($page,$mpp)
 	$para=array();
 	$inserter=pageInserter("News Page $mpp");
 	$pheader=pageHeader($mpp);
-	$nheader=newsHeader($page[0]);	// Need to add other stuff for this
-	$title=outputLine($line,"C",$page[1],21);
+	$nheader=newsHeader($page[4]);	// Need to add other stuff for this
+	$title=outputLine($line,"C",$page[0],21);
 	$line+=$title[0];
-	$intro=outputLine($line," ",$page[2],21);
+	$intro=outputLine($line," ",$page[5],21);
 	$ln=$line;
 	$ln+=$intro[0];
-	foreach($page[3] as $element)
+	foreach($page[6] as $element)
 	{
 		if ($ln>21)
 			break;
-		if ($found) 
+		$ln++;
+		$out=outputLine($ln,"F",$element,22);
+		foreach($out[1] as $line)
 		{
-			$ln++;
-			$out=outputLine($ln,"F",$element->plaintext,21);
-			foreach($out[1] as $line)
-			{
-				array_push($para,$line);
-			}
-			$ln+=$out[0];
-			
+			array_push($para,$line);
 		}
-		if (strpos($element,"introduction"))
-			$found=true;
+		$ln+=$out[0];
 	}
 	$footer=array("footer goes here");	// Nothing yet!
 	return array_merge($inserter,$pheader,$nheader,$title[1],$intro[1],$para,$footer);
-}
-/*
-	array newsPageDecode(DOM $html)
-	Decodes title & content of BBC News Pages
-*/
-function newsPageDecode($html)
-{
-	$sect =$html->find('meta[property="article:section"]',0)->plaintext;
-	$title=$html->find("meta[property=og:title]",0);
-	$title=substr ($title,35);
-	$title=substr($title, 0, strpos( $title, '"'));
-	$body =$html->find('div[class=story-body]');
-	$body=str_get_html($body[0]);
-	$intro=$body->find('p[class=story-body__introduction]',0)->plaintext;
-	$story=$body->find('p');
-	return array($sect,$title,$intro,$story);
 }
 
 /*
@@ -85,9 +64,10 @@ function newsHeader($title="default")
 	default;
 		break;
 		}
-		return array("header goes here");
+		return array("OL,2,header goes here\r\n");
 }
 
+$stories=array();
 $rssfeed="http://feeds.bbci.co.uk/news/uk/rss.xml?edition=uk";	// BBC UK stories
 $rawFeed = file_get_contents($rssfeed);
 $xml = new SimpleXmlElement($rawFeed);
@@ -109,9 +89,10 @@ foreach($xml->channel->item as $chan) {
 		}
 		echo $chan->title."\n";
 		$name="news".$count;
-		$$name=newsPageDecode($str);
+		$$name=getNews($url,4);	// REEEALLY inefficiant. We're effectively downloading the page twice
+		$stories[]=$$name;
 		$count++;
-		if ($count>106) break;	// Stop after we get the pages that we want
+		if ($count>105) break;	// Stop after we get the pages that we want
 	}
 } 
 $rssfeed="http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk";	// BBC world stories
@@ -134,9 +115,10 @@ foreach($xml->channel->item as $chan) {
 		}
 		echo $chan->title."\n";
 		$name="news".$count;
-		$$name=newsPageDecode($str);
+		$$name=getNews($url,4);
+		$stories[]=$$name;
 		$count++;
-		if ($count>109) break;	// Stop after we get the pages that we want
+		if ($count>106) break;	// Stop after we get the pages that we want
 	}
 } 
 $news=file("/home/pi/makeceefax/makenews/pages.txt");
