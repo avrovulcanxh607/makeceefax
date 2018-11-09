@@ -36,12 +36,12 @@ function newsPage($page,$mpp)
 		}
 		$ln+=$out[0];
 	}
-	$footer=array("footer goes here");	// Nothing yet!
-	return array_merge($inserter,$pheader,$nheader,$title[1],$intro[1],$para,$footer);
+	$footer=newsFooter($nheader[1],$mpp);
+	return array_merge($inserter,$pheader,$nheader[0],$title[1],$intro[1],$para,$footer);
 }
 
 $stories=array();
-/*
+
 $rssfeed="http://feeds.bbci.co.uk/news/uk/rss.xml?edition=uk";	// BBC UK stories
 $rawFeed = file_get_contents($rssfeed);
 $xml = new SimpleXmlElement($rawFeed);
@@ -97,7 +97,7 @@ foreach($xml->channel->item as $chan) {
 		if ($count>124) break;	// Stop after we get the pages that we want
 	}
 } 
-*/
+
 $count=161;
 $region=strtolower(REGION);
 $region=str_replace(' ','_',$region);
@@ -115,7 +115,7 @@ foreach($xml->channel->item as $chan) {
 		$title=substr ($title[0],35);
 		$title=substr($title, 0, strpos( $title, '"'));
 		echo $title."\n";
-		if (!strncmp($title,"www.bbc.co.uk/news/av/",21))
+		if (!strncmp($title,"/www.bbc.co.uk/news/av/",21))
 		{
 			continue 1;
 		}
@@ -128,3 +128,4 @@ foreach($xml->channel->item as $chan) {
 		if ($count>169) break;	// Stop after we get the pages that we want
 	}
 } 
+// OK, that's 30 pages of news made. Now for the indexes!
