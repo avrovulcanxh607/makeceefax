@@ -62,5 +62,5 @@ function intHeader($i='')
 	$host=substr($host[0],0,16);
 	$host=trim($host);
 	$host=str_pad($host,16);
-	echo "OL,0,XXXXXXXXB$hostE$dd/$mmC$hh:$nn:$ss\r\n";
+	return array ("OL,0,XXXXXXXXB$hostE$dd/$mmC$hh:$nn:$ss\r\n");
 }

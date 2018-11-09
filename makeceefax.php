@@ -5,11 +5,14 @@
 	Nathan Dane, 2018
 */
 // Settings. See the Wiki for details @todo
+define ("VERSION","V0.1");
 define ("PAGEDIR",".");	// Where do you want your teletext files?
 define ("PREFIX","MENU");	// What do you want the filename prefix to be?
 define ("REGION","Northern Ireland");	// What UK TV Region are you in? 
 
 include "common.php";
+echo "MAKECEEFAX.PHP ".VERSION." (c) Nathan Dane, 2018\r\n";
+echo "Saving to ".PAGEDIR."/\r\n";
 
 // Load Modules
 $moduledir=file_get_contents("modules.txt");
@@ -28,5 +31,10 @@ foreach ($moduledir as $key=>$module)
 		unset($moduledir[$key]);
 	}
 }
-
-echo "Saving to ".PAGEDIR."/\r\n";
+foreach ($moduledir as $function)
+{
+	$function="make".$function;
+	echo "\r\nRunning $function...\r\n";
+	$function();
+	echo "$function finished\r\n";
+}
