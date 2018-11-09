@@ -7,7 +7,7 @@
 // Settings. See the Wiki for details @todo
 define ("PAGEDIR",".");	// Where do you want your teletext files?
 define ("PREFIX","MENU");				// What do you want the filename prefix to be?
-define ("REGION","Scotland");	// What UK TV Region are you in? 
+define ("REGION","Wales");	// What UK TV Region are you in? 
 
 include "common.php";
 
