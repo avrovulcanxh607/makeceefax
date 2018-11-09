@@ -52,27 +52,48 @@ function newsHeader($title="default")
 		"OL,2,Wj \$kj \$kj 'kT]S #jw1#ju0j5 #  \r\n",
 		"OL,3,W\"###\"###\"###T///,/,-,.,/,-,.-./,/,/////\r\n");
 		break;
-	case "technology" : ;
+	case "Technology" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kT]S  |,h<$|h<$|0|h<$|,      \r\n",
+		"OL,2,Wj \$kj \$kj 'kT]S  sju0jw1+ju0s      \r\n",
+		"OL,3,W\"###\"###\"###T////,,-,.,-,.,/,-,.,,/////\r\n");
 		break;
 	case "UK" : ;
+	case "Business" : ;
+	case "London" : ;
 	case "Cambridgeshire" : ;
+	case "Shropshire" : ;
 		return array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
 		"OL,3,W\"###\"###\"###T//////-.-.,,,-..,-,.//////\r\n");
 		break;
-	case "scotland" : ;
+	case "Scotland" : ;
+	case "Edinburgh, Fife & East Scotland" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kD]S`<$|,h<|(|$| `<l0|th4|l0\r\n",
+		"OL,2,Wj \$kj \$kj 'kT]Sb{%pju  pj7k5\"o5x%\r\n",
+		"OL,3,W\"###\"###\"###T//-,/,,-,,/,/,,-.-.,/-.,,/\r\n");
 		break;
 	case "northern ireland" : ;
 		break;
 	case "wales" : ;
 		break;
-	case "london" : ;
-		break;
 	case "World" : ;
+	case "US & Canada" : ;
+	case "Africa" : ;
+	case "Australia" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kT]S   |hh4|,|h<l4| h<l0\r\n",
+		"OL,2,Wj \$kj \$kj 'kT]S   ozz%pj7k4pjuz%\r\n",
+		"OL,3,W\"###\"###\"###T/////-,,/,,,-.-.,,-,,/////\r\n");
 		break;
 	case "Politics" : ;
-		
+	case "UK Politics" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kT]S h<|h<|h4 |(|$|h<$|,$ \r\n",
+		"OL,2,Wj \$kj \$kj 'kT]S j7#juju0  ju0s{5 \r\n",
+		"OL,3,W\"###\"###\"###T///-./-,,-,.,/,/,-,.,,.///\r\n");
 		break;
 	default;
 		break;
