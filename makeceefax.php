@@ -5,7 +5,7 @@
 	Nathan Dane, 2018
 */
 // Settings. See the Wiki for details @todo
-define ("VERSION","V0.1");
+define ("VERSION","V1 alpha");
 define ("PAGEDIR",".");	// Where do you want your teletext files?
 define ("PREFIX","MENU");	// What do you want the filename prefix to be?
 define ("REGION","Northern Ireland");	// What UK TV Region are you in? 

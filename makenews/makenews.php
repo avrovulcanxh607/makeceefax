@@ -8,7 +8,7 @@
 require "simplenews.php";	// You should have got simplenews.php with this module
 require "newsheader.php";
 
-echo "Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKENEWS.PHP V(indev) (c) Nathan Dane, 2018\r\n";
 
 function newsPage($page,$mpp)	// Makes all the actual stories, P104-124 & 161-169
 {
@@ -103,6 +103,51 @@ function newsHeadlines($pages,$region=false)	// Headlines page
 	return array_merge($inserter,$pheader,$iheader,$nheader[0],$lines,$footer);
 }
 
+function newsIndex($pages)
+{
+	$page=pageInserter("News Index 102", 15);
+	$toptitles=array();
+	$sstitles=array();
+	$i=0;
+	foreach($pages as $page)
+	{
+		if ($i<3) $textcol='F';	// Cyan
+		$headline=myTruncate2($page[0], 35, " ");
+		$headline=substr(str_pad($headline,35),0,35);
+		$headline.='C';	// Yellow
+		$mpp=(104+$i);
+		if ($i > 11)
+			$toptitles[]="$textcol$headline$mpp";
+		else
+			$sstitles[]="$textcol$headline$mpp";
+	}
+	for($i=0;$i<3;$i++)
+	{
+		$OL=4;
+		$pheader=pageHeader('102',"000$i");
+		$iheader=intHeader();
+		$nheader=newsHeader('index');
+		$lines=array();
+		foreach ($toptitles as $title)
+		{
+			$lines[]="OL,$OL,$title\r\n";
+			$OL++;
+		}
+		$lines[]="OL,17,ƒ Other news ".($i+1)."/3 \r\n";
+		for($a=0;$a<3;$a++)
+		{
+			$lines[]="OL,$OL,$sstitles[$a]\r\n";
+			$OL++;
+		}
+		unset($sstitles[0]);
+		unset($sstitles[1]);
+		unset($sstitles[2]);
+		$sstitles = array_values($sstitles);
+		$page[]=array_merge($pheader,$iheader,$nheader[0],$lines);
+	}
+	return $page;
+}
+
 function makenews()
 {
 	$stories=array();
@@ -163,7 +208,7 @@ function makenews()
 			if ($count>124) break;	// Stop after we get the pages that we want
 		}
 	}
-	
+	/*
 	$count=161;
 	$region=strtolower(REGION);
 	$region=str_replace(' ','_',$region);
@@ -194,7 +239,9 @@ function makenews()
 			if ($count>169) break;	// Stop after we get the pages that we want
 		}
 	}
-	
+
 	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));
 	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));
+	*/
+	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));
 }
