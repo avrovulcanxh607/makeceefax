@@ -10,21 +10,21 @@ require "newsheader.php";
 
 echo "Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018\r\n";
 
-function newsPage($page,$mpp)
+function newsPage($page,$mpp)	// Makes all the actual stories, P104-124 & 161-169
 {
 	$line=4;
 	$found=false;
 	$para=array();
-	$inserter=pageInserter("News Page $mpp $page[4]");
+	$inserter=pageInserter("News Page $mpp $page[4]");	// Get all the headers 
 	$pheader=pageHeader($mpp);
 	$iheader=intHeader();
 	$nheader=newsHeader($page[4]);
-	$title=outputLine($line,"C",$page[0],21);
+	$title=outputLine($line,"C",$page[0],21);	// Page title
 	$line+=$title[0];
-	$intro=outputLine($line," ",$page[5],21);
+	$intro=outputLine($line," ",$page[5],21);	// Intro
 	$ln=$line;
 	$ln+=$intro[0];
-	foreach($page[6] as $element)
+	foreach($page[6] as $element)	// Paragraphs
 	{
 		if ($ln>21)
 			break;
@@ -39,19 +39,21 @@ function newsPage($page,$mpp)
 		}
 		$ln+=$out[0];
 	}
-	$footer=newsFooter($nheader[1],$mpp);
-	return array_merge($inserter,$pheader,$iheader,$nheader[0],$title[1],$intro[1],$para,$footer);
+	$footer=newsFooter($nheader[1],$mpp);	// Generate footer
+	return array_merge($inserter,$pheader,$iheader,$nheader[0],$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
 }
 
-function newsHeadlines($pages,$region=false)
+function newsHeadlines($pages,$region=false)	// Headlines page
 {
 	if ($region)
 	{
 		$inserter=pageInserter("Regional Headlines 160");
 		$pheader=pageHeader('160');
-		$iheader=intHeader();
+		$iheader=intHeader();	// Internal header. Might want to remove this
 		$nheader=newsHeader(REGION);
 		$footer=newsHeadlinesfooter($region);
+		$ref=161;	// First news page
+		$i=0;	// Begin at 0 for 9 headlines
 	}
 	else
 	{
@@ -60,23 +62,21 @@ function newsHeadlines($pages,$region=false)
 		$iheader=intHeader();
 		$nheader=newsHeader('headlines');
 		$footer=newsHeadlinesfooter($region);
+		$ref=103;	// First page -1
+		$i=1;	// Begin at 1 for 8 headlines
 	}
 	$lines=array();
 	$OL=4;
-	$i=0;
 	foreach ($pages as $page)
 	{
 		$headline=$page[0];
 		if ($OL==4) $textcol="M";
-		$headline=myTruncate2($headline, 70, " ");	// Cut headline to 70 chars
+		$headline=myTruncate2($headline, 70, " ");	// Cut headline to 70 chars at nearest word
 		$headline=wordwrap($headline,35,"\r\n");	// Wrap it for 2 lines. Not original, but required for longer headlines
 		$headline=explode("\r\n",$headline);	// Convert it back to a string
-		if (strlen($headline[0])<36)
-		{
-			$headline[0]=substr(str_pad($headline[0],35),0,35);
-			$headline[0].='C';	// Yellow
-		}
-		array_push($lines,"OL,$OL,$textcol$headline[0]".(104+$i)."\r\n");
+		$headline[0]=substr(str_pad($headline[0],35),0,35);
+		$headline[0].='C';	// Yellow
+		array_push($lines,"OL,$OL,$textcol$headline[0]".($ref+$i)."\r\n");	// Output first line
 		if ($OL<5)
 			$OL+=2;
 		else
@@ -88,14 +88,16 @@ function newsHeadlines($pages,$region=false)
 		{
 			$headline[1]=substr(str_pad($headline[1],39),0,39);
 		}
-		array_push($lines,"OL,$OL,$textcol$headline[1]"."\r\n");
+		if ($OL==22)
+			break;
+		array_push($lines,"OL,$OL,$textcol$headline[1]"."\r\n");	// Output second line
 		}
-		if ($OL<7)
+		if ($OL<7 && !$region)	// We don't want extra spaces if this is the regional page!
 			$OL+=2;
 		else
 			$OL+=1;
 		$i++;
-		if ($i==8)
+		if ($i==9)
 			break;
 	}
 	return array_merge($inserter,$pheader,$iheader,$nheader[0],$lines,$footer);
@@ -196,4 +198,3 @@ function makenews()
 	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));
 	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));
 }
-// OK, that's 30 pages of news made. Now for the indexes!
