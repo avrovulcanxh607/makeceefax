@@ -204,16 +204,21 @@ function makenews()
 	file_put_contents("makenews/ukrss.txt",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
 		// Don't want video/sport stories. They don't render too well on teletext
-		if (strcmp($chan->link,"https://www.bbc.co.uk/news/in-pictures",38)	// Pictures don't work on teletext!
+		if (strncmp($chan->link,"https://www.bbc.co.uk/news/in-pictures",38)	// Pictures don't work on teletext!
 		&& strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) // Sport belongs elsewhere
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30)	// We don't want pictures or videos 
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/blogs",32)	// More 'In depth' or 'Entertainment' than news
-		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newbeat",34))
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newsbeat",35)	// We're basically removing anything that won't
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/stories",34)	// work or fit on a Ceefax page.
+		&& strncmp($chan->title,"In pictures:",12))	// Although there's always a few that slip through the net.
+		// The main problem with this is that there's only so many 'proper' stories on the rss feed. If you removed all the pages
+		// that don't work, you'd only get 10-15 pages, not 20. It's possible to use both the UK and World RSS feeds, but then
+		// top world headlines only appear on P115 and don't show up on the headlines page. 
 		{
 			$url=$chan->link;
 			echo $url."\r\n";
 			$name="news".$count;
-			$$name=getNews($url,4);	// REEEALLY inefficiant. We're effectively downloading the page twice
+			$$name=getNews($url,4);
 			if ($$name===false) continue 1;	// Don't even try to run a failed page
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
 			$stories[]=$$name;
