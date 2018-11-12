@@ -21,6 +21,17 @@ function getNews($url,$limit)
 	$html = file_get_html($url);	// Under NO circumstances should $html be overwritten. It's here to stay.
 	if ($html===false) return false;
 	
+	$URL=$html->find("meta[property=og:url]",0);	// URL. The BBC try to hide the AV URL behind a legitamite one, 
+	$URL=$URL->content;								// So we have to take drastic measure to remove them
+	$URL=htmlspecialchars_decode($URL);
+	echo $URL."\r\n";
+	$URL="$URL";
+	if(!strncmp($URL,"https://www.bbc.com/news/av/",28)) // Don't even try AV pages
+	{
+		echo "Skipped: AV Story\r\n";
+		return false;
+	}
+	
 	$stitle=$html->find("meta[property=og:title]",0);	// Short title
 	$stitle=$stitle->content;
 	$stitle=htmlspecialchars_decode($stitle);

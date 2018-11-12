@@ -193,52 +193,50 @@ function makenews()
 {
 	$stories=array();
 	$rstories=array();
-	$rssfeed="http://feeds.bbci.co.uk/news/uk/rss.xml?edition=uk";	// BBC UK stories
-	$rawFeed = file_get_contents($rssfeed);
-	$xml = new SimpleXmlElement($rawFeed);
 	$count=104;
-	foreach($xml->channel->item as $chan) {
-		// Don't want video/sport stories. They don't render too well on teletext
-		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) // Sport belongs elsewhere
-		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))	// We don't want pictures or videos 
-		{
-			$url=$chan->link; 
-			echo $url."\r\n";
-			$name="news".$count;
-			$$name=getNews($url,4);	// REEEALLY inefficiant. We're effectively downloading the page twice
-			if ($$name==false) continue 1;	// Don't even try to run a failed page
-			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
-			$stories[]=$$name;
-			$count++;
-			if ($count>112) break;	// Stop after we get the pages that we want
-		}
-	}
-	
-	$rssfeed="http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk";	// BBC world stories
+	$rssfeed="http://feeds.bbci.co.uk/news/rss.xml?edition=uk";	// BBC UK stories
 	$rawFeed = file_get_contents($rssfeed);
+	$time = file_get_contents("makenews/ukrss.txt");
 	$xml = new SimpleXmlElement($rawFeed);
+	if ($time == $xml->channel->lastBuildDate) echo "UK/World News Up-to-date\r\n";	// If nothing's changed, don't even bother
+	else
+	{
+	file_put_contents("makenews/ukrss.txt",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
 		// Don't want video/sport stories. They don't render too well on teletext
-		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) 
-		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))
+		if (strcmp($chan->link,"https://www.bbc.co.uk/news/in-pictures",38)	// Pictures don't work on teletext!
+		&& strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) // Sport belongs elsewhere
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30)	// We don't want pictures or videos 
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/blogs",32)	// More 'In depth' or 'Entertainment' than news
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newbeat",34))
 		{
 			$url=$chan->link;
 			echo $url."\r\n";
 			$name="news".$count;
-			$$name=getNews($url,4);
-			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));
+			$$name=getNews($url,4);	// REEEALLY inefficiant. We're effectively downloading the page twice
+			if ($$name===false) continue 1;	// Don't even try to run a failed page
+			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
 			$stories[]=$$name;
 			$count++;
 			if ($count>124) break;	// Stop after we get the pages that we want
 		}
+	}
+	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));	// Make the Headlines page 101
+	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));	// Make the UK/World index page
+	file_put_contents(PAGEDIR.'/'.PREFIX."103.tti",(newsSummary($stories)));	// Make the Summary page
 	}
 	
 	$count=161;
 	$region=strtolower(REGION);
 	$region=str_replace(' ','_',$region);
 	$rssfeed="http://feeds.bbci.co.uk/news/$region/rss.xml";	// BBC regional stories
+	$time = file_get_contents("makenews/rrss.txt");
 	$rawFeed = file_get_contents($rssfeed);
 	$xml = new SimpleXmlElement($rawFeed);
+	if ($time == $xml->channel->lastBuildDate) echo REGION." News Up-to-date\r\n";
+	else
+	{
+	file_put_contents("makenews/rrss.txt",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
 		// Don't want video/sport stories. They don't render too well on teletext
 		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) 
@@ -254,11 +252,9 @@ function makenews()
 			if ($count>169) break;	// Stop after we get the pages that we want
 		}
 	}
+	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
+	}
 	// Need to make a config page of some sort so you can remove pages you don't want...
 	// And so you can change what page they're on
 	// This is where new makenews has the advantage. These pages are all generated pretty much instantly
-	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));	// Make the Headlines page 101
-	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
-	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));	// Make the UK/World index page
-	file_put_contents(PAGEDIR.'/'.PREFIX."103.tti",(newsSummary($stories)));	// Make the Summary page
 }
