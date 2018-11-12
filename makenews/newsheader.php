@@ -89,6 +89,11 @@ function newsHeader($title="default")
 		"OL,1,Wj#3kj#3kj#3kT]Sh4|h<h<|h<th4h4xl0|$|,  \r\n",
 		"OL,2,Wj \$kj \$kj 'kT]Sj7jwj7ju?juj5j51s  \r\n",
 		"OL,3,W\"###\"###\"###T//-.,-,-.,-,.-,-.,-.,.,,//\r\n"));
+	case "index" : ;
+		return array(
+		"OL,1,D]S|h4|h4 `h44|`<th<|h4h<t hth4|$|hh4|,$\r\n",
+		"OL,2,D]Soz%k48!*uu?*u?j7}juju? j7o51ozz%s{5\r\n",
+		"OL,3,T//-,/,-.///,,./,.-.,-,-,./-.-.,.-,,/,,.\r\n");
 	default;
 		$return=array("OL,2,            Header goes here            \r\n");
 		break;
@@ -151,5 +156,14 @@ function newsHeadlinesfooter($region=false)
 		"OL,24,ANews IndexBTop StoryCTV/RadioFMain Menu\r\n",
 		"FL,102,104,600,100,f,199");
 	}
+}
+
+function newsIndexFooter()
+{
+	return array(
+	"OL,22,T]CSummaryG103CExtraG140CFront page G100\r\n",
+	"OL,23,D]CLotteryG555CFlashG150CRegional   G160\r\n",
+	"OL,24,ASummary B1st story CLocalNewsFMain Menu\r\n",
+	"FL,103,104,160,100,F,199\r\n");
 }
 ?>

@@ -107,45 +107,52 @@ function newsIndex($pages)
 {
 	$page=pageInserter("News Index 102", 15);
 	$toptitles=array();
-	$sstitles=array();
+	$sstitles=array();	// Declaring these for later. Not sure if we need this
 	$i=0;
-	foreach($pages as $page)
+	foreach($pages as $head)
 	{
-		if ($i<3) $textcol='F';	// Cyan
-		$headline=myTruncate2($page[0], 35, " ");
+		if ($i<3) 	// Only the first 3 headlines are cyan, then they're white
+			$textcol='F';	// Cyan
+		else
+			$textcol='G';	// White. Could have just done a space
+		$headline=myTruncate2($head[0], 35, " ");	// Cut the headline to 35 chars, but at word breaks
 		$headline=substr(str_pad($headline,35),0,35);
 		$headline.='C';	// Yellow
 		$mpp=(104+$i);
-		if ($i > 11)
-			$toptitles[]="$textcol$headline$mpp";
+		if ($i <= 11)
+			$toptitles[]="$textcol$headline$mpp";	// On all subpages
 		else
-			$sstitles[]="$textcol$headline$mpp";
+			$sstitles[]="$textcol$headline$mpp";	// 3 per subpage
+		$i++;
 	}
 	for($i=0;$i<3;$i++)
 	{
 		$OL=4;
 		$pheader=pageHeader('102',"000$i");
-		$iheader=intHeader();
+		$iheader=intHeader();	// Again, internal header that you might want to remove
 		$nheader=newsHeader('index');
 		$lines=array();
+		$footer=newsIndexFooter();
 		foreach ($toptitles as $title)
 		{
-			$lines[]="OL,$OL,$title\r\n";
+			if ($OL == 10) $OL++;	// Add the blank line 10 (Or rather, don't)
+			$lines[]="OL,$OL,$title\r\n";	// Actual line output.
 			$OL++;
 		}
-		$lines[]="OL,17,ƒ Other news ".($i+1)."/3 \r\n";
+		$lines[]="OL,17,C Other news ".($i+1)."/3 \r\n";	// Subpages!
+		$OL=18;	// Shift down to line 18
 		for($a=0;$a<3;$a++)
 		{
-			$lines[]="OL,$OL,$sstitles[$a]\r\n";
+			$lines[]="OL,$OL,$sstitles[$a]\r\n"; 	// Output the line
 			$OL++;
 		}
 		unset($sstitles[0]);
-		unset($sstitles[1]);
-		unset($sstitles[2]);
+		unset($sstitles[1]);	// Remove the last three that we did.
+		unset($sstitles[2]);	// Probably better way to do this.
 		$sstitles = array_values($sstitles);
-		$page[]=array_merge($pheader,$iheader,$nheader[0],$lines);
+		$page=array_merge($page,$pheader,$iheader,$nheader,$lines,$footer);	// Append the subpage to the last one
 	}
-	return $page;
+	return $page;	// Return the full file to be saved
 }
 
 function makenews()
@@ -162,7 +169,8 @@ function makenews()
 		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/",26))
 		{
 			$url=$chan->link; 
-			$str = file_get_html($url);
+			$str = file_get_html($url);	// We should really get rid of all this from here ->
+			if (!$str) continue 1;
 			$title=$str->find("link[rel=canonical]");
 			$title=substr ($title[0],35);
 			$title=substr($title, 0, strpos( $title, '"'));
@@ -171,7 +179,7 @@ function makenews()
 			{
 				continue 1;
 			}
-			echo $chan->title."\n";
+			echo $chan->title."\n";	// <-- To here. It's really inefficiant and kinda pointless.
 			$name="news".$count;
 			$$name=getNews($url,4);	// REEEALLY inefficiant. We're effectively downloading the page twice
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
@@ -208,7 +216,7 @@ function makenews()
 			if ($count>124) break;	// Stop after we get the pages that we want
 		}
 	}
-	/*
+	
 	$count=161;
 	$region=strtolower(REGION);
 	$region=str_replace(' ','_',$region);
@@ -239,9 +247,11 @@ function makenews()
 			if ($count>169) break;	// Stop after we get the pages that we want
 		}
 	}
-
-	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));
-	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));
-	*/
-	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));
+	// Need to make a config page of some sort so you can remove pages you don't want...
+	// And so you can change what page they're on
+	
+	// This is where new makenews has the advantage. These pages are all generated pretty much instantly
+	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));	// Make the Headlines page 101
+	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
+	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));	// Make the UK/World index page
 }
