@@ -199,23 +199,14 @@ function makenews()
 	$count=104;
 	foreach($xml->channel->item as $chan) {
 		// Don't want video/sport stories. They don't render too well on teletext
-		if (strncmp($chan->title,"VIDEO:",6)) 
-		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/",26))
+		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) // Sport belongs elsewhere
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))	// We don't want pictures or videos 
 		{
 			$url=$chan->link; 
-			$str = file_get_html($url);	// We should really get rid of all this from here ->
-			if (!$str) continue 1;
-			$title=$str->find("link[rel=canonical]");
-			$title=substr ($title[0],35);
-			$title=substr($title, 0, strpos( $title, '"'));
-			echo $title."\n";
-			if (!strncmp($title,"/www.bbc.co.uk/news/av/",21))
-			{
-				continue 1;
-			}
-			echo $chan->title."\n";	// <-- To here. It's really inefficiant and kinda pointless.
+			echo $url."\r\n";
 			$name="news".$count;
 			$$name=getNews($url,4);	// REEEALLY inefficiant. We're effectively downloading the page twice
+			if ($$name==false) continue 1;	// Don't even try to run a failed page
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
 			$stories[]=$$name;
 			$count++;
@@ -228,20 +219,11 @@ function makenews()
 	$xml = new SimpleXmlElement($rawFeed);
 	foreach($xml->channel->item as $chan) {
 		// Don't want video/sport stories. They don't render too well on teletext
-		if (strncmp($chan->title,"VIDEO:",6)) 
-		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/",25))
+		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) 
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))
 		{
-			$url=$chan->link; 
-			$str = file_get_html($url);
-			$title=$str->find("link[rel=canonical]");
-			$title=substr ($title[0],35);
-			$title=substr($title, 0, strpos( $title, '"'));
-			echo $title."\n";
-			if (!strncmp($title,"/www.bbc.co.uk/news/av/",21))
-			{
-				continue 1;
-			}
-			echo $chan->title."\n";
+			$url=$chan->link;
+			echo $url."\r\n";
 			$name="news".$count;
 			$$name=getNews($url,4);
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));
@@ -250,7 +232,7 @@ function makenews()
 			if ($count>124) break;	// Stop after we get the pages that we want
 		}
 	}
-	/*
+	
 	$count=161;
 	$region=strtolower(REGION);
 	$region=str_replace(' ','_',$region);
@@ -259,20 +241,11 @@ function makenews()
 	$xml = new SimpleXmlElement($rawFeed);
 	foreach($xml->channel->item as $chan) {
 		// Don't want video/sport stories. They don't render too well on teletext
-		if (strncmp($chan->title,"VIDEO:",6)) 
-		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/",25))
+		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) 
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))
 		{
-			$url=$chan->link; 
-			$str = file_get_html($url);
-			$title=$str->find("link[rel=canonical]");
-			$title=substr ($title[0],35);
-			$title=substr($title, 0, strpos( $title, '"'));
-			echo $title."\n";
-			if (!strncmp($title,"/www.bbc.co.uk/news/av/",21))
-			{
-				continue 1;
-			}
-			echo $chan->title."\n";
+			$url=$chan->link;
+			echo $url."\r\n";
 			$name="news".$count;
 			$$name=getNews($url,4);
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));
@@ -280,13 +253,12 @@ function makenews()
 			$count++;
 			if ($count>169) break;	// Stop after we get the pages that we want
 		}
-	}*/
+	}
 	// Need to make a config page of some sort so you can remove pages you don't want...
 	// And so you can change what page they're on
-	
 	// This is where new makenews has the advantage. These pages are all generated pretty much instantly
 	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));	// Make the Headlines page 101
-	//file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
+	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
 	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));	// Make the UK/World index page
 	file_put_contents(PAGEDIR.'/'.PREFIX."103.tti",(newsSummary($stories)));	// Make the Summary page
 }

@@ -19,6 +19,7 @@ require "simple_html_dom.php";
 function getNews($url,$limit)
 {
 	$html = file_get_html($url);	// Under NO circumstances should $html be overwritten. It's here to stay.
+	if ($html===false) return false;
 	
 	$stitle=$html->find("meta[property=og:title]",0);	// Short title
 	$stitle=$stitle->content;
