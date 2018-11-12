@@ -11,7 +11,7 @@
 */
 function pageInserter($de="News Page", $t=10, $ct="t")
 {
-	return array("DS,inserter\r\n","SP,/home/pi/Pages\r\n","DE,$de\r\n","CT,$t,$ct\r\n");
+	return array("DS,inserter\r\n","SP,".PAGEDIR."/\r\n","DE,$de\r\n","CT,$t,$ct\r\n");
 }
 
 /*
@@ -51,6 +51,10 @@ function outputLine($lineNumber,$colour,$utext,$maxline)
 	return array ($count,$out); 	// return the number lines used
 }
 
+/*
+	array intHeader(str i)
+	If you want an IP address instead of a hostname, set arg1 to 'i'
+*/
 function intHeader($i='')
 {
 	$dd = date('d');
@@ -65,17 +69,18 @@ function intHeader($i='')
 	return array ("OL,0,XXXXXXXXB$hostE$dd/$mmC$hh:$nn:$ss\r\n");
 }
 
+/*
+	str myTruncate2(str STRING, int LIMIT, str BREAK, str PAD)
+	Original PHP code by Chirp Internet: www.chirp.com.au
+	Please acknowledge use of this code by including this header.
+	Truncates text to the nearest word
+*/
 function myTruncate2($string, $limit, $break=" ", $pad="")
 {
-// Original PHP code by Chirp Internet: www.chirp.com.au
-// Please acknowledge use of this code by including this header.
-  // return with no change if string is shorter than $limit
-  if(strlen($string) <= $limit) return $string;
-
-  $string = substr($string, 0, $limit);
-  if(false !== ($breakpoint = strrpos($string, $break))) {
-    $string = substr($string, 0, $breakpoint);
-  }
-
-  return $string . $pad;
+	if(strlen($string) <= $limit) return $string;
+	$string = substr($string, 0, $limit);
+	if(false !== ($breakpoint = strrpos($string, $break))) {
+		$string = substr($string, 0, $breakpoint);
+	}
+	return $string . $pad;
 }
