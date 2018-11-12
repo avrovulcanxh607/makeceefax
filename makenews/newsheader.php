@@ -27,6 +27,7 @@ function newsHeader($title="default")
 	case "UK" : ;
 	case "Business" : ;
 	case "London" : ;
+	case "Family & Education" : ;
 	case "Cambridgeshire" : ;
 	case "Shropshire" : ;
 		$return=array(
@@ -94,6 +95,11 @@ function newsHeader($title="default")
 		"OL,1,D]S|h4|h4 `h44|`<th<|h4h<t hth4|$|hh4|,$\r\n",
 		"OL,2,D]Soz%k48!*uu?*u?j7}juju? j7o51ozz%s{5\r\n",
 		"OL,3,T//-,/,-.///,,./,.-.,-,-,./-.-.,.-,,/,,.\r\n");
+	case "summary" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kT]S|,$|h4|ll4|ll4|l4|l4|h4 \r\n",
+		"OL,2,Wj \$kj \$kj 'kT]Ss{5z5jj5jj5k5k4s{5 \r\n",
+		"OL,3,W\"###\"###\"###T//,,.,,.,--.,--.,-.,-.,,./\r\n");
 	default;
 		$return=array("OL,2,            Header goes here            \r\n");
 		break;
@@ -154,7 +160,7 @@ function newsHeadlinesfooter($region=false)
 		"OL,22,W]DGet BBC News on your mobile phone 153\r\n",
 		"OL,23,D]CCATCH UP WITH N. IRELAND NEWS    G160\r\n",
 		"OL,24,ANews IndexBTop StoryCTV/RadioFMain Menu\r\n",
-		"FL,102,104,600,100,f,199");
+		"FL,102,104,600,100,F,199\r\n");
 	}
 }
 
@@ -165,5 +171,14 @@ function newsIndexFooter()
 	"OL,23,D]CLotteryG555CFlashG150CRegional   G160\r\n",
 	"OL,24,ASummary B1st story CLocalNewsFMain Menu\r\n",
 	"FL,103,104,160,100,F,199\r\n");
+}
+
+function newsSummaryFooter()
+{
+	return array(
+	"OL,22,D]CNews indexG102CExtraG140CWeather G400\r\n",
+	"OL,23,D]CFront pageG100CTV   G600CChildrenG500\r\n",
+	"OL,24,A1st storyBNews IndxCHeadlinesFMain Menu\r\n",
+	"FL,104,102,101,100,F,199\r\n");
 }
 ?>

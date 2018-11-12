@@ -20,7 +20,7 @@ function pageInserter($de="News Page", $t=10, $ct="t")
 */
 function pageHeader($mpp=800,$ssss='0000',$ps=8000)
 {
-	$ss=substr($ssss,0,2);
+	$ss=substr($ssss,2,2);
 	return array("PN,$mpp$ss\r\n","SC,$ssss\r\n","PS,$ps\r\n");
 }
 

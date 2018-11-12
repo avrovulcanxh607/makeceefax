@@ -52,5 +52,6 @@ function getNews($url,$limit)
 		$found=true;
 	}
 	return array($stitle,$ltitle,$desc,$url,$area,$intro,$paragraph);
+	//				1		2		3	4	5		6		7
 }
 ?>

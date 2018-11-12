@@ -43,7 +43,7 @@ function newsPage($page,$mpp)	// Makes all the actual stories, P104-124 & 161-16
 	return array_merge($inserter,$pheader,$iheader,$nheader[0],$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
 }
 
-function newsHeadlines($pages,$region=false)	// Headlines page
+function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 {
 	if ($region)
 	{
@@ -103,7 +103,7 @@ function newsHeadlines($pages,$region=false)	// Headlines page
 	return array_merge($inserter,$pheader,$iheader,$nheader[0],$lines,$footer);
 }
 
-function newsIndex($pages)
+function newsIndex($pages)	// UK/World Index P102
 {
 	$page=pageInserter("News Index 102", 15);
 	$toptitles=array();
@@ -153,6 +153,40 @@ function newsIndex($pages)
 		$page=array_merge($page,$pheader,$iheader,$nheader,$lines,$footer);	// Append the subpage to the last one
 	}
 	return $page;	// Return the full file to be saved
+}
+
+function newsSummary($pages)	// Summary P103
+{
+	$OL=5;
+	$i=0;
+	$inserter=pageInserter("News Summary 103", 15);
+	$pheader=pageHeader('103','0001');
+	$iheader=intHeader();	// Internal Header
+	$nheader=newsHeader('summary');
+	$footer=newsSummaryFooter();
+	$top[]="OL,4,                                   1/2\r\n";	// Top Line
+	$page=array_merge($inserter,$pheader,$iheader,$nheader,$top);	// Merge everything into the page
+	foreach($pages as $head)
+	{
+		$textcol='F';	// Cyan
+		$outputline=outputLine($OL,$textcol,$head[5],21);	// Returns False if the text won't fit
+		$OL+=$outputline[0];
+		$seepage=outputLine($OL,' ',"See ".($i+104),22);
+		$OL+=$seepage[0];
+		if($outputline[1]) $page=array_merge($page,$outputline[1],$seepage[1]);	// Only output the line if it will fit
+		$OL++;			// Extra critical beacuse if it tries to output a line that doesn't fit, we loose the whole array
+		$i++;
+		if($i > 6) break;
+		if($i == 3)	// New subpage
+		{
+			$OL=5;
+			$pheader=pageHeader('103','0002');
+			$top2[]="OL,4,                                   2/2\r\n";	// Top Line
+			$page=array_merge($page,$footer,$pheader,$iheader,$nheader,$top2);	// Add the next subpage
+		}
+	}
+	$page=array_merge($page,$footer);
+	return $page;
 }
 
 function makenews()
@@ -216,7 +250,7 @@ function makenews()
 			if ($count>124) break;	// Stop after we get the pages that we want
 		}
 	}
-	
+	/*
 	$count=161;
 	$region=strtolower(REGION);
 	$region=str_replace(' ','_',$region);
@@ -246,12 +280,13 @@ function makenews()
 			$count++;
 			if ($count>169) break;	// Stop after we get the pages that we want
 		}
-	}
+	}*/
 	// Need to make a config page of some sort so you can remove pages you don't want...
 	// And so you can change what page they're on
 	
 	// This is where new makenews has the advantage. These pages are all generated pretty much instantly
 	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));	// Make the Headlines page 101
-	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
+	//file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
 	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));	// Make the UK/World index page
+	file_put_contents(PAGEDIR.'/'.PREFIX."103.tti",(newsSummary($stories)));	// Make the Summary page
 }
