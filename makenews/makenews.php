@@ -49,7 +49,7 @@ function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 	if ($region)
 	{
 		$inserter=pageInserter("Regional Headlines ".regionalp);
-		$pheader=pageHeader('160');
+		$pheader=pageHeader(regionalp);
 		$iheader=intHeader();	// Internal header. Might want to remove this
 		$nheader=newsHeader(REGION);
 		$footer=newsHeadlinesfooter($region);
@@ -59,7 +59,7 @@ function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 	else
 	{
 		$inserter=pageInserter("News Headlines ".headlinesp);
-		$pheader=pageHeader('101');
+		$pheader=pageHeader(headlinesp);
 		$iheader=intHeader();
 		$nheader=newsHeader('headlines');
 		$footer=newsHeadlinesfooter($region);
@@ -232,14 +232,14 @@ function makenews()
 	file_put_contents(PAGEDIR.'/'.PREFIX.summaryp.".tti",(newsSummary($stories)));	// Make the Summary page
 	}
 	
-	$count=161;
+	$count=firstreg;
 	$region=strtolower(REGION);
 	$region=str_replace(' ','_',$region);
 	$rssfeed="http://feeds.bbci.co.uk/news/$region/rss.xml";	// BBC regional stories
 	$time = file_get_contents("makenews/rrss.txt");
 	$rawFeed = file_get_contents($rssfeed);
 	$xml = new SimpleXmlElement($rawFeed);
-	if ($time == $xml->channel->lastBuildDate) echo REGION." News Up-to-date\r\n";
+	if ($time == $xml->channel->lastBuildDate || !doregnews) echo REGION." News Up-to-date\r\n";
 	else
 	{
 	file_put_contents("makenews/rrss.txt",$xml->channel->lastBuildDate);
@@ -255,10 +255,10 @@ function makenews()
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));
 			$rstories[]=$$name;
 			$count++;
-			if ($count>169) break;	// Stop after we get the pages that we want
+			if ($count>lastreg) break;	// Stop after we get the pages that we want
 		}
 	}
-	file_put_contents(PAGEDIR.'/'.PREFIX."160.tti",(newsHeadlines($rstories,true)));	// Make the regional front page
+	file_put_contents(PAGEDIR.'/'.PREFIX.regionalp.".tti",(newsHeadlines($rstories,true)));	// Make the regional front page
 	}
 	// Need to make a config page of some sort so you can remove pages you don't want...
 	// And so you can change what page they're on
