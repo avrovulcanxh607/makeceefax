@@ -26,10 +26,14 @@ function newsHeader($title="default")
 		break;
 	case "UK" : ;
 	case "Business" : ;
+	case "Entertainment & Arts" : ; // Not sure. Maybe skip this?
 	case "London" : ;
 	case "Family & Education" : ;
 	case "Cambridgeshire" : ;
 	case "Shropshire" : ;
+	case "Leicester" : ; // These need to be regionalized
+	case "Norfolk" : ;
+	case "Sheffield & South Yorkshire" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
@@ -50,6 +54,7 @@ function newsHeader($title="default")
 		break;
 	case "Northern Ireland" : ;
 	case "Foyle & West" : ;
+	case "N. Ireland Politics" : ;
 		$region="Northern Ireland";
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S|0| h4|l4|,h4`<thth4|l0\r\n",
@@ -69,6 +74,9 @@ function newsHeader($title="default")
 		"OL,3,W\"###\"###\"###T//////,,.-.-.,,-,.,.//////\r\n");
 		break;
 	case "World" : ;
+	case "Europe" : ;
+	case "Latin America & Caribbean" : ;
+	case "Middle East" : ;
 	case "US & Canada" : ;
 	case "Africa" : ;
 	case "Australia" : ;

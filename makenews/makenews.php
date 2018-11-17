@@ -7,6 +7,7 @@
 */
 require "simplenews.php";	// You should have got simplenews.php with this module
 require "newsheader.php";
+require "newsconfig.php";	// No point in 'including' this stuff, the script won't run without it anyway
 
 echo "Loaded MAKENEWS.PHP V(indev) (c) Nathan Dane, 2018\r\n";
 
@@ -47,7 +48,7 @@ function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 {
 	if ($region)
 	{
-		$inserter=pageInserter("Regional Headlines 160");
+		$inserter=pageInserter("Regional Headlines ".regionalp);
 		$pheader=pageHeader('160');
 		$iheader=intHeader();	// Internal header. Might want to remove this
 		$nheader=newsHeader(REGION);
@@ -57,12 +58,12 @@ function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 	}
 	else
 	{
-		$inserter=pageInserter("News Headlines 101");
+		$inserter=pageInserter("News Headlines ".headlinesp);
 		$pheader=pageHeader('101');
 		$iheader=intHeader();
 		$nheader=newsHeader('headlines');
 		$footer=newsHeadlinesfooter($region);
-		$ref=103;	// First page -1
+		$ref=(firstnews-1);	// First page -1
 		$i=1;	// Begin at 1 for 8 headlines
 	}
 	$lines=array();
@@ -105,7 +106,7 @@ function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 
 function newsIndex($pages)	// UK/World Index P102
 {
-	$page=pageInserter("News Index 102", 15);
+	$page=pageInserter("News Index ".indexp, 15);
 	$toptitles=array();
 	$sstitles=array();	// Declaring these for later. Not sure if we need this
 	$i=0;
@@ -118,7 +119,7 @@ function newsIndex($pages)	// UK/World Index P102
 		$headline=myTruncate2($head[0], 35, " ");	// Cut the headline to 35 chars, but at word breaks
 		$headline=substr(str_pad($headline,35),0,35);
 		$headline.='C';	// Yellow
-		$mpp=(104+$i);
+		$mpp=(firstnews+$i);
 		if ($i <= 11)
 			$toptitles[]="$textcol$headline$mpp";	// On all subpages
 		else
@@ -128,7 +129,7 @@ function newsIndex($pages)	// UK/World Index P102
 	for($i=0;$i<3;$i++)
 	{
 		$OL=4;
-		$pheader=pageHeader('102',"000$i");
+		$pheader=pageHeader(indexp,"000$i");
 		$iheader=intHeader();	// Again, internal header that you might want to remove
 		$nheader=newsHeader('index');
 		$lines=array();
@@ -159,8 +160,8 @@ function newsSummary($pages)	// Summary P103
 {
 	$OL=5;
 	$i=0;
-	$inserter=pageInserter("News Summary 103", 15);
-	$pheader=pageHeader('103','0001');
+	$inserter=pageInserter("News Summary ".summaryp, 15);
+	$pheader=pageHeader(summaryp,'0001');
 	$iheader=intHeader();	// Internal Header
 	$nheader=newsHeader('summary');
 	$footer=newsSummaryFooter();
@@ -171,7 +172,7 @@ function newsSummary($pages)	// Summary P103
 		$textcol='F';	// Cyan
 		$outputline=outputLine($OL,$textcol,$head[5],21);	// Returns False if the text won't fit
 		$OL+=$outputline[0];
-		$seepage=outputLine($OL,' ',"See ".($i+104),22);
+		$seepage=outputLine($OL,' ',"See ".($i+firstnews),22);
 		$OL+=$seepage[0];
 		if($outputline[1]) $page=array_merge($page,$outputline[1],$seepage[1]);	// Only output the line if it will fit
 		$OL++;			// Extra critical beacuse if it tries to output a line that doesn't fit, we loose the whole array
@@ -180,7 +181,7 @@ function newsSummary($pages)	// Summary P103
 		if($i == 3)	// New subpage
 		{
 			$OL=5;
-			$pheader=pageHeader('103','0002');
+			$pheader=pageHeader(summaryp,'0002');
 			$top2[]="OL,4,                                   2/2\r\n";	// Top Line
 			$page=array_merge($page,$footer,$pheader,$iheader,$nheader,$top2);	// Add the next subpage
 		}
@@ -193,12 +194,12 @@ function makenews()
 {
 	$stories=array();
 	$rstories=array();
-	$count=104;
+	$count=firstnews;
 	$rssfeed="http://feeds.bbci.co.uk/news/rss.xml?edition=uk";	// BBC UK stories
 	$rawFeed = file_get_contents($rssfeed);
 	$time = file_get_contents("makenews/ukrss.txt");
 	$xml = new SimpleXmlElement($rawFeed);
-	if ($time == $xml->channel->lastBuildDate) echo "UK/World News Up-to-date\r\n";	// If nothing's changed, don't even bother
+	if ($time == $xml->channel->lastBuildDate || !donews) echo "UK/World News Up-to-date\r\n";	// If nothing's changed, don't even bother
 	else
 	{
 	file_put_contents("makenews/ukrss.txt",$xml->channel->lastBuildDate);
@@ -223,12 +224,12 @@ function makenews()
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
 			$stories[]=$$name;
 			$count++;
-			if ($count>124) break;	// Stop after we get the pages that we want
+			if ($count>lastnews) break;	// Stop after we get the pages that we want
 		}
 	}
-	file_put_contents(PAGEDIR.'/'.PREFIX."101.tti",(newsHeadlines($stories)));	// Make the Headlines page 101
-	file_put_contents(PAGEDIR.'/'.PREFIX."102.tti",(newsIndex($stories)));	// Make the UK/World index page
-	file_put_contents(PAGEDIR.'/'.PREFIX."103.tti",(newsSummary($stories)));	// Make the Summary page
+	file_put_contents(PAGEDIR.'/'.PREFIX.headlinesp.".tti",(newsHeadlines($stories)));	// Make the Headlines page 101
+	file_put_contents(PAGEDIR.'/'.PREFIX.indexp.".tti",(newsIndex($stories)));	// Make the UK/World index page
+	file_put_contents(PAGEDIR.'/'.PREFIX.summaryp.".tti",(newsSummary($stories)));	// Make the Summary page
 	}
 	
 	$count=161;

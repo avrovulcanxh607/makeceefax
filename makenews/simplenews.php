@@ -22,7 +22,7 @@ function getNews($url,$limit)
 	if ($html===false) return false;
 	
 	$URL=$html->find("meta[property=og:url]",0);	// URL. The BBC try to hide the AV URL behind a legitamite one, 
-	$URL=$URL->content;								// So we have to take drastic measure to remove them
+	$URL=$URL->content;								// So we have to take drastic measures to remove them
 	$URL=htmlspecialchars_decode($URL);
 	if(!strncmp($URL,"https://www.bbc.com/news/av/",28)) // Don't even try AV pages
 	{
