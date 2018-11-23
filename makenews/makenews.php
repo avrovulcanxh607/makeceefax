@@ -253,6 +253,11 @@ function newsTicker($pages)
 	return $out;
 }
 
+function sciTech($pages)
+{
+	
+}
+
 function makenews()
 {
 	$stories=array();

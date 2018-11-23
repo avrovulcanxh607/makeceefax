@@ -5,6 +5,8 @@
 	Nathan Dane, 2018
 */
 
+echo "News Config file loaded";
+
 // News
 define("donews",true);		// Should we generate news?
 define("firstnews",104);	// What page do you want the first news story to be on?
@@ -20,3 +22,6 @@ define("doregnews",true);	// Should we generate regional news?
 define("regionalp",160);	// What page do you want the regional Headlines on?
 define("firstreg",161);		// What page do you want the first regional story to be on?
 define("lastreg",169);		// What page do you want the last regional story to be on?
+
+// Others
+define("scitechp",154);		// What page do you want the Sci-tech news on?
