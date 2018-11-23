@@ -274,6 +274,7 @@ function makenews()
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/blogs",32)	// More 'In depth' or 'Entertainment' than news
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newsbeat",35)	// We're basically removing anything that won't
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/stories",34)	// work or fit on a Ceefax page.
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newsround",34)
 		&& strncmp($chan->title,"In pictures:",12))	// Although there's always a few that slip through the net.
 		// The main problem with this is that there's only so many 'proper' stories on the rss feed. If you removed all the pages
 		// that don't work, you'd only get 10-15 pages, not 20. It's possible to use both the UK and World RSS feeds, but then
