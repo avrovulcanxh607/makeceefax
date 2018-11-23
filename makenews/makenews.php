@@ -190,6 +190,38 @@ function newsSummary($pages)	// Summary P103
 	return $page;
 }
 
+function newsLatest($pages)
+{
+	$i=0;
+	$inserter=pageInserter("Latest ".latestp, 15);
+	$out=array_merge($inserter);
+	foreach ($pages as $page)
+	{
+		$headline='';
+		$lines='';
+		$pheader=pageHeader(latestp,"000".($i+1));
+		$iheader=intHeader();	// Internal Header
+		$longtitle=substr($page[1],0,strpos($page[1],'- '));
+		$headline=wordwrap($longtitle,36,"\r\n");
+		$headline = explode("\r\n",$headline);
+		if (count($headline) > 2)
+		{
+			$headline=wordwrap($page[0],36,"\r\n");
+			$headline = explode("\r\n",$headline);
+		}
+		$lines[]="OL,20,KKD]GLATEST \D``````````````````````````\r\n";
+		$lines[]="OL,21,KKF$headline[0]\r\n";
+		$lines[]="OL,22,KKF$headline[1]\r\n";
+		$lines[]="OL,23,KKD````````````````````````````` ]G".($i+1)."/9\r\n";
+		$lines[]="OL,24,KKATickerB Latest CHeadlinesFMain Menu\r\n";
+		$lines[]="FL,151,".(104+$i).",101,100,100,100\r\n";
+		$out=array_merge($out,$pheader,$iheader,$lines);
+		$i++;
+		if ($i>8) break;
+	}
+	return $out;
+}
+
 function makenews()
 {
 	$stories=array();
@@ -230,6 +262,7 @@ function makenews()
 	file_put_contents(PAGEDIR.'/'.PREFIX.headlinesp.".tti",(newsHeadlines($stories)));	// Make the Headlines page 101
 	file_put_contents(PAGEDIR.'/'.PREFIX.indexp.".tti",(newsIndex($stories)));	// Make the UK/World index page
 	file_put_contents(PAGEDIR.'/'.PREFIX.summaryp.".tti",(newsSummary($stories)));	// Make the Summary page
+	file_put_contents(PAGEDIR.'/'.PREFIX.latestp.".tti",(newsLatest($stories)));	// Make the Latest page
 	}
 	
 	$count=firstreg;
