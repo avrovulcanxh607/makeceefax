@@ -5,8 +5,6 @@
 	Nathan Dane, 2018
 */
 
-echo "News Config file loaded";
-
 // News
 define("donews",true);		// Should we generate news?
 define("firstnews",104);	// What page do you want the first news story to be on?

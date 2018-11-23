@@ -255,13 +255,45 @@ function newsTicker($pages)
 
 function sciTech($pages)
 {
-	
+	$i=0;
+	$inserter=pageInserter("Sci-Tech ".scitechp, 15);
+	$out=array_merge($inserter);
+	foreach ($pages as $page)
+	{
+		$nheader=newsHeader($page[4]);
+		$title=outputLine($line,"C",$page[0],21);	// Page title
+		$line+=$title[0];
+		$intro=outputLine($line," ",$page[5],21);	// Intro
+		$ln=$line;
+		$ln+=$intro[0];
+		foreach($page[6] as $element)	// Paragraphs
+		{
+			if ($ln>21)
+				break;
+			$ln++;
+			$out=outputLine($ln,"F",$element,22);
+			if ($out[1] !== false)
+			{
+				foreach($out[1] as $line)
+				{
+					array_push($para,$line);
+				}
+			}
+			$ln+=$out[0];
+		}
+		$footer=newsFooter($nheader[1],$mpp);	// Generate footer
+		$out=array_merge($out,$pheader,$iheader,$nheader[0],$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
+		$i++;
+		if ($i > 5) break;
+	}
+	return $out;
 }
 
 function makenews()
 {
 	$stories=array();
 	$rstories=array();
+	/*
 	$count=firstnews;
 	$rssfeed="http://feeds.bbci.co.uk/news/rss.xml?edition=uk";	// BBC UK stories
 	$rawFeed = file_get_contents($rssfeed);
@@ -331,7 +363,31 @@ function makenews()
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX.regionalp.".tti",(newsHeadlines($rstories,true)));	// Make the regional front page
 	}
-	// Need to make a config page of some sort so you can remove pages you don't want...
-	// And so you can change what page they're on
-	// This is where new makenews has the advantage. These pages are all generated pretty much instantly
+	*/
+	$count=0;
+	$rssfeed="http://feeds.bbci.co.uk/news/technology/rss.xml";	// BBC Science-Technology stories
+	$time = file_get_contents("makenews/scitechrss.txt");
+	$rawFeed = file_get_contents($rssfeed);
+	$xml = new SimpleXmlElement($rawFeed);
+	if ($time == $xml->channel->lastBuildDate) echo "Sci-Tech News Up-to-date\r\n";
+	else
+	{
+	$scistories=array();
+	file_put_contents("makenews/scitechrss.txt",$xml->channel->lastBuildDate);
+	foreach($xml->channel->item as $chan) {
+		// Don't want video/sport stories. They don't render too well on teletext
+		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) 
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))
+		{
+			$url=$chan->link;
+			echo $url."\r\n";
+			$name="tech".$count;
+			$$name=getNews($url,4);
+			$scistories[]=$$name;
+			$count++;
+			if ($count>5) break;	// Stop after we get the pages that we want
+		}
+	}
+	file_put_contents(PAGEDIR.'/'.PREFIX.scitechp.".tti",(sciTech($scistories));	// Make the Sci-Tech page
+	}
 }
