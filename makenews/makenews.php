@@ -257,9 +257,13 @@ function sciTech($pages)
 {
 	$i=0;
 	$inserter=pageInserter("Sci-Tech ".scitechp, 15);
-	$out=array_merge($inserter);
+	$outp=array_merge($inserter);
 	foreach ($pages as $page)
 	{
+		$line=4;
+		$para=array();
+		$pheader=pageHeader(scitechp,'000'.($i+1));
+		$iheader=intHeader();	// Internal Header
 		$nheader=newsHeader($page[4]);
 		$title=outputLine($line,"C",$page[0],21);	// Page title
 		$line+=$title[0];
@@ -281,12 +285,15 @@ function sciTech($pages)
 			}
 			$ln+=$out[0];
 		}
-		$footer=newsFooter($nheader[1],$mpp);	// Generate footer
-		$out=array_merge($out,$pheader,$iheader,$nheader[0],$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
+		$footer=array("OL,22,D]CHeadlines G101CIndexG102CSport  G300 \r\n",
+		"OL,23,D]CFront PageG100CTV   G600CWeatherG400 \r\n",
+		"OL,24,ALocalNewsBHeadlinesCNews IndxFMain Menu\r\n",
+		"FL,160,101,102,100,8ff,100\r\n");
+		$outp=array_merge($outp,$pheader,$iheader,$nheader[0],$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
 		$i++;
 		if ($i > 5) break;
 	}
-	return $out;
+	return $outp;
 }
 
 function makenews()
@@ -388,6 +395,6 @@ function makenews()
 			if ($count>5) break;	// Stop after we get the pages that we want
 		}
 	}
-	file_put_contents(PAGEDIR.'/'.PREFIX.scitechp.".tti",(sciTech($scistories));	// Make the Sci-Tech page
+	file_put_contents(PAGEDIR.'/'.PREFIX.scitechp.".tti",(sciTech($scistories)));	// Make the Sci-Tech page
 	}
 }
