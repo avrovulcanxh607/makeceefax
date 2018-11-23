@@ -13,6 +13,7 @@ define("headlinesp",101);	// What page do you want the News Headlines on?
 define("indexp",102);		// What page do you want the Index on?
 define("summaryp",103);		// What page do you want the Summary on?
 define("latestp",150);		// What page do you want the Latest carousel on?
+define("tickerp",151);		// What page do you want the Ticker carousel on?
 
 // Regional News
 define("doregnews",true);	// Should we generate regional news?

@@ -9,7 +9,7 @@
 	array pageInserter(str $Description, mixed $Time, str $CycleorTimed)
 	Returns an array containing the opening lines of a TTI teletext page.
 */
-function pageInserter($de="News Page", $t=10, $ct="t")
+function pageInserter($de="News Page", $t=10, $ct="T")
 {
 	return array("DS,inserter\r\n","SP,".PAGEDIR."/\r\n","DE,$de\r\n","CT,$t,$ct\r\n");
 }

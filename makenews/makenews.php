@@ -222,6 +222,37 @@ function newsLatest($pages)
 	return $out;
 }
 
+function newsTicker($pages)
+{
+	$i=0;
+	$inserter=pageInserter("Ticker ".tickerp, 8);
+	$out=array_merge($inserter);
+	foreach ($pages as $page)
+	{
+		$headline='';
+		$lines='';
+		$pheader=pageHeader(latestp,"000".($i+1));
+		$iheader=intHeader();	// Internal Header
+		$longtitle=substr($page[1],0,strpos($page[1],'- '));
+		$headline=wordwrap($longtitle,36,"\r\n");
+		$headline = explode("\r\n",$headline);
+		if (count($headline) > 1)
+		{
+			$headline=wordwrap($page[0],36,"\r\n");
+			$headline = explode("\r\n",$headline);
+		}
+		$lines[]="OL,21,KKD]GBBC Ceefax ".(104+$i)." \D````````````````\r\n";
+		$lines[]="OL,22,KKC$headline[0]\r\n";
+		$lines[]="OL,23,KKD`````````````````` ]GHeadlines 101\ \r\n";
+		$lines[]="OL,24,KKANewsreel BN.IreTV CExtra FMain Menu\r\n";
+		$lines[]="FL,152,600,140,100,100,100\r\n";
+		$out=array_merge($out,$pheader,$iheader,$lines);
+		$i++;
+		if ($i>8) break;
+	}
+	return $out;
+}
+
 function makenews()
 {
 	$stories=array();
@@ -263,6 +294,7 @@ function makenews()
 	file_put_contents(PAGEDIR.'/'.PREFIX.indexp.".tti",(newsIndex($stories)));	// Make the UK/World index page
 	file_put_contents(PAGEDIR.'/'.PREFIX.summaryp.".tti",(newsSummary($stories)));	// Make the Summary page
 	file_put_contents(PAGEDIR.'/'.PREFIX.latestp.".tti",(newsLatest($stories)));	// Make the Latest page
+	file_put_contents(PAGEDIR.'/'.PREFIX.tickerp.".tti",(newsTicker($stories)));	// Make the Ticker page
 	}
 	
 	$count=firstreg;
