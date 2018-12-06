@@ -1,7 +1,7 @@
 <?php
 /*
 	makenews.php 
-	Creates Ceefax Magazine 1 from http://bbc.co.uk/news
+	Creates Ceefax Magazine 1 from https://www.bbc.co.uk/news
 	makenews.php is part of makeceefax.php
 	Nathan Dane, 2018
 */
@@ -333,7 +333,7 @@ function makenews()
 			$$name=getNews($url,4);
 			if ($$name===false) continue 1;	// Don't even try to run a failed page
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
-			$stories[]=$$name;
+			$stories[$count]=$$name;
 			$count+=2;
 			if ($count>lastnews) break;	// Stop after we get the pages that we want
 		}
@@ -355,11 +355,12 @@ function makenews()
 			$$name=getNews($url,4);
 			if ($$name===false) continue 1;	// Don't even try to run a failed page
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
-			$stories[]=$$name;
+			$stories[$count]=$$name;
 			$count+=2;
 			if ($count>lastnews) break;	// Stop after we get the pages that we want
 		}
 	}
+	ksort($stories);
 	file_put_contents(PAGEDIR.'/'.PREFIX.headlinesp.".tti",(newsHeadlines($stories)));	// Make the Headlines page 101
 	file_put_contents(PAGEDIR.'/'.PREFIX.indexp.".tti",(newsIndex($stories)));	// Make the UK/World index page
 	file_put_contents(PAGEDIR.'/'.PREFIX.summaryp.".tti",(newsSummary($stories)));	// Make the Summary page

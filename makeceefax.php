@@ -10,7 +10,9 @@ define ("PAGEDIR",".");	// Where do you want your teletext files?
 define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
 define ("REGION","Northern Ireland");	// What UK TV Region are you in? 
 
-include "common.php";
+require "common.php";
+require "simple_html_dom.php";
+
 echo "MAKECEEFAX.PHP ".VERSION." (c) Nathan Dane, 2018\r\n";
 echo "Saving to ".PAGEDIR."/\r\n\r\n";
 
