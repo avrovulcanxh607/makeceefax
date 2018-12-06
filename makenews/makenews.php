@@ -300,18 +300,24 @@ function makenews()
 {
 	$stories=array();
 	$rstories=array();
-	/*
+	
 	$count=firstnews;
-	$rssfeed="http://feeds.bbci.co.uk/news/rss.xml?edition=uk";	// BBC UK stories
-	$rawFeed = file_get_contents($rssfeed);
-	$time = file_get_contents("makenews/ukrss.txt");
-	$xml = new SimpleXmlElement($rawFeed);
-	if ($time == $xml->channel->lastBuildDate || !donews) echo "UK/World News Up-to-date\r\n";	// If nothing's changed, don't even bother
+	$ukFeed = file_get_contents("http://feeds.bbci.co.uk/news/uk/rss.xml");	// BBC UK rss
+	$worldFeed = file_get_contents("http://feeds.bbci.co.uk/news/world/rss.xml");	// BBC World rss
+	$uktime = file_get_contents("makenews/ukrss.txt");
+	$worldtime = file_get_contents("makenews/worldrss.txt");
+	$ukxml = new SimpleXmlElement($ukFeed);
+	$worldxml = new SimpleXmlElement($worldFeed);
+	if ($uktime == $ukxml->channel->lastBuildDate && $worldtime == $worldxml->channel->lastBuildDate)	// Check if either rss feed needs updating
+		$runnews=false;
 	else
+		$runnews=true;
+	if (!$runnews || !donews) echo "UK/World News Up-to-date\r\n";	// If nothing's changed, don't even bother
+	else	// Unfortunately, if somthing has, we have to read in all the pages. Not Efficiant!
 	{
-	file_put_contents("makenews/ukrss.txt",$xml->channel->lastBuildDate);
-	foreach($xml->channel->item as $chan) {
-		// Don't want video/sport stories. They don't render too well on teletext
+	file_put_contents("makenews/ukrss.txt",$ukxml->channel->lastBuildDate);
+	file_put_contents("makenews/worldrss.txt",$worldxml->channel->lastBuildDate);
+	foreach($ukxml->channel->item as $chan) {
 		if (strncmp($chan->link,"https://www.bbc.co.uk/news/in-pictures",38)	// Pictures don't work on teletext!
 		&& strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) // Sport belongs elsewhere
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30)	// We don't want pictures or videos 
@@ -320,9 +326,6 @@ function makenews()
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/stories",34)	// work or fit on a Ceefax page.
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newsround",34)
 		&& strncmp($chan->title,"In pictures:",12))	// Although there's always a few that slip through the net.
-		// The main problem with this is that there's only so many 'proper' stories on the rss feed. If you removed all the pages
-		// that don't work, you'd only get 10-15 pages, not 20. It's possible to use both the UK and World RSS feeds, but then
-		// top world headlines only appear on P115 and don't show up on the headlines page. 
 		{
 			$url=$chan->link;
 			echo $url."\r\n";
@@ -331,7 +334,29 @@ function makenews()
 			if ($$name===false) continue 1;	// Don't even try to run a failed page
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
 			$stories[]=$$name;
-			$count++;
+			$count+=2;
+			if ($count>lastnews) break;	// Stop after we get the pages that we want
+		}
+	}
+	$count=(firstnews+1);
+	foreach($worldxml->channel->item as $chan) {
+		if (strncmp($chan->link,"https://www.bbc.co.uk/news/in-pictures",38)	// Pictures don't work on teletext!
+		&& strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) // Sport belongs elsewhere
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30)	// We don't want pictures or videos 
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/blogs",32)	// More 'In depth' or 'Entertainment' than news
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newsbeat",35)	// We're basically removing anything that won't
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/stories",34)	// work or fit on a Ceefax page.
+		&& strncmp($chan->link,"https://www.bbc.co.uk/news/newsround",34)
+		&& strncmp($chan->title,"In pictures:",12))	// Although there's always a few that slip through the net.
+		{
+			$url=$chan->link;
+			echo $url."\r\n";
+			$name="news".$count;
+			$$name=getNews($url,4);
+			if ($$name===false) continue 1;	// Don't even try to run a failed page
+			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
+			$stories[]=$$name;
+			$count+=2;
 			if ($count>lastnews) break;	// Stop after we get the pages that we want
 		}
 	}
@@ -370,7 +395,7 @@ function makenews()
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX.regionalp.".tti",(newsHeadlines($rstories,true)));	// Make the regional front page
 	}
-	*/
+	
 	$count=0;
 	$rssfeed="http://feeds.bbci.co.uk/news/technology/rss.xml";	// BBC Science-Technology stories
 	$time = file_get_contents("makenews/scitechrss.txt");
