@@ -193,13 +193,13 @@ function newsSummary($pages)	// Summary P103
 function newsLatest($pages)
 {
 	$i=0;
-	$inserter=pageInserter("Latest ".latestp, 15);
+	$inserter=pageInserter("Latest ".latestp,15);
 	$out=array_merge($inserter);
 	foreach ($pages as $page)
 	{
 		$headline='';
 		$lines='';
-		$pheader=pageHeader(latestp,"000".($i+1));
+		$pheader=pageHeader(latestp,"000".($i+1),8001);
 		$iheader=intHeader();	// Internal Header
 		$longtitle=substr($page[1],0,strpos($page[1],'- '));
 		$headline=wordwrap($longtitle,36,"\r\n");
@@ -225,13 +225,13 @@ function newsLatest($pages)
 function newsTicker($pages)
 {
 	$i=0;
-	$inserter=pageInserter("Ticker ".tickerp, 8);
+	$inserter=pageInserter("Ticker ".tickerp,8);
 	$out=array_merge($inserter);
 	foreach ($pages as $page)
 	{
 		$headline='';
 		$lines='';
-		$pheader=pageHeader(tickerp,"000".($i+1));
+		$pheader=pageHeader(tickerp,"000".($i+1),8001);
 		$iheader=intHeader();	// Internal Header
 		$longtitle=substr($page[1],0,strpos($page[1],'- '));
 		$headline=wordwrap($longtitle,36,"\r\n");
