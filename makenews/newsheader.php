@@ -113,6 +113,11 @@ function newsHeader($title="default")
 		"OL,1,Wj#3kj#3kj#3kT]S|,$|h4|ll4|ll4|l4|l4|h4 \r\n",
 		"OL,2,Wj \$kj \$kj 'kT]Ss{5z5jj5jj5k5k4s{5 \r\n",
 		"OL,3,W\"###\"###\"###T//,,.,,.,--.,--.,-.,-.,,./\r\n");
+	case "scitechhead" : ;
+		return array(
+		"OL,1,Wj#3kj#3kj#3kT]S x,\$x,h4 (|$|,`<$|h4    \r\n",
+		"OL,2,Wj \$kj \$kj 'kT]S s{%opj5#  s*u0k5    \r\n",
+		"OL,3,W\"###\"###\"###T//,,/-,-.//,/,,/,.,-./////\r\n");
 	default;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S     xl0|,h44|h,$\r\n",

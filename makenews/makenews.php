@@ -231,7 +231,7 @@ function newsTicker($pages)
 	{
 		$headline='';
 		$lines='';
-		$pheader=pageHeader(latestp,"000".($i+1));
+		$pheader=pageHeader(tickerp,"000".($i+1));
 		$iheader=intHeader();	// Internal Header
 		$longtitle=substr($page[1],0,strpos($page[1],'- '));
 		$headline=wordwrap($longtitle,36,"\r\n");
@@ -264,7 +264,7 @@ function sciTech($pages)
 		$para=array();
 		$pheader=pageHeader(scitechp,'000'.($i+1));
 		$iheader=intHeader();	// Internal Header
-		$nheader=newsHeader($page[4]);
+		$nheader=newsHeader("scitechhead");
 		$title=outputLine($line,"C",$page[0],21);	// Page title
 		$line+=$title[0];
 		$intro=outputLine($line," ",$page[5],21);	// Intro
@@ -289,7 +289,7 @@ function sciTech($pages)
 		"OL,23,D]CFront PageG100CTV   G600CWeatherG400 \r\n",
 		"OL,24,ALocalNewsBHeadlinesCNews IndxFMain Menu\r\n",
 		"FL,160,101,102,100,8ff,100\r\n");
-		$outp=array_merge($outp,$pheader,$iheader,$nheader[0],$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
+		$outp=array_merge($outp,$pheader,$iheader,$nheader,$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
 		$i++;
 		if ($i > 5) break;
 	}
