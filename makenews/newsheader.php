@@ -34,6 +34,9 @@ function newsHeader($title="default")
 	case "Leicester" : ; // These need to be regionalized
 	case "Norfolk" : ;
 	case "Sheffield & South Yorkshire" : ;
+	case "Bristol" : ;
+	case "Beds, Herts & Bucks" : ;
+	case "Essex" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
@@ -80,6 +83,8 @@ function newsHeader($title="default")
 	case "US & Canada" : ;
 	case "Africa" : ;
 	case "Australia" : ;
+	case "India" : ;
+	case "Asia" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S   |hh4|,|h<l4| h<l0\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S   ozz%pj7k4pjuz%\r\n",
@@ -109,7 +114,10 @@ function newsHeader($title="default")
 		"OL,2,Wj \$kj \$kj 'kT]Ss{5z5jj5jj5k5k4s{5 \r\n",
 		"OL,3,W\"###\"###\"###T//,,.,,.,--.,--.,-.,-.,,./\r\n");
 	default;
-		$return=array("OL,2,            Header goes here            \r\n");
+		$return=array(
+		"OL,1,Wj#3kj#3kj#3kT]S     xl0|,h44|h,$\r\n",
+		'OL,2,Wj $kj $kj \'kT]S     j5s*uu?bs5'."\r\n",
+		'OL,3,W"###"###"###T///////,-.,,/,,.-,.///////'."\r\n");
 		break;
 		}
 		
