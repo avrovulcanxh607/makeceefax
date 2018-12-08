@@ -55,6 +55,13 @@ function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 		$footer=newsHeadlinesfooter($region);
 		$ref=161;	// First news page
 		$i=0;	// Begin at 0 for 9 headlines
+		
+		$headlinesfile=file("makenews/headlines.txt");
+		$keys = array_keys($pages);
+		$headlinesfile[1]=REGION." News	".$pages[$keys[0]][0]."	161\r\n";
+		$fp = fopen("makenews/headlines.txt", "w+") or die("Couldn't create new file");
+		fwrite($fp, implode($headlinesfile,''));
+		fclose($fp);
 	}
 	else
 	{
@@ -65,6 +72,13 @@ function newsHeadlines($pages,$region=false)	// Headlines P101 and Regional P160
 		$footer=newsHeadlinesfooter($region);
 		$ref=(firstnews-1);	// First page -1
 		$i=1;	// Begin at 1 for 8 headlines
+		
+		$headlinesfile=file("makenews/headlines.txt");
+		$keys = array_keys($pages);
+		$headlinesfile[0]="News	".$pages[$keys[0]][0]."	$keys[0]\r\n";
+		$fp = fopen("makenews/headlines.txt", "w+") or die("Couldn't create new file");
+		fwrite($fp, implode($headlinesfile,''));
+		fclose($fp);
 	}
 	$lines=array();
 	$OL=4;
