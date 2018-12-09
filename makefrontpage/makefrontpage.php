@@ -1,5 +1,7 @@
 <?php
 
+echo "Loaded MAKEFRONTPAGE.PHP V1 alpha (c) Nathan Dane, 2018\r\n";
+
 function makefrontpage()
 {
 $modules=file("makefrontpage/fronthead.txt");

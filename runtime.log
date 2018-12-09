@@ -2,50 +2,18 @@ MAKECEEFAX.PHP V1 alpha (c) Nathan Dane, 2018
 Saving to /home/pi/ceefax/
 
 Loaded MAKENEWS.PHP V(indev) (c) Nathan Dane, 2018
-Weather module not found
+#weather module not found
+Loaded MAKEFRONTPAGE.PHP V1 alpha (c) Nathan Dane, 2018
 
 Running makenews...
-https://www.bbc.co.uk/news/uk-politics-46490642
-https://www.bbc.co.uk/news/uk-england-essex-46492477
-https://www.bbc.co.uk/news/uk-england-suffolk-46485229
-https://www.bbc.co.uk/news/uk-england-gloucestershire-46493486
-https://www.bbc.co.uk/news/uk-northern-ireland-46493365
-https://www.bbc.co.uk/news/uk-scotland-glasgow-west-46494527
-https://www.bbc.co.uk/news/uk-46494465
-https://www.bbc.co.uk/news/uk-england-leeds-46493545
-https://www.bbc.co.uk/news/uk-northern-ireland-46489244
-https://www.bbc.co.uk/news/uk-england-surrey-46484297
-https://www.bbc.co.uk/news/uk-england-devon-46489899
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-wales-46484174
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-london-46488654
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-devon-46455215
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-hampshire-46466328
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-beds-bucks-herts-46486067
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-tyne-46484639
-Skipped: AV Story
-https://www.bbc.co.uk/news/10318089
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-hereford-worcester-46443110
-https://www.bbc.co.uk/news/world-europe-46492070
-https://www.bbc.co.uk/news/world-us-canada-46490804
-https://www.bbc.co.uk/news/world-europe-46492222
-https://www.bbc.co.uk/news/world-us-canada-46494935
-https://www.bbc.co.uk/news/world-us-canada-46490492
-https://www.bbc.co.uk/news/science-environment-46471668
-https://www.bbc.co.uk/news/world-middle-east-46490497
-https://www.bbc.co.uk/news/uk-england-essex-46492477
-https://www.bbc.co.uk/news/world-europe-46487246
-https://www.bbc.co.uk/news/world-latin-america-46487147
+UK/World News Up-to-date
 Northern Ireland News Up-to-date
 Sci-Tech News Up-to-date
 makenews finished
 
 Running makefrontpage...
 makefrontpage finished
-MAKECEEFAX.PHP finished at 15:01:46 08-12-2018
+
+Running makenewsreel...
+makenewsreel finished
+MAKECEEFAX.PHP finished at 15:00:03 09-12-2018

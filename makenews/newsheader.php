@@ -39,6 +39,8 @@ function newsHeader($title="default")
 	case "Essex" : ;
 	case "England" : ;
 	case "Sussex" : ;
+	case "Wiltshire" : ;
+	case "Tyne & Wear" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
