@@ -8,6 +8,8 @@
 
 require "simpleweather.php";
 
+echo "Loaded MAKEWEATHER.PHP V1 alpha (c) Nathan Dane, 2018\r\n";
+
 function makeweather()
 {
 	$inhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gfhyzzs9j");

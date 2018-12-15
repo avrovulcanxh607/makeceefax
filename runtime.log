@@ -5,36 +5,36 @@ Loaded MAKENEWS.PHP V(indev) (c) Nathan Dane, 2018
 Loaded MAKEFRONTPAGE.PHP V1 alpha (c) Nathan Dane, 2018
 
 Running makenews...
-https://www.bbc.co.uk/news/uk-politics-46547832
-https://www.bbc.co.uk/news/education-46555654
-https://www.bbc.co.uk/news/uk-46551814
-https://www.bbc.co.uk/news/uk-england-derbyshire-46551039
-https://www.bbc.co.uk/news/46550155
-https://www.bbc.co.uk/news/uk-england-46544328
-https://www.bbc.co.uk/news/uk-england-shropshire-46552455
-https://www.bbc.co.uk/news/uk-politics-46553064
-https://www.bbc.co.uk/news/uk-46556447
-https://www.bbc.co.uk/news/business-46550862
-https://www.bbc.co.uk/news/uk-england-46554496
-https://www.bbc.co.uk/news/world-europe-46561574
-https://www.bbc.co.uk/news/world-us-canada-46561520
-https://www.bbc.co.uk/news/business-46550862
-https://www.bbc.co.uk/news/world-us-canada-46556676
-https://www.bbc.co.uk/news/world-africa-46552614
-https://www.bbc.co.uk/news/world-us-canada-46558392
-https://www.bbc.co.uk/news/world-middle-east-46555059
-https://www.bbc.co.uk/news/world-us-canada-46546683
-https://www.bbc.co.uk/news/world-us-canada-46556674
-https://www.bbc.co.uk/news/world-us-canada-46559132
-https://www.bbc.co.uk/news/uk-northern-ireland-46556312
-https://www.bbc.co.uk/news/world-europe-46550506
-https://www.bbc.co.uk/news/uk-northern-ireland-46561667
-https://www.bbc.co.uk/news/world-europe-46546295
-https://www.bbc.co.uk/news/world-europe-46558431
-https://www.bbc.co.uk/news/uk-northern-ireland-46560512
-https://www.bbc.co.uk/news/uk-northern-ireland-46539072
-https://www.bbc.co.uk/news/uk-northern-ireland-foyle-west-46559032
-https://www.bbc.co.uk/news/uk-northern-ireland-46553114
+https://www.bbc.co.uk/news/uk-politics-46577359
+https://www.bbc.co.uk/news/uk-england-merseyside-46579083
+https://www.bbc.co.uk/news/entertainment-arts-46568088
+https://www.bbc.co.uk/news/uk-england-nottinghamshire-46578862
+https://www.bbc.co.uk/news/entertainment-arts-46581492
+https://www.bbc.co.uk/news/uk-england-tyne-46575574
+https://www.bbc.co.uk/news/uk-england-kent-46578611
+https://www.bbc.co.uk/news/uk-england-essex-46540592
+https://www.bbc.co.uk/news/uk-england-cambridgeshire-46578052
+https://www.bbc.co.uk/news/uk-wales-46489219
+https://www.bbc.co.uk/news/uk-england-dorset-46578782
+https://www.bbc.co.uk/news/science-environment-46582025
+https://www.bbc.co.uk/news/world-europe-46577598
+https://www.bbc.co.uk/news/world-us-canada-46578619
+https://www.bbc.co.uk/news/world-us-canada-46580094
+https://www.bbc.co.uk/news/world-asia-46571195
+https://www.bbc.co.uk/news/world-asia-46578615
+https://www.bbc.co.uk/news/world-us-canada-46577152
+https://www.bbc.co.uk/news/world-australia-46576716
+https://www.bbc.co.uk/news/world-africa-46575449
+https://www.bbc.co.uk/news/world-europe-46575548
+https://www.bbc.co.uk/news/uk-northern-ireland-46577432
+https://www.bbc.co.uk/news/uk-northern-ireland-46577436
+https://www.bbc.co.uk/news/uk-northern-ireland-46544874
+https://www.bbc.co.uk/news/uk-northern-ireland-46567434
+https://www.bbc.co.uk/news/world-europe-46580662
+https://www.bbc.co.uk/news/uk-northern-ireland-46568439
+https://www.bbc.co.uk/news/uk-northern-ireland-46573482
+https://www.bbc.co.uk/news/uk-northern-ireland-46573483
+https://www.bbc.co.uk/news/uk-northern-ireland-46571892
 Sci-Tech News Up-to-date
 makenews finished
 
@@ -46,4 +46,4 @@ makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 22:04:53 13-12-2018
+MAKECEEFAX.PHP finished at 22:02:22 15-12-2018

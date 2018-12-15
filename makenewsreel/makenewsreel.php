@@ -1,6 +1,13 @@
 <?php 
+/*
+	makenewsreel.php
+	Generates the Ceefax Newsreel P152
+	Nathan Dane, 2018
+*/
 
 require "newsreelconfig.php";
+
+echo "Loaded MAKENEWSREEL.PHP V1 alpha (c) Nathan Dane, 2018\r\n";
 
 function makenewsreel()
 {

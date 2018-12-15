@@ -1,4 +1,5 @@
 #news
-weather
+#weather
+finance
 #frontpage
 #newsreel
