@@ -8,7 +8,7 @@
 
 require "simpleweather.php";
 
-echo "Loaded MAKEWEATHER.PHP V1 alpha (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKEWEATHER.PHP V(indev) (c) Nathan Dane, 2018\r\n";
 
 function makeweather()
 {

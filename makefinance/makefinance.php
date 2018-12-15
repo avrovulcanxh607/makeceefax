@@ -7,6 +7,8 @@
 
 require "financeconfig.php";
 
+echo "Loaded MAKEFINANCE.PHP V(indev) (c) Nathan Dane, 2018\r\n";
+
 function makeFinance()
 {
 	$p1=file_get_html('https://uk.webfg.com/indices/index.html');
