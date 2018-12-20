@@ -2,48 +2,61 @@ MAKECEEFAX.PHP V1 alpha (c) Nathan Dane, 2018
 Saving to /home/pi/ceefax/
 
 Loaded MAKENEWS.PHP V(indev) (c) Nathan Dane, 2018
+Loaded MAKEWEATHER.PHP V(indev) (c) Nathan Dane, 2018
+Loaded MAKEFINANCE.PHP V(indev) (c) Nathan Dane, 2018
+#sport module not found
 Loaded MAKEFRONTPAGE.PHP V1 alpha (c) Nathan Dane, 2018
+Loaded MAKENEWSREEL.PHP V1 alpha (c) Nathan Dane, 2018
 
 Running makenews...
-https://www.bbc.co.uk/news/uk-politics-46577359
-https://www.bbc.co.uk/news/uk-england-merseyside-46579083
-https://www.bbc.co.uk/news/entertainment-arts-46568088
-https://www.bbc.co.uk/news/uk-england-nottinghamshire-46578862
-https://www.bbc.co.uk/news/entertainment-arts-46581492
-https://www.bbc.co.uk/news/uk-england-tyne-46575574
-https://www.bbc.co.uk/news/uk-england-kent-46578611
-https://www.bbc.co.uk/news/uk-england-essex-46540592
-https://www.bbc.co.uk/news/uk-england-cambridgeshire-46578052
-https://www.bbc.co.uk/news/uk-wales-46489219
-https://www.bbc.co.uk/news/uk-england-dorset-46578782
-https://www.bbc.co.uk/news/science-environment-46582025
-https://www.bbc.co.uk/news/world-europe-46577598
-https://www.bbc.co.uk/news/world-us-canada-46578619
-https://www.bbc.co.uk/news/world-us-canada-46580094
-https://www.bbc.co.uk/news/world-asia-46571195
-https://www.bbc.co.uk/news/world-asia-46578615
-https://www.bbc.co.uk/news/world-us-canada-46577152
-https://www.bbc.co.uk/news/world-australia-46576716
-https://www.bbc.co.uk/news/world-africa-46575449
-https://www.bbc.co.uk/news/world-europe-46575548
-https://www.bbc.co.uk/news/uk-northern-ireland-46577432
-https://www.bbc.co.uk/news/uk-northern-ireland-46577436
-https://www.bbc.co.uk/news/uk-northern-ireland-46544874
-https://www.bbc.co.uk/news/uk-northern-ireland-46567434
-https://www.bbc.co.uk/news/world-europe-46580662
-https://www.bbc.co.uk/news/uk-northern-ireland-46568439
-https://www.bbc.co.uk/news/uk-northern-ireland-46573482
-https://www.bbc.co.uk/news/uk-northern-ireland-46573483
-https://www.bbc.co.uk/news/uk-northern-ireland-46571892
-Sci-Tech News Up-to-date
+https://www.bbc.co.uk/news/uk-england-sussex-46623754
+https://www.bbc.co.uk/news/uk-politics-46631581
+https://www.bbc.co.uk/news/world-australia-46628171
+https://www.bbc.co.uk/news/uk-46613609
+https://www.bbc.co.uk/news/uk-england-surrey-46594393
+https://www.bbc.co.uk/news/entertainment-arts-46631501
+https://www.bbc.co.uk/news/business-46597415
+https://www.bbc.co.uk/news/business-46630861
+https://www.bbc.co.uk/news/uk-wales-46626990
+https://www.bbc.co.uk/news/uk-scotland-scotland-business-46566703
+https://www.bbc.co.uk/news/uk-england-london-46630337
+https://www.bbc.co.uk/news/world-middle-east-46632657
+https://www.bbc.co.uk/news/world-us-canada-46628708
+https://www.bbc.co.uk/news/technology-46624136
+https://www.bbc.co.uk/news/world-europe-46632182
+https://www.bbc.co.uk/news/world-us-canada-46630721
+https://www.bbc.co.uk/news/world-asia-46629341
+https://www.bbc.co.uk/news/world-us-canada-46626521
+https://www.bbc.co.uk/news/world-australia-46628171
+https://www.bbc.co.uk/news/business-46629671
+https://www.bbc.co.uk/news/business-46624722
+https://www.bbc.co.uk/news/world-europe-46626100
+https://www.bbc.co.uk/news/uk-northern-ireland-46554481
+https://www.bbc.co.uk/news/uk-northern-ireland-46620372
+https://www.bbc.co.uk/news/uk-northern-ireland-46634422
+https://www.bbc.co.uk/news/uk-northern-ireland-46634872
+https://www.bbc.co.uk/news/uk-england-surrey-46594393
+https://www.bbc.co.uk/news/uk-northern-ireland-46632943
+https://www.bbc.co.uk/news/uk-northern-ireland-46626012
+https://www.bbc.co.uk/news/uk-northern-ireland-46599015
+https://www.bbc.co.uk/news/technology-46624136
+https://www.bbc.co.uk/news/technology-46544715
+Skipped: AV Story
+https://www.bbc.co.uk/news/technology-46622467
+https://www.bbc.co.uk/news/uk-england-sussex-46623754
+https://www.bbc.co.uk/news/world-us-canada-46616902
+https://www.bbc.co.uk/news/technology-46618582
 makenews finished
 
 Running makeweather...
 makeweather finished
+
+Running makefinance...
+makefinance finished
 
 Running makefrontpage...
 makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 22:02:22 15-12-2018
+MAKECEEFAX.PHP finished at 12:02:31 20-12-2018

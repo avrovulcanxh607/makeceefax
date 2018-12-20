@@ -1,5 +1,6 @@
 news
 weather
 finance
+#sport
 frontpage
 newsreel
