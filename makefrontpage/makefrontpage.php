@@ -5,7 +5,7 @@
 	Nathan Dane, 2018
 */
 
-echo "Loaded MAKEFRONTPAGE.PHP V1 alpha (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKEFRONTPAGE.PHP V1 (c) Nathan Dane, 2018\r\n";
 
 function makefrontpage()
 {

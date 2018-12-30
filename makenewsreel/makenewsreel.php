@@ -7,7 +7,7 @@
 
 require "newsreelconfig.php";
 
-echo "Loaded MAKENEWSREEL.PHP V1 alpha (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKENEWSREEL.PHP V1 (c) Nathan Dane, 2018\r\n";
 
 function makenewsreel()
 {

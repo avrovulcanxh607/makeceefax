@@ -9,43 +9,29 @@ Loaded MAKEFRONTPAGE.PHP V1 alpha (c) Nathan Dane, 2018
 Loaded MAKENEWSREEL.PHP V1 alpha (c) Nathan Dane, 2018
 
 Running makenews...
-https://www.bbc.co.uk/news/uk-england-sussex-46623754
-https://www.bbc.co.uk/news/uk-politics-46631581
-https://www.bbc.co.uk/news/world-australia-46628171
-https://www.bbc.co.uk/news/uk-46613609
-https://www.bbc.co.uk/news/uk-england-surrey-46594393
-https://www.bbc.co.uk/news/entertainment-arts-46631501
-https://www.bbc.co.uk/news/business-46597415
-https://www.bbc.co.uk/news/business-46630861
-https://www.bbc.co.uk/news/uk-wales-46626990
-https://www.bbc.co.uk/news/uk-scotland-scotland-business-46566703
-https://www.bbc.co.uk/news/uk-england-london-46630337
-https://www.bbc.co.uk/news/world-middle-east-46632657
-https://www.bbc.co.uk/news/world-us-canada-46628708
-https://www.bbc.co.uk/news/technology-46624136
-https://www.bbc.co.uk/news/world-europe-46632182
-https://www.bbc.co.uk/news/world-us-canada-46630721
-https://www.bbc.co.uk/news/world-asia-46629341
-https://www.bbc.co.uk/news/world-us-canada-46626521
-https://www.bbc.co.uk/news/world-australia-46628171
-https://www.bbc.co.uk/news/business-46629671
-https://www.bbc.co.uk/news/business-46624722
-https://www.bbc.co.uk/news/world-europe-46626100
-https://www.bbc.co.uk/news/uk-northern-ireland-46554481
-https://www.bbc.co.uk/news/uk-northern-ireland-46620372
-https://www.bbc.co.uk/news/uk-northern-ireland-46634422
-https://www.bbc.co.uk/news/uk-northern-ireland-46634872
-https://www.bbc.co.uk/news/uk-england-surrey-46594393
-https://www.bbc.co.uk/news/uk-northern-ireland-46632943
-https://www.bbc.co.uk/news/uk-northern-ireland-46626012
-https://www.bbc.co.uk/news/uk-northern-ireland-46599015
-https://www.bbc.co.uk/news/technology-46624136
-https://www.bbc.co.uk/news/technology-46544715
-Skipped: AV Story
-https://www.bbc.co.uk/news/technology-46622467
-https://www.bbc.co.uk/news/uk-england-sussex-46623754
-https://www.bbc.co.uk/news/world-us-canada-46616902
-https://www.bbc.co.uk/news/technology-46618582
+https://www.bbc.co.uk/news/business-46714984
+https://www.bbc.co.uk/news/uk-46714553
+https://www.bbc.co.uk/news/uk-england-manchester-46715173
+https://www.bbc.co.uk/news/uk-england-suffolk-46715113
+https://www.bbc.co.uk/news/uk-england-kent-46717206
+https://www.bbc.co.uk/news/uk-england-london-46715577
+https://www.bbc.co.uk/news/uk-politics-46713498
+https://www.bbc.co.uk/news/uk-england-sussex-46717139
+https://www.bbc.co.uk/news/uk-scotland-south-scotland-46715075
+https://www.bbc.co.uk/news/entertainment-arts-46714938
+https://www.bbc.co.uk/news/uk-england-suffolk-46694786
+https://www.bbc.co.uk/news/world-asia-46716605
+https://www.bbc.co.uk/news/uk-46714553
+https://www.bbc.co.uk/news/world-us-canada-46715373
+https://www.bbc.co.uk/news/world-us-canada-46717985
+https://www.bbc.co.uk/news/world-africa-46712759
+https://www.bbc.co.uk/news/world-africa-46714293
+https://www.bbc.co.uk/news/world-us-canada-46717173
+https://www.bbc.co.uk/news/world-europe-46714673
+https://www.bbc.co.uk/news/world-middle-east-46715376
+https://www.bbc.co.uk/news/world-asia-46714299
+Northern Ireland News Up-to-date
+Sci-Tech News Up-to-date
 makenews finished
 
 Running makeweather...
@@ -59,4 +45,4 @@ makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 12:02:31 20-12-2018
+MAKECEEFAX.PHP finished at 23:01:51 30-12-2018

@@ -5,7 +5,7 @@
 	Nathan Dane, 2018
 */
 // Settings. See the Wiki for details @todo
-define ("VERSION","V1 alpha");
+define ("VERSION","V1.0");
 define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
 define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
 define ("REGION","Northern Ireland");	// What UK TV Region are you in? 
@@ -22,6 +22,11 @@ $moduledir=explode("\r\n",$moduledir);
 
 foreach ($moduledir as $key=>$module)
 {
+	if (!strncmp($module,"#",1))
+	{
+		unset($moduledir[$key]);	// If it's been commented out, just quietly ignore it.
+		continue 1;
+	}
 	if(file_exists("make$module/make$module.php"))	// Make sure the module exists before trying to load it
 	{
 		include "make$module/make$module.php";	// Load it. Might remove the 'make'

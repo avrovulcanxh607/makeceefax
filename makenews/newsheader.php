@@ -41,17 +41,21 @@ function newsHeader($title="default")
 	case "Sussex" : ;
 	case "Wiltshire" : ;
 	case "Tyne & Wear" : ;
+	case "Manchester" : ;
+	case "Suffolk" : ;
+	case "Kent" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
 		"OL,3,W\"###\"###\"###T//////-.-.,,,-..,-,.//////\r\n");
 		break;
 	case "Scotland" : ;
-	case "Edinburgh, Fife & East Scotland" : ;
+	case "Edinburgh, Fife & East Scotland" : ;		// Scotland
 	case "Tayside and Central Scotland" : ;
 	case "NE Scotland, Orkney & Shetland" : ;
 	case "Glasgow & West Scotland" : ;
 	case "Hearts" : ;
+	case "South Scotland" : ;
 	case "Scotland politics" : ;
 		$region="Scotland";
 		$return=array(
@@ -59,7 +63,7 @@ function newsHeader($title="default")
 		"OL,2,Wj \$kj \$kj 'kT]Ss?ju0z5j5ju0#j5+ju> \r\n",
 		"OL,3,W\"###\"###\"###T//,.-,.,,.-.-,.,/,-./,-,./\r\n");
 		break;
-	case "Northern Ireland" : ;
+	case "Northern Ireland" : ;			// Northern Ireland
 	case "Foyle & West" : ;
 	case "N. Ireland Politics" : ;
 		$region="Northern Ireland";
@@ -70,7 +74,7 @@ function newsHeader($title="default")
 		break;
 	case "Wales" : ;
 	case "Wales politics" : ;
-	case "North West Wales" : ;
+	case "North West Wales" : ;			// Wales
 	case "North East Wales" : ;
 	case "South East Wales" : ;
 	case "South West Wales" : ;

@@ -11,17 +11,17 @@ require "simplesport.php";
 
 function makesport()
 {
-	
+	sportFootball();
 }
 
 function sportFootball()
 {
-	$count=300;
+	$count=303;
 	$rssfeed="http://feeds.bbci.co.uk/sport/football/rss.xml";	// BBC Football stories
 	$time = file_get_contents("makesport/football.rss");
 	$rawFeed = file_get_contents($rssfeed);
 	$xml = new SimpleXmlElement($rawFeed);
-	if ($time == $xml->channel->lastBuildDate || !doregnews) echo "Football News Up-to-date\r\n";
+	if ($time == $xml->channel->lastBuildDate) echo "Football News Up-to-date\r\n";
 	else
 	{
 	file_put_contents("makesport/football.rss",$xml->channel->lastBuildDate);
@@ -33,6 +33,7 @@ function sportFootball()
 		file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));
 		$rstories[]=$$name;
 		$count++;
-		if ($count>lastreg) break;	// Stop after we get the pages that we want
+		if ($count>315) break;	// Stop after we get the pages that we want
+	}
 	}
 }

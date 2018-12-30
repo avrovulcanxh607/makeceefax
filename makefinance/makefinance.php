@@ -7,7 +7,7 @@
 
 require "financeconfig.php";
 
-echo "Loaded MAKEFINANCE.PHP V(indev) (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKEFINANCE.PHP V0.1 (c) Nathan Dane, 2018\r\n";
 
 function makeFinance()
 {

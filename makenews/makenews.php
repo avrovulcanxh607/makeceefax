@@ -9,7 +9,7 @@ require "simplenews.php";	// You should have got simplenews.php with this module
 require "newsheader.php";
 require "newsconfig.php";	// No point in 'including' this stuff, the script won't run without it anyway
 
-echo "Loaded MAKENEWS.PHP V(indev) (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018\r\n";
 
 function newsPage($page,$mpp)	// Makes all the actual stories, P104-124 & 161-169
 {
@@ -400,7 +400,7 @@ function makenews()
 		{
 			$url=$chan->link;
 			echo $url."\r\n";
-			$name="news".$count;
+			$name="reg".$count;
 			$$name=getNews($url,4);
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));
 			$rstories[]=$$name;

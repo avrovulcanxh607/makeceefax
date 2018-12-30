@@ -1,6 +1,11 @@
+# Modules file for MAKECEEFAX.PHP
+# Note that some modules are intentionally disabled as they are in development;
+# Enable them at your own risk.
 news
-weather
 finance
 #sport
+weather
+#entertainment
+#tvlistings
 frontpage
 newsreel
