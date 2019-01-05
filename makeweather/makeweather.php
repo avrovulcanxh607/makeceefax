@@ -8,7 +8,7 @@
 
 require "simpleweather.php";
 
-echo "Loaded MAKEWEATHER.PHP V0.1 (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKEWEATHER.PHP V0.2 (c) Nathan Dane, 2019\r\n";
 
 function makeweather()
 {
@@ -24,33 +24,59 @@ function makeweather()
 	$lohtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcpvj0v07");
 	$exhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcj2x8gt4");
 	weatherMap($inhtml,$abhtml,$edhtml,$behtml,$nehtml,$mahtml,$sthtml,$cahtml,$crhtml,$lohtml,$exhtml);
+	weatherRegional($behtml);
 }
 
-function weatherRegional($html,$tab=0)
+function weatherRegional($html)
 {
-	$return=array();
-	$html=$html->find("div[data-content-id=0]",$tab);
-	$titles=$html->find("h4");
-	$paragraphs=$html->find("p");
-	foreach ($titles as $key => $title)
+	function getRegional($html,$day=0)
 	{
-		$temp=false;
-		$outtitle=$title->plaintext;
-		$outpara=$paragraphs[$key]->plaintext;
-		if (strpos($outpara, 'temperature') !== false)
+		$a=1;
+		$regional=getWeather($html,$day);
+		$para=explode('\r\n',wordwrap($regional[5],19,'\r\n'));
+		$para=array_pad($para,13,' ');
+		foreach($para as $text)
 		{
-			$length=strrpos($outpara,".",-5);
-			$length++;
-			$finalpara=substr($outpara,0,$length);	// Remove "Maximum temperature", but leave the fullstop
-			$temp=substr($outpara,($length+1));
-			$temp=preg_replace('/[^0-9]/', '',$temp);
-			$temp=str_pad($temp,2,'0',STR_PAD_LEFT);
+			$$a=substr(str_pad($text,19),0,19);
+			$a++;
 		}
-		else
-			$finalpara=$outpara;
-		$return[]=array($outtitle,$finalpara,$temp);
+		
+		$title=str_replace(':', '',(strtoupper($regional[4])));	// title
+		$ht=$regional[0];	// max temp
+		$lt=$regional[1];	// min temp
+		$dir=$regional[7];	// wind dir
+		$spd = $regional[8];	// wind spd
+		$spd.='mph';	// Add MPH
+		
+		$A=1;
+		$output=array(
+		"OL,6,C$title\r\n",
+		"OL,8,B${$A++}S5CSTATISTICS       \r\n",
+		"OL,9,B${$A++}S5C \r\n",
+		"OL,10,B${$A++}S5G   Maximum       \r\n",
+		"OL,11,B${$A++}S5GTemperatureC$ht"."C \r\n",
+		"OL,12,B${$A++}S5G                 \r\n",
+		"OL,13,B${$A++}S5G   Minumum       \r\n",
+		"OL,14,B${$A++}S5GTemperatureC$lt"."C \r\n",
+		"OL,15,B${$A++}S5C                 \r\n",
+		"OL,16,B${$A++}S5G       Wind      \r\n",
+		"OL,17,B${$A++}S5G  DirectionC$dir \r\n",
+		"OL,18,B${$A++}S5G                 \r\n",
+		"OL,19,B${$A++}S5G       Wind      \r\n",
+		"OL,20,B${$A++}S5G      SpeedC$spd\r\n");
+		return $output;
 	}
-	return $return;
+	$header=array("OL,1,Wh,,lh,,lh,,lT||,<<l,,|,,|,,<l<l,,<,,l||\r\n",
+	"OL,2,Wj 1nj 1nj =nT]Sjj5shw{4k7juz5sjw{%  \r\n",
+	"OL,3,W*,,.*,,.*,,.T]Sozz%pj5j5j5j5j5pj5j5  \r\n",
+	"OL,4,  N IRELAND  T//-,,/,,-.-.-.-.-.,,-.-.//\r\n");
+	$footer=array('OL,22,T]GN IRELANDCHeadlinesG160CSport   G390 '."\r\n",
+	"OL,23,D]GNATIONALC Main menuG100CWeatherG 400 "."\r\n",
+	"OL,24,AOutlookB NIrelTravC Trav HeadFMain Menu"."\r\n",
+	"FL,403,437,430,100,F,199\r\n");
+	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,0001),intHeader(),$header
+	,getRegional($html,$day=0),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,0002),intHeader()
+	,$header,getRegional($html,$day=1),array("OL,21,                                    2/2 \r\n"),$footer));
 }
 
 // The following is an example of the worst code in the history of the world. It should be handled with caution.

@@ -141,7 +141,7 @@ function getWeather($html,$day=0,$hour="n",$array=true)
 	if($array==true)	// By default, we return an array
 	{
 		return array($maxtemp,$mintemp,$weather,$headline,$heading,$summary,$time,$direction,$speed,$day,$location);
-	}
+	}		//			1		2			3		4		5		6			7		8		9	10		11
 	else
 	{
 		return "$maxtemp	$mintemp	$weather	$headline	$heading	$summary	$time	$direction	$speed	$day	$location\r\n";

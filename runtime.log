@@ -1,48 +1,72 @@
-MAKECEEFAX.PHP V1 alpha (c) Nathan Dane, 2018
+MAKECEEFAX.PHP V1.0 (c) Nathan Dane, 2018
 Saving to /home/pi/ceefax/
 
-Loaded MAKENEWS.PHP V(indev) (c) Nathan Dane, 2018
-Loaded MAKEWEATHER.PHP V(indev) (c) Nathan Dane, 2018
-Loaded MAKEFINANCE.PHP V(indev) (c) Nathan Dane, 2018
-#sport module not found
-Loaded MAKEFRONTPAGE.PHP V1 alpha (c) Nathan Dane, 2018
-Loaded MAKENEWSREEL.PHP V1 alpha (c) Nathan Dane, 2018
+Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018
+Loaded MAKEFINANCE.PHP V0.1 (c) Nathan Dane, 2018
+Loaded MAKEWEATHER.PHP V0.1 (c) Nathan Dane, 2018
+Loaded MAKEFRONTPAGE.PHP V1 (c) Nathan Dane, 2018
+Loaded MAKENEWSREEL.PHP V1 (c) Nathan Dane, 2018
 
 Running makenews...
-https://www.bbc.co.uk/news/business-46714984
-https://www.bbc.co.uk/news/uk-46714553
-https://www.bbc.co.uk/news/uk-england-manchester-46715173
-https://www.bbc.co.uk/news/uk-england-suffolk-46715113
-https://www.bbc.co.uk/news/uk-england-kent-46717206
-https://www.bbc.co.uk/news/uk-england-london-46715577
-https://www.bbc.co.uk/news/uk-politics-46713498
-https://www.bbc.co.uk/news/uk-england-sussex-46717139
-https://www.bbc.co.uk/news/uk-scotland-south-scotland-46715075
-https://www.bbc.co.uk/news/entertainment-arts-46714938
-https://www.bbc.co.uk/news/uk-england-suffolk-46694786
-https://www.bbc.co.uk/news/world-asia-46716605
-https://www.bbc.co.uk/news/uk-46714553
-https://www.bbc.co.uk/news/world-us-canada-46715373
-https://www.bbc.co.uk/news/world-us-canada-46717985
-https://www.bbc.co.uk/news/world-africa-46712759
-https://www.bbc.co.uk/news/world-africa-46714293
-https://www.bbc.co.uk/news/world-us-canada-46717173
-https://www.bbc.co.uk/news/world-europe-46714673
-https://www.bbc.co.uk/news/world-middle-east-46715376
-https://www.bbc.co.uk/news/world-asia-46714299
-Northern Ireland News Up-to-date
+https://www.bbc.co.uk/news/uk-england-46768506
+https://www.bbc.co.uk/news/uk-england-coventry-warwickshire-46767730
+https://www.bbc.co.uk/news/uk-england-nottinghamshire-46760299
+https://www.bbc.co.uk/news/uk-england-birmingham-46769066
+https://www.bbc.co.uk/news/uk-46766149
+https://www.bbc.co.uk/news/uk-england-gloucestershire-46768680
+https://www.bbc.co.uk/news/uk-england-london-46768700
+https://www.bbc.co.uk/news/business-46761330
+https://www.bbc.co.uk/news/uk-england-tyne-46764740
+https://www.bbc.co.uk/news/uk-england-manchester-46752836
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-46754783
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-england-norfolk-46763901
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-northern-ireland-46752732
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-46762230
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-england-london-46764760
+Skipped: AV Story
+https://www.bbc.co.uk/news/science-environment-46530519
+Skipped: AV Story
+https://www.bbc.co.uk/news/10318089
+Skipped: AV Story
+https://www.bbc.co.uk/news/technology-46757676
+https://www.bbc.co.uk/news/uk-england-cornwall-46750732
+https://www.bbc.co.uk/news/world-europe-46768990
+https://www.bbc.co.uk/news/world-europe-46769660
+https://www.bbc.co.uk/news/world-asia-china-46769610
+https://www.bbc.co.uk/news/world-us-canada-46763940
+https://www.bbc.co.uk/news/world-us-canada-46770830
+https://www.bbc.co.uk/news/world-europe-46768270
+https://www.bbc.co.uk/news/world-europe-46765692
+https://www.bbc.co.uk/news/world-us-canada-46769668
+https://www.bbc.co.uk/news/world-us-canada-46768242
+https://www.bbc.co.uk/news/world-asia-46767370
+https://www.bbc.co.uk/news/uk-northern-ireland-foyle-west-46769200
+https://www.bbc.co.uk/news/uk-northern-ireland-46769670
+https://www.bbc.co.uk/news/world-europe-46761799
+https://www.bbc.co.uk/news/uk-northern-ireland-46752732
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-northern-ireland-46765052
+https://www.bbc.co.uk/news/world-europe-46769870
+https://www.bbc.co.uk/news/uk-northern-ireland-46616637
+https://www.bbc.co.uk/news/uk-northern-ireland-46756469
+https://www.bbc.co.uk/news/uk-northern-ireland-46758772
 Sci-Tech News Up-to-date
 makenews finished
 
-Running makeweather...
-makeweather finished
-
 Running makefinance...
 makefinance finished
+
+Running makeweather...
+makeweather finished
 
 Running makefrontpage...
 makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 23:01:51 30-12-2018
+MAKECEEFAX.PHP finished at 17:02:11 05-01-2019
