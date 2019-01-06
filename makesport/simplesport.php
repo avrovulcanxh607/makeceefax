@@ -22,7 +22,7 @@ function getSport($url,$limit)
 	$URL=$html->find("meta[property=og:url]",0);	// URL. The BBC try to hide the AV URL behind a legitamite one, 
 	$URL=$URL->content;								// So we have to take drastic measures to remove them
 	$URL=htmlspecialchars_decode($URL);
-	if(!strncmp($URL,"https://www.bbc.com/news/av/",28)) // Don't even try AV pages
+	if(!strncmp($URL,"https://www.bbc.com/sport/av/",30)) // Don't even try AV pages
 	{
 		echo "Skipped: AV Story\r\n";
 		return false;
