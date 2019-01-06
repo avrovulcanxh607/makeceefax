@@ -35,7 +35,6 @@ function sportFootball()
 			echo $url."\r\n";
 			$name="sport".$count;
 			$$name=getSport($url,4);
-			print_r($$name);
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(sportPage($$name,$count)));
 			$sportdata[]=$$name;
 			$count++;
@@ -97,7 +96,7 @@ function footballIndex($data)
 	$OL=4;
 	foreach($data as $page)
 	{
-		if($i==1)
+		if($i==1 || $i==6 || $i==10)
 			$OL++;
 		$mpp=(303+$i);	// Hard code for now
 		if ($i<1) 	// Only the first headline is double height, then they're cyan

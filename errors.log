@@ -1,0 +1,2 @@
+PHP Notice:  Trying to get property of non-object in /home/pi/makeceefax/makenews/simplenews.php on line 46
+PHP Warning:  Invalid argument supplied for foreach() in /home/pi/makeceefax/makenews/makenews.php on line 28

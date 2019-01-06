@@ -8,8 +8,52 @@ Loaded MAKEFRONTPAGE.PHP V1 (c) Nathan Dane, 2018
 Loaded MAKENEWSREEL.PHP V1 (c) Nathan Dane, 2018
 
 Running makenews...
-UK/World News Up-to-date
-Northern Ireland News Up-to-date
+https://www.bbc.co.uk/news/uk-politics-46772601
+https://www.bbc.co.uk/news/uk-england-london-46777407
+https://www.bbc.co.uk/news/health-46771200
+https://www.bbc.co.uk/news/uk-england-norfolk-46771172
+https://www.bbc.co.uk/news/uk-england-london-46774303
+https://www.bbc.co.uk/news/uk-england-surrey-46773653
+https://www.bbc.co.uk/news/uk-england-stoke-staffordshire-46774733
+https://www.bbc.co.uk/news/uk-politics-46772901
+https://www.bbc.co.uk/news/uk-england-coventry-warwickshire-46774738
+https://www.bbc.co.uk/news/uk-wales-46302910
+https://www.bbc.co.uk/news/uk-politics-46775113
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-northern-ireland-46625082
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-46760121
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-england-manchester-46752836
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-46754783
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-england-norfolk-46763901
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-northern-ireland-46752732
+Skipped: AV Story
+https://www.bbc.co.uk/news/10318089
+Skipped: AV Story
+https://www.bbc.co.uk/news/uk-england-norfolk-46752782
+https://www.bbc.co.uk/news/world-us-canada-46772724
+https://www.bbc.co.uk/news/world-asia-46775833
+https://www.bbc.co.uk/news/world-europe-46773511
+https://www.bbc.co.uk/news/world-us-canada-46775308
+https://www.bbc.co.uk/news/world-middle-east-46773625
+https://www.bbc.co.uk/news/world-asia-46772155
+https://www.bbc.co.uk/news/world-middle-east-46776626
+https://www.bbc.co.uk/news/world-africa-46776850
+https://www.bbc.co.uk/news/world-asia-46775499
+https://www.bbc.co.uk/news/world-asia-46773504
+https://www.bbc.co.uk/news/uk-northern-ireland-46773814
+https://www.bbc.co.uk/news/uk-politics-46772601
+https://www.bbc.co.uk/news/uk-northern-ireland-46773817
+https://www.bbc.co.uk/news/world-europe-46777104
+https://www.bbc.co.uk/news/uk-northern-ireland-46773819
+https://www.bbc.co.uk/news/uk-northern-ireland-46775384
+https://www.bbc.co.uk/news/uk-northern-ireland-46620393
+https://www.bbc.co.uk/news/uk-northern-ireland-politics-46731533
+https://www.bbc.co.uk/news/uk-northern-ireland-46773818
 Sci-Tech News Up-to-date
 makenews finished
 
@@ -24,4 +68,4 @@ makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 17:00:32 06-01-2019
+MAKECEEFAX.PHP finished at 21:02:41 06-01-2019
