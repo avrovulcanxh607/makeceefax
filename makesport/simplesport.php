@@ -17,6 +17,7 @@
 function getSport($url,$limit)
 {
 	$html = file_get_html($url);	// Under NO circumstances should $html be overwritten. It's here to stay.
+	
 	if ($html===false) return false;
 	
 	$URL=$html->find("meta[property=og:url]",0);	// URL. The BBC try to hide the AV URL behind a legitamite one, 

@@ -1,69 +1,21 @@
 MAKECEEFAX.PHP V1.0 (c) Nathan Dane, 2018
 Saving to /home/pi/ceefax/
 
-Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018
-Loaded MAKEFINANCE.PHP V0.1 (c) Nathan Dane, 2018
-Loaded MAKEWEATHER.PHP V0.2 (c) Nathan Dane, 2019
-Loaded MAKEFRONTPAGE.PHP V1 (c) Nathan Dane, 2018
-Loaded MAKENEWSREEL.PHP V1 (c) Nathan Dane, 2018
+Loaded MAKESPORT.PHP V0.1 (c) Nathan Dane, 2019
 
-Running makenews...
-https://www.bbc.co.uk/news/uk-england-surrey-46777616
-https://www.bbc.co.uk/news/uk-politics-46772601
-https://www.bbc.co.uk/news/uk-england-london-46777407
-https://www.bbc.co.uk/news/health-46771200
-https://www.bbc.co.uk/news/uk-england-london-46774303
-https://www.bbc.co.uk/news/uk-england-surrey-46773653
-https://www.bbc.co.uk/news/uk-england-stoke-staffordshire-46774733
-https://www.bbc.co.uk/news/uk-politics-46772901
-https://www.bbc.co.uk/news/uk-england-coventry-warwickshire-46774738
-https://www.bbc.co.uk/news/uk-wales-46302910
-https://www.bbc.co.uk/news/uk-politics-46775113
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-northern-ireland-46625082
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-46760121
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-manchester-46752836
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-46754783
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-norfolk-46763901
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-northern-ireland-46752732
-Skipped: AV Story
-https://www.bbc.co.uk/news/10318089
-Skipped: AV Story
-https://www.bbc.co.uk/news/uk-england-norfolk-46752782
-https://www.bbc.co.uk/news/world-us-canada-46775308
-https://www.bbc.co.uk/news/world-asia-46775833
-https://www.bbc.co.uk/news/world-europe-46773511
-https://www.bbc.co.uk/news/world-us-canada-46772724
-https://www.bbc.co.uk/news/world-middle-east-46773625
-https://www.bbc.co.uk/news/world-asia-46772155
-https://www.bbc.co.uk/news/world-middle-east-46776626
-https://www.bbc.co.uk/news/world-africa-46776850
-https://www.bbc.co.uk/news/world-asia-46775499
-https://www.bbc.co.uk/news/world-asia-46773504
-Northern Ireland News Up-to-date
-https://www.bbc.co.uk/news/technology-46715334
-https://www.bbc.co.uk/news/technology-46754087
-Skipped: AV Story
-https://www.bbc.co.uk/news/technology-46757676
-https://www.bbc.co.uk/news/health-46749232
-https://www.bbc.co.uk/news/technology-46757669
-https://www.bbc.co.uk/news/world-europe-46757009
-makenews finished
-
-Running makefinance...
-makefinance finished
-
-Running makeweather...
-makeweather finished
-
-Running makefrontpage...
-makefrontpage finished
-
-Running makenewsreel...
-makenewsreel finished
-MAKECEEFAX.PHP finished at 22:02:14 06-01-2019
+Running makesport...
+http://www.bbc.co.uk/sport/football/46732982
+http://www.bbc.co.uk/sport/football/46816340
+http://www.bbc.co.uk/sport/football/46818632
+http://www.bbc.co.uk/sport/football/46818689
+http://www.bbc.co.uk/sport/football/46807185
+http://www.bbc.co.uk/sport/46816207
+http://www.bbc.co.uk/sport/football/46818141
+http://www.bbc.co.uk/sport/football/46816904
+http://www.bbc.co.uk/sport/football/46811467
+http://www.bbc.co.uk/sport/football/46790045
+http://www.bbc.co.uk/sport/football/46808148
+http://www.bbc.co.uk/sport/football/46810017
+http://www.bbc.co.uk/sport/football/46816901
+makesport finished
+MAKECEEFAX.PHP finished at 00:00:53 10-01-2019
