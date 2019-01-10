@@ -143,16 +143,19 @@ function newsIndex($pages)	// UK/World Index P102
 	for($i=0;$i<3;$i++)
 	{
 		$OL=4;
-		$pheader=pageHeader(indexp,"000$i");
+		$pheader=pageHeader(indexp,"000".($i+1));
 		$iheader=intHeader();	// Again, internal header that you might want to remove
 		$nheader=newsHeader('index');
 		$lines=array();
 		$footer=newsIndexFooter();
-		foreach ($toptitles as $title)
+		if(!ROWADAPT || $i<1)
 		{
-			if ($OL == 10) $OL++;	// Add the blank line 10 (Or rather, don't)
-			$lines[]="OL,$OL,$title\r\n";	// Actual line output.
-			$OL++;
+			foreach ($toptitles as $title)
+			{
+				if ($OL == 10) $OL++;	// Add the blank line 10 (Or rather, don't)
+				$lines[]="OL,$OL,$title\r\n";	// Actual line output.
+				$OL++;
+			}
 		}
 		$lines[]="OL,17,C Other news ".($i+1)."/3 \r\n";	// Subpages!
 		$OL=18;	// Shift down to line 18
@@ -175,7 +178,7 @@ function newsSummary($pages)	// Summary P103
 	$OL=5;
 	$i=0;
 	$inserter=pageInserter("News Summary ".summaryp, 15);
-	$pheader=pageHeader(summaryp,'0001');
+	$pheader=pageHeader(summaryp,'0001','c000');
 	$iheader=intHeader();	// Internal Header
 	$nheader=newsHeader('summary');
 	$footer=newsSummaryFooter();

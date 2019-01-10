@@ -7,7 +7,7 @@
 
 require "newsreelconfig.php";
 
-echo "Loaded MAKENEWSREEL.PHP V1 (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKENEWSREEL.PHP V1.1 (c) Nathan Dane, 2019\r\n";
 
 function makenewsreel()
 {
@@ -26,7 +26,7 @@ function makenewsreel()
 			if(substr($line,0,2)=="SC")
 			{
 				$sc=substr($line,3);
-				$out=array_merge($out,pageHeader(newsreelmpp,str_pad($ss,4,'0',STR_PAD_LEFT)),$iheader,array(
+				$out=array_merge($out,pageHeader(newsreelmpp,str_pad($ss,4,'0',STR_PAD_LEFT),"c000"),$iheader,array(
 				"OL,24,ANext News BLocalNewsCRegionalFMain Menu\r\n",
 				"FL,154,160,390,100,0,199\r\n"));
 				$ss++;

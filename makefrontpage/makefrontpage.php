@@ -5,7 +5,7 @@
 	Nathan Dane, 2018
 */
 
-echo "Loaded MAKEFRONTPAGE.PHP V1 (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKEFRONTPAGE.PHP V1.1 (c) Nathan Dane, 2019\r\n";
 
 function makefrontpage()
 {
@@ -32,8 +32,8 @@ $restof=array(
 "OL,21,CSCI-TECH      G154CWEATHER         G400\r\n",
 "OL,22,                                        \r\n",
 "OL,23,D]CCeefax: The world at your fingertips \r\n",
-"OL,24,AHeadlines  BSport CN.Ire TV FA-Z Index \r\n",
-"FL,101,300,600,199,F,199\r\n");
+"OL,24,AHeadlines  BSport CN.Ire TV FA-Z Index \r\n");
+$fastext=array("FL,101,300,600,199,F,199\r\n");
 $i=1;
 foreach ($modules as $key=>$module)
 {
@@ -52,7 +52,10 @@ foreach ($modules as $key=>$module)
 			
 			$headline=array("OL,5,C$title[0]\r\n","OL,6,M$title[1]C$title[2]\r\n");
 			$i++;
-			$out=array_merge($out,$pheader,$iheader,$headline,$restof);	// Append the subpage to the last one
+			if(ROWADAPT && $i>2)	// If Row adaptive mode is enabled, only send the full page once. 
+				$out=array_merge($out,$pheader,$iheader,$headline,$fastext);
+			else
+				$out=array_merge($out,$pheader,$iheader,$headline,$restof,$fastext);	// Append the subpage to the last one
 		}
 	}
 }

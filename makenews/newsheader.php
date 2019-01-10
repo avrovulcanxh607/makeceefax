@@ -44,6 +44,7 @@ function newsHeader($title="default")
 	case "Manchester" : ;
 	case "Suffolk" : ;
 	case "Kent" : ;
+	case "Lancashire" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",

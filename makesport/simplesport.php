@@ -16,6 +16,7 @@
 
 function getSport($url,$limit)
 {
+	$found=false;
 	$html = file_get_html($url);	// Under NO circumstances should $html be overwritten. It's here to stay.
 	
 	if ($html===false) return false;
@@ -45,11 +46,13 @@ function getSport($url,$limit)
 	$area=htmlspecialchars_decode($area);
 	
 	$intro=$html->find('p[class=sp-story-body__introduction]',0)->plaintext;	// Summary
+	if($intro==false)$found=true;
 	$intro=htmlspecialchars_decode($intro);
+	
+	if($found==true)$html=$html->find('div[id="orb-modules"]');
 	
 	$paragraph='';
 	$i=0;
-	$found=false;
 	foreach ($html->find('p') as $para)
 	{
 		if($i<$limit && $found==true)

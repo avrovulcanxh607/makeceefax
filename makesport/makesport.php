@@ -27,11 +27,12 @@ function sportFootball()
 	if ($time == $xml->channel->lastBuildDate) echo "Football News Up-to-date\r\n";
 	else
 	{
-	//file_put_contents("makesport/football.rss",$xml->channel->lastBuildDate);
+	file_put_contents("makesport/football.rss",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
 		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/av/",30))
 		{
 			$url=$chan->link;
+			//$url="http://www.bbc.co.uk/sport/46816207";
 			echo $url."\r\n";
 			$name="sport".$count;
 			$$name=getSport($url,4);

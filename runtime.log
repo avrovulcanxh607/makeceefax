@@ -1,21 +1,52 @@
 MAKECEEFAX.PHP V1.0 (c) Nathan Dane, 2018
 Saving to /home/pi/ceefax/
 
+Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018
+Loaded MAKEFINANCE.PHP V0.1 (c) Nathan Dane, 2018
 Loaded MAKESPORT.PHP V0.1 (c) Nathan Dane, 2019
+Loaded MAKEWEATHER.PHP V0.2 (c) Nathan Dane, 2019
+Loaded MAKEFRONTPAGE.PHP V1.1 (c) Nathan Dane, 2019
+Loaded MAKENEWSREEL.PHP V1.1 (c) Nathan Dane, 2019
+
+Running makenews...
+https://www.bbc.co.uk/news/uk-politics-46826345
+https://www.bbc.co.uk/news/uk-england-46828537
+https://www.bbc.co.uk/news/uk-46820660
+https://www.bbc.co.uk/news/uk-england-bristol-46828031
+https://www.bbc.co.uk/news/uk-46827542
+https://www.bbc.co.uk/news/uk-england-kent-46824330
+https://www.bbc.co.uk/news/uk-england-lancashire-46827360
+https://www.bbc.co.uk/news/uk-scotland-glasgow-west-46811391
+https://www.bbc.co.uk/news/uk-england-cambridgeshire-46828322
+https://www.bbc.co.uk/news/business-46829442
+https://www.bbc.co.uk/news/business-46822706
+https://www.bbc.co.uk/news/world-middle-east-46828810
+https://www.bbc.co.uk/news/world-middle-east-46822429
+https://www.bbc.co.uk/news/world-europe-46822472
+https://www.bbc.co.uk/news/world-46821653
+https://www.bbc.co.uk/news/world-africa-46823669
+https://www.bbc.co.uk/news/world-europe-46829350
+https://www.bbc.co.uk/news/world-africa-46827760
+https://www.bbc.co.uk/news/world-africa-46823797
+https://www.bbc.co.uk/news/world-us-canada-46828000
+https://www.bbc.co.uk/news/world-asia-46823289
+Northern Ireland News Up-to-date
+Sci-Tech News Up-to-date
+makenews finished
+
+Running makefinance...
+makefinance finished
 
 Running makesport...
-http://www.bbc.co.uk/sport/football/46732982
-http://www.bbc.co.uk/sport/football/46816340
-http://www.bbc.co.uk/sport/football/46818632
-http://www.bbc.co.uk/sport/football/46818689
-http://www.bbc.co.uk/sport/football/46807185
-http://www.bbc.co.uk/sport/46816207
-http://www.bbc.co.uk/sport/football/46818141
-http://www.bbc.co.uk/sport/football/46816904
-http://www.bbc.co.uk/sport/football/46811467
-http://www.bbc.co.uk/sport/football/46790045
-http://www.bbc.co.uk/sport/football/46808148
-http://www.bbc.co.uk/sport/football/46810017
-http://www.bbc.co.uk/sport/football/46816901
+Football News Up-to-date
 makesport finished
-MAKECEEFAX.PHP finished at 00:00:53 10-01-2019
+
+Running makeweather...
+makeweather finished
+
+Running makefrontpage...
+makefrontpage finished
+
+Running makenewsreel...
+makenewsreel finished
+MAKECEEFAX.PHP finished at 19:31:23 10-01-2019
