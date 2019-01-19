@@ -12,6 +12,7 @@ define ("REGION","Northern Ireland");	// What UK TV Region are you in?
 define ("ROWADAPT",true);	// Are you using Row Adaptive Mode? (Recommended!)
 
 require "common.php";
+require "fix.php";
 require "simple_html_dom.php";
 
 echo "MAKECEEFAX.PHP ".VERSION." (c) Nathan Dane, 2018\r\n";
@@ -26,7 +27,7 @@ foreach ($moduledir as $key=>$module)
 	if (!strncmp($module,"#",1))
 	{
 		unset($moduledir[$key]);	// If it's been commented out, just quietly ignore it.
-		continue 1;
+		continue;
 	}
 	if(file_exists("make$module/make$module.php"))	// Make sure the module exists before trying to load it
 	{

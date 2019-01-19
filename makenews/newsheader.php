@@ -45,6 +45,8 @@ function newsHeader($title="default")
 	case "Suffolk" : ;
 	case "Kent" : ;
 	case "Lancashire" : ;
+	case "Leeds & West Yorkshire" : ;
+	case "Liverpool" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
@@ -94,6 +96,7 @@ function newsHeader($title="default")
 	case "Australia" : ;
 	case "India" : ;
 	case "Asia" : ;
+	case "China" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S   |hh4|,|h<l4| h<l0\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S   ozz%pj7k4pjuz%\r\n",
@@ -199,8 +202,7 @@ function newsIndexFooter()
 	return array(
 	"OL,22,T]CSummaryG103CExtraG140CFront page G100\r\n",
 	"OL,23,D]CLotteryG555CFlashG150CRegional   G160\r\n",
-	"OL,24,ASummary B1st story CLocalNewsFMain Menu\r\n",
-	"FL,103,104,160,100,F,199\r\n");
+	"OL,24,ASummary B1st story CLocalNewsFMain Menu\r\n");
 }
 
 function newsSummaryFooter()

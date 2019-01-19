@@ -168,7 +168,11 @@ function newsIndex($pages)	// UK/World Index P102
 		unset($sstitles[1]);	// Remove the last three that we did.
 		unset($sstitles[2]);	// Probably better way to do this.
 		$sstitles = array_values($sstitles);
-		$page=array_merge($page,$pheader,$iheader,$nheader,$lines,$footer);	// Append the subpage to the last one
+		$fastext=array("FL,103,104,160,100,F,199\r\n");
+		if(ROWADAPT && $i>0)
+			$page=array_merge($page,$pheader,$iheader,$lines,$fastext);	// Append the subpage to the last one
+		else
+			$page=array_merge($page,$pheader,$iheader,$nheader,$lines,$footer,$fastext);
 	}
 	return $page;	// Return the full file to be saved
 }
@@ -198,7 +202,7 @@ function newsSummary($pages)	// Summary P103
 		if($i == 3)	// New subpage
 		{
 			$OL=5;
-			$pheader=pageHeader(summaryp,'0002');
+			$pheader=pageHeader(summaryp,'0002','c000');
 			$top2[]="OL,4,                                   2/2\r\n";	// Top Line
 			$page=array_merge($page,$footer,$pheader,$iheader,$nheader,$top2);	// Add the next subpage
 		}
@@ -279,7 +283,7 @@ function sciTech($pages)
 	{
 		$line=4;
 		$para=array();
-		$pheader=pageHeader(scitechp,'000'.($i+1));
+		$pheader=pageHeader(scitechp,'000'.($i+1),'c000');
 		$iheader=intHeader();	// Internal Header
 		$nheader=newsHeader("scitechhead");
 		$title=outputLine($line,"C",$page[0],21);	// Page title

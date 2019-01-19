@@ -1,4 +1,4 @@
-MAKECEEFAX.PHP V1.0 (c) Nathan Dane, 2018
+MAKECEEFAX.PHP V1.1 (c) Nathan Dane, 2018
 Saving to /home/pi/ceefax/
 
 Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018
@@ -9,27 +9,27 @@ Loaded MAKEFRONTPAGE.PHP V1.1 (c) Nathan Dane, 2019
 Loaded MAKENEWSREEL.PHP V1.1 (c) Nathan Dane, 2019
 
 Running makenews...
-https://www.bbc.co.uk/news/uk-politics-46826345
-https://www.bbc.co.uk/news/uk-england-46828537
-https://www.bbc.co.uk/news/uk-46820660
-https://www.bbc.co.uk/news/uk-england-bristol-46828031
-https://www.bbc.co.uk/news/uk-46827542
-https://www.bbc.co.uk/news/uk-england-kent-46824330
-https://www.bbc.co.uk/news/uk-england-lancashire-46827360
-https://www.bbc.co.uk/news/uk-scotland-glasgow-west-46811391
-https://www.bbc.co.uk/news/uk-england-cambridgeshire-46828322
-https://www.bbc.co.uk/news/business-46829442
-https://www.bbc.co.uk/news/business-46822706
-https://www.bbc.co.uk/news/world-middle-east-46828810
-https://www.bbc.co.uk/news/world-middle-east-46822429
-https://www.bbc.co.uk/news/world-europe-46822472
-https://www.bbc.co.uk/news/world-46821653
-https://www.bbc.co.uk/news/world-africa-46823669
-https://www.bbc.co.uk/news/world-europe-46829350
-https://www.bbc.co.uk/news/world-africa-46827760
-https://www.bbc.co.uk/news/world-africa-46823797
-https://www.bbc.co.uk/news/world-us-canada-46828000
-https://www.bbc.co.uk/news/world-asia-46823289
+https://www.bbc.co.uk/news/health-46912055
+https://www.bbc.co.uk/news/uk-england-46932586
+https://www.bbc.co.uk/news/uk-wales-46931129
+https://www.bbc.co.uk/news/uk-politics-46931114
+https://www.bbc.co.uk/news/health-46921769
+https://www.bbc.co.uk/news/uk-england-london-46931034
+https://www.bbc.co.uk/news/uk-england-birmingham-46931715
+https://www.bbc.co.uk/news/uk-scotland-glasgow-west-46931028
+https://www.bbc.co.uk/news/uk-england-norfolk-46931896
+https://www.bbc.co.uk/news/uk-england-merseyside-46931525
+https://www.bbc.co.uk/news/uk-wales-46831170
+https://www.bbc.co.uk/news/world-latin-america-46929950
+https://www.bbc.co.uk/news/world-europe-46930974
+https://www.bbc.co.uk/news/entertainment-arts-46931636
+https://www.bbc.co.uk/news/world-us-canada-46928440
+https://www.bbc.co.uk/news/world-europe-46921214
+https://www.bbc.co.uk/news/world-us-canada-46932845
+https://www.bbc.co.uk/news/world-europe-46922420
+https://www.bbc.co.uk/news/world-us-canada-46928035
+https://www.bbc.co.uk/news/world-us-canada-46926747
+https://www.bbc.co.uk/news/world-africa-46930537
 Northern Ireland News Up-to-date
 Sci-Tech News Up-to-date
 makenews finished
@@ -38,7 +38,17 @@ Running makefinance...
 makefinance finished
 
 Running makesport...
-Football News Up-to-date
+http://www.bbc.co.uk/sport/football/46847743
+http://www.bbc.co.uk/sport/football/46847686
+http://www.bbc.co.uk/sport/football/46930825
+http://www.bbc.co.uk/sport/football/46927554
+http://www.bbc.co.uk/sport/football/46897661
+http://www.bbc.co.uk/sport/46196159
+http://www.bbc.co.uk/sport/football/46195289
+http://www.bbc.co.uk/sport/football/46157528
+http://www.bbc.co.uk/sport/45399654
+http://www.bbc.co.uk/sport/football/46102958
+http://www.bbc.co.uk/sport/35176037
 makesport finished
 
 Running makeweather...
@@ -49,4 +59,4 @@ makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 19:31:23 10-01-2019
+MAKECEEFAX.PHP finished at 15:02:17 19-01-2019

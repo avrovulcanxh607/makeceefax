@@ -31,6 +31,7 @@ function pageHeader($mpp=800,$ssss='0000',$ps=8000)
 function outputLine($lineNumber,$colour,$utext,$maxline)
 {
 	$out=array();
+	$utext=fix_text($utext);
 	$utext=explode('\r\n',wordwrap($utext,39,'\r\n'));		// Wrap the text into separate lines
 	if (count($utext)+$lineNumber>$maxline)					// This would overflow so forget it
 	{	
