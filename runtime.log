@@ -9,28 +9,16 @@ Loaded MAKEFRONTPAGE.PHP V1.1 (c) Nathan Dane, 2019
 Loaded MAKENEWSREEL.PHP V1.1 (c) Nathan Dane, 2019
 
 Running makenews...
-https://www.bbc.co.uk/news/health-46912055
-https://www.bbc.co.uk/news/uk-england-46932586
-https://www.bbc.co.uk/news/uk-wales-46931129
-https://www.bbc.co.uk/news/uk-politics-46931114
-https://www.bbc.co.uk/news/health-46921769
-https://www.bbc.co.uk/news/uk-england-london-46931034
-https://www.bbc.co.uk/news/uk-england-birmingham-46931715
-https://www.bbc.co.uk/news/uk-scotland-glasgow-west-46931028
-https://www.bbc.co.uk/news/uk-england-norfolk-46931896
-https://www.bbc.co.uk/news/uk-england-merseyside-46931525
-https://www.bbc.co.uk/news/uk-wales-46831170
-https://www.bbc.co.uk/news/world-latin-america-46929950
-https://www.bbc.co.uk/news/world-europe-46930974
-https://www.bbc.co.uk/news/entertainment-arts-46931636
-https://www.bbc.co.uk/news/world-us-canada-46928440
-https://www.bbc.co.uk/news/world-europe-46921214
-https://www.bbc.co.uk/news/world-us-canada-46932845
-https://www.bbc.co.uk/news/world-europe-46922420
-https://www.bbc.co.uk/news/world-us-canada-46928035
-https://www.bbc.co.uk/news/world-us-canada-46926747
-https://www.bbc.co.uk/news/world-africa-46930537
-Northern Ireland News Up-to-date
+UK/World News Up-to-date
+https://www.bbc.co.uk/news/uk-northern-ireland-46930674
+https://www.bbc.co.uk/news/world-europe-46930676
+https://www.bbc.co.uk/news/uk-northern-ireland-46930678
+https://www.bbc.co.uk/news/uk-northern-ireland-46919179
+https://www.bbc.co.uk/news/uk-northern-ireland-46932295
+https://www.bbc.co.uk/news/uk-northern-ireland-46906855
+https://www.bbc.co.uk/news/uk-northern-ireland-46923919
+https://www.bbc.co.uk/news/uk-northern-ireland-46923920
+https://www.bbc.co.uk/news/uk-northern-ireland-46919180
 Sci-Tech News Up-to-date
 makenews finished
 
@@ -38,11 +26,9 @@ Running makefinance...
 makefinance finished
 
 Running makesport...
-http://www.bbc.co.uk/sport/football/46847743
 http://www.bbc.co.uk/sport/football/46847686
+http://www.bbc.co.uk/sport/football/46847743
 http://www.bbc.co.uk/sport/football/46930825
-http://www.bbc.co.uk/sport/football/46927554
-http://www.bbc.co.uk/sport/football/46897661
 http://www.bbc.co.uk/sport/46196159
 http://www.bbc.co.uk/sport/football/46195289
 http://www.bbc.co.uk/sport/football/46157528
@@ -59,4 +45,4 @@ makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 15:02:17 19-01-2019
+MAKECEEFAX.PHP finished at 15:31:46 19-01-2019

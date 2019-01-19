@@ -10,6 +10,7 @@ define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
 define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
 define ("REGION","Northern Ireland");	// What UK TV Region are you in? 
 define ("ROWADAPT",true);	// Are you using Row Adaptive Mode? (Recommended!)
+define ("INTHEAD",true);	// Do you want to use the internal page header?
 
 require "common.php";
 require "fix.php";

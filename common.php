@@ -58,6 +58,8 @@ function outputLine($lineNumber,$colour,$utext,$maxline)
 */
 function intHeader($i='')
 {
+	if(INTHEAD==false)
+		return array("");
 	$dd = date('d');
 	$mm = date('m');
 	$hh = date('H');
