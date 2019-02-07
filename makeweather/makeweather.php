@@ -12,6 +12,7 @@ echo "Loaded MAKEWEATHER.PHP V0.2 (c) Nathan Dane, 2019\r\n";
 
 function makeweather()
 {
+	
 	$inhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gfhyzzs9j");
 	$abhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gfnt07u1s");
 	$edhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcvwr3zrw");
@@ -25,6 +26,106 @@ function makeweather()
 	$exhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcj2x8gt4");
 	weatherMap($inhtml,$abhtml,$edhtml,$behtml,$nehtml,$mahtml,$sthtml,$cahtml,$crhtml,$lohtml,$exhtml);
 	weatherRegional($behtml);
+	weatherHeadlines($behtml);
+	weatherNational($behtml);
+	weatherFront($behtml);
+}
+
+function weatherFront($html)
+{
+	$region=getWeather($html);
+	$region=myTruncate2($region[3],35," ");
+	$region=str_pad($region,35);
+	$region=strtoupper($region);
+	
+	$forecast=$html->find('div[data-content-id="1"]');	// Headline weather
+	$headline=$forecast[0]->find('p');
+	$headline="WEATHER NEWS:B".$headline[0]->plaintext;
+	$headline=explode('\r\n',wordwrap($headline,39,'\r\n'));
+	$headline2=str_pad($headline[1],35);
+	$headline2.="C401";
+	
+	$body=array(
+	"OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4    \r\n",
+	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}    \r\n",
+	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
+	"OL,4,M$regionC402\r\n",
+	"OL,6,CUKD````````````````````````````````````\r\n",
+	"OL,7,FForecast Maps  C401FWeather WarningC405\r\n",
+	"OL,8,FRegions        C402FUK Cities 5 DayC406\r\n",
+	"OL,9,FNational       C403FUK Review      C407\r\n",
+	"OL,10,FCurrent        C404FEvents         C408\r\n",
+	"OL,11,                    FInshore Waters C409\r\n",
+	"OL,12,CFIVE DAY FORECASTSD````````````````````\r\n",
+	"OL,13,FEurope         C410FS America      C413\r\n",
+	"OL,14,FAfrica         C411FAsia           C414\r\n",
+	"OL,15,FN America      C412FAustralasia    C415\r\n",
+	"OL,16,CEXTRAD`````````````````````````````````\r\n",
+	"OL,17,FWeather News   C416FFlood Warnings C419\r\n",
+	"OL,18,FPollution IndexC417FSurfing        C429\r\n",
+	"OL,19,FSun Index      C419FSkiing         C420\r\n",
+	"OL,20,                    FPollen         C426\r\n",
+	"OL,21,C$headline[0]\r\n",
+	"OL,22,B$headline2\r\n",
+	"OL,23,D]G     From the BBC Weather Centre     \r\n",
+	"OL,24,AMaps  BWarnings  COutlook  FMain Menu  \r\n",
+	"FL,401,405,403,100,100,199\r\n");
+	
+	file_put_contents(PAGEDIR.'/'.PREFIX."400.tti",array_merge(pageInserter("Weather Front Page"),pageHeader(400,'0000'),intHeader(),$body));
+}
+
+function weatherNational($html)
+{
+	$line=7;
+	$i=0;
+	$iheader=intHeader();
+	$out=array();
+	$restof=array(
+	"OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4    \r\n",
+	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}    \r\n",
+	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
+	"OL,5, UK WEATHER OUTLOOK                     \r\n",
+	"OL,23,D]G        From the Met Office          \r\n",
+	"OL,24,AUK cities BSport CTrav Head FMain Menu \r\n",
+	"FL,404,300,430,100,100,100\r\n");
+	
+	$forecast=$html->find('div[data-content-id="1"]');	// Headline weather
+	$paragraphs=$forecast[0]->find('p');
+	$headlines=$forecast[0]->find('h4');
+	array_shift($paragraphs);
+	array_shift($headlines);
+	foreach($headlines as $key=>$headline)
+	{
+		$paragraph=$paragraphs[$key];
+		
+		$title=outputLine($line," ",str_replace(':', '',$headline->plaintext),22);	// Page title
+		$line+=$title[0];
+		$intro=outputLine($line,"F",$paragraph->plaintext,22);	// Intro
+		$line+=$intro[0];
+		$out=array_merge($out,$title[1],$intro[1]);
+		$line++;
+		if($i==1)
+		{
+			$out=array_merge($out,array("OL,4,                                    1/2\r\n"),$restof,pageHeader(403,'0002','c000'),$iheader);
+			$line=7;
+		}
+		$i++;
+	}
+	$out=array_merge(pageInserter("National Weather",35),pageHeader(403,'0001','c000'),$iheader,$out,
+	array("OL,4,                                    2/2\r\n"),$restof);
+	file_put_contents(PAGEDIR.'/'.PREFIX."403.tti",$out);
+}
+
+function weatherHeadlines($regionhtml)
+{
+	$region=getWeather($regionhtml);
+	$region=myTruncate2($region[3], 35, ",");
+	
+	$forecast=$regionhtml->find('div[data-content-id="1"]');	// Headline weather
+	$headline=$forecast[0]->find('p');
+	$headline=myTruncate2($headline[0]->plaintext, 35, ",");
+	
+	file_put_contents("makeweather/headlines.txt","Weather	$headline	401\r\nNorthern Ireland Weather	$region	402");
 }
 
 function weatherRegional($html)
@@ -74,8 +175,8 @@ function weatherRegional($html)
 	"OL,23,D]GNATIONALC Main menuG100CWeatherG 400 "."\r\n",
 	"OL,24,AOutlookB NIrelTravC Trav HeadFMain Menu"."\r\n",
 	"FL,403,437,430,100,F,199\r\n");
-	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,0001),intHeader(),$header
-	,getRegional($html,$day=0),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,0002),intHeader()
+	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,'0001'),intHeader(),$header
+	,getRegional($html,$day=0),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,'0002'),intHeader()
 	,$header,getRegional($html,$day=1),array("OL,21,                                    2/2 \r\n"),$footer));
 }
 
@@ -382,17 +483,17 @@ $inserter=pageInserter("Weathermap P401");	// Get all the headers
 $pheader=pageHeader(401,0001);
 $iheader=intHeader();
 
-$IN=getWeather($inhtml,0);
-$AB=getWeather($abhtml,0);
-$ED=getWeather($edhtml,0);
-$BE=getWeather($behtml,0);
-$NE=getWeather($nehtml,0);
-$MA=getWeather($mahtml,0);	// Get the next time
-$ST=getWeather($sthtml,0);
-$CA=getWeather($cahtml,0);
-$CR=getWeather($crhtml,0);
-$LO=getWeather($lohtml,0);
-$EX=getWeather($exhtml,0);
+$IN=getWeather($inhtml,0,1);
+$AB=getWeather($abhtml,0,1);
+$ED=getWeather($edhtml,0,1);
+$BE=getWeather($behtml,0,1);
+$NE=getWeather($nehtml,0,1);
+$MA=getWeather($mahtml,0,1);	// Get the next time
+$ST=getWeather($sthtml,0,1);
+$CA=getWeather($cahtml,0,1);
+$CR=getWeather($crhtml,0,1);
+$LO=getWeather($lohtml,0,1);
+$EX=getWeather($exhtml,0,1);
 $page1=writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,1);
 
 $IN=getWeather($inhtml,1);
@@ -408,7 +509,7 @@ $LO=getWeather($lohtml,1);
 $EX=getWeather($exhtml,1);
 $page2=writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,2);
 
-$page=array_merge($inserter,$pheader,$iheader,$page1,pageHeader(401,0002),$iheader,$page2);
+$page=array_merge($inserter,$pheader,$iheader,$page1,pageHeader(401,'0002'),$iheader,$page2);
 
 file_put_contents(PAGEDIR.'/'.PREFIX."401.tti",$page);
 

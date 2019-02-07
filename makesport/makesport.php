@@ -29,7 +29,8 @@ function sportFootball()
 	{
 	file_put_contents("makesport/football.rss",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
-		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/av/",30) && strncmp($chan->link,"http://www.bbc.co.uk/news",25))
+		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/av/",30) && 
+		!strncmp($chan->link,"http://www.bbc.co.uk/sport/football/",36))
 		{
 			$url=$chan->link;
 			//$url="http://www.bbc.co.uk/sport/46816207";

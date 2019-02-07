@@ -30,13 +30,14 @@ $restof=array(
 "OL,19,CHORSERACING   G660CTV LINKS        G615\r\n",
 "OL,20,CLOTTERY       G555CTV LISTINGS     G600\r\n",
 "OL,21,CSCI-TECH      G154CWEATHER         G400\r\n",
-"OL,22,                                        \r\n",
+"OL,22,C\r\n",
 "OL,23,D]CCeefax: The world at your fingertips \r\n",
 "OL,24,AHeadlines  BSport CN.Ire TV FA-Z Index \r\n");
 $fastext=array("FL,101,300,600,199,F,199\r\n");
 $i=1;
 foreach ($modules as $key=>$module)
 {
+	$module=trim($module);
 	if(file_exists("make$module/headlines.txt"))	// Make sure the module exists before trying to load it
 	{
 		$headlines=file("make$module/headlines.txt");

@@ -2,7 +2,7 @@
 /*
 	makeceefax.php
 	Generates a Ceefax service from various 'modules' which make specific magazines
-	Nathan Dane, 2018
+	Nathan Dane, 2019
 */
 // Settings. See the Wiki for details @todo
 define ("VERSION","V1.1");
@@ -16,7 +16,7 @@ require "common.php";
 require "fix.php";
 require "simple_html_dom.php";
 
-echo "MAKECEEFAX.PHP ".VERSION." (c) Nathan Dane, 2018\r\n";
+echo "MAKECEEFAX.PHP ".VERSION." (c) Nathan Dane, 2019\r\n";
 echo "Saving to ".PAGEDIR."/\r\n\r\n";
 
 // Load Modules

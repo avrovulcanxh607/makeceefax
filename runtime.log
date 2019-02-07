@@ -1,4 +1,4 @@
-MAKECEEFAX.PHP V1.1 (c) Nathan Dane, 2018
+MAKECEEFAX.PHP V1.1 (c) Nathan Dane, 2019
 Saving to /home/pi/ceefax/
 
 Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018
@@ -9,32 +9,60 @@ Loaded MAKEFRONTPAGE.PHP V1.1 (c) Nathan Dane, 2019
 Loaded MAKENEWSREEL.PHP V1.1 (c) Nathan Dane, 2019
 
 Running makenews...
-UK/World News Up-to-date
-https://www.bbc.co.uk/news/uk-northern-ireland-46930674
-https://www.bbc.co.uk/news/world-europe-46930676
-https://www.bbc.co.uk/news/uk-northern-ireland-46930678
-https://www.bbc.co.uk/news/uk-northern-ireland-46919179
-https://www.bbc.co.uk/news/uk-northern-ireland-46932295
-https://www.bbc.co.uk/news/uk-northern-ireland-46906855
-https://www.bbc.co.uk/news/uk-northern-ireland-46923919
-https://www.bbc.co.uk/news/uk-northern-ireland-46923920
-https://www.bbc.co.uk/news/uk-northern-ireland-46919180
-Sci-Tech News Up-to-date
+https://www.bbc.co.uk/news/uk-politics-47152035
+https://www.bbc.co.uk/news/uk-england-surrey-47159315
+https://www.bbc.co.uk/news/entertainment-arts-47159456
+https://www.bbc.co.uk/news/business-47155145
+https://www.bbc.co.uk/news/uk-england-humber-47154829
+https://www.bbc.co.uk/news/uk-england-wiltshire-47145049
+https://www.bbc.co.uk/news/uk-47154871
+https://www.bbc.co.uk/news/uk-england-sussex-47156884
+https://www.bbc.co.uk/news/uk-england-dorset-47156910
+https://www.bbc.co.uk/news/uk-england-birmingham-47158357
+https://www.bbc.co.uk/news/uk-england-london-47158487
+https://www.bbc.co.uk/news/world-europe-47161500
+https://www.bbc.co.uk/news/world-middle-east-47155507
+https://www.bbc.co.uk/news/technology-47158007
+https://www.bbc.co.uk/news/world-asia-india-47161030
+https://www.bbc.co.uk/news/world-europe-47156247
+https://www.bbc.co.uk/news/world-us-canada-47154987
+https://www.bbc.co.uk/news/business-47153413
+https://www.bbc.co.uk/news/health-47157020
+https://www.bbc.co.uk/news/world-us-canada-47148044
+https://www.bbc.co.uk/news/world-europe-47148525
+https://www.bbc.co.uk/news/uk-northern-ireland-47161842
+https://www.bbc.co.uk/news/uk-northern-ireland-47161840
+https://www.bbc.co.uk/news/uk-northern-ireland-47159157
+https://www.bbc.co.uk/news/uk-northern-ireland-47156872
+https://www.bbc.co.uk/news/uk-northern-ireland-47159163
+https://www.bbc.co.uk/news/uk-northern-ireland-47156874
+https://www.bbc.co.uk/news/uk-northern-ireland-47159411
+https://www.bbc.co.uk/news/uk-northern-ireland-47159160
+https://www.bbc.co.uk/news/entertainment-arts-47155727
+https://www.bbc.co.uk/news/technology-47146431
+https://www.bbc.co.uk/news/technology-47160448
+https://www.bbc.co.uk/news/technology-47158007
+https://www.bbc.co.uk/news/technology-47156029
+https://www.bbc.co.uk/news/technology-47146378
+https://www.bbc.co.uk/news/business-47159552
 makenews finished
 
 Running makefinance...
 makefinance finished
 
 Running makesport...
-http://www.bbc.co.uk/sport/football/46847686
-http://www.bbc.co.uk/sport/football/46847743
-http://www.bbc.co.uk/sport/football/46930825
-http://www.bbc.co.uk/sport/46196159
+http://www.bbc.co.uk/sport/football/47158549
+http://www.bbc.co.uk/sport/football/47161011
+http://www.bbc.co.uk/sport/football/47160362
+http://www.bbc.co.uk/sport/football/47154446
+http://www.bbc.co.uk/sport/football/47162107
+http://www.bbc.co.uk/sport/football/47162920
+http://www.bbc.co.uk/sport/football/47161771
+http://www.bbc.co.uk/sport/football/47159671
+http://www.bbc.co.uk/sport/football/47152939
 http://www.bbc.co.uk/sport/football/46195289
 http://www.bbc.co.uk/sport/football/46157528
-http://www.bbc.co.uk/sport/45399654
 http://www.bbc.co.uk/sport/football/46102958
-http://www.bbc.co.uk/sport/35176037
 makesport finished
 
 Running makeweather...
@@ -45,4 +73,4 @@ makefrontpage finished
 
 Running makenewsreel...
 makenewsreel finished
-MAKECEEFAX.PHP finished at 15:31:46 19-01-2019
+MAKECEEFAX.PHP finished at 17:02:26 07-02-2019

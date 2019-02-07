@@ -22,6 +22,11 @@
 
 function getWeather($html,$day=0,$hour="n",$array=true)
 {
+	if (date('H')==23 && $hour !="n")
+	{
+		$day=1;
+		$hour--;
+	}
 	switch($day)
 	{
 	case "0" : ;
