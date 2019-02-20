@@ -59,6 +59,15 @@ function getNews($url,$limit)
 		if (strpos($para,"introduction"))
 		$found=true;
 	}
+	
+	$stitle=fix_text($stitle);
+	$ltitle=fix_text($ltitle);
+	$desc=fix_text($desc);
+	$intro=fix_text($intro);
+	
+	if (!strncmp($stitle,"In pictures:",12)) return false;
+	if ($paragraph=='') return false;
+	
 	return array($stitle,$ltitle,$desc,$url,$area,$intro,$paragraph);
 	//				1		2		3	4	5		6		7
 }

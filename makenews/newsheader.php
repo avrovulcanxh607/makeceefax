@@ -19,6 +19,7 @@ function newsHeader($title="default")
 		"OL,3,W\"###\"###\"###T///,/,-,.,/,-,.-./,/,/////\r\n");
 		break;
 	case "Technology" : ;
+	case "Science & Environment" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S  |,h<$|h<$|0|h<$|, \r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S  sju0jw1+ju0s \r\n",
@@ -50,6 +51,9 @@ function newsHeader($title="default")
 	case "Birmingham & Black Country" : ;
 	case "Devon" : ;
 	case "York & North Yorkshire" : ;
+	case "Lincolnshire" : ;
+	case "Surrey" : ;
+	case "Humberside" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",

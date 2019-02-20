@@ -5,136 +5,54 @@
 	makeweather.php is part of makeceefax.php
 	Nathan Dane, 2018
 */
+/*	// Case the script needs to be run on its own
+define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
+define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
+define ("INTHEAD",true);	// Do you want to use the internal page header?
+require "../common.php";
+*/
+require "api.php";
 
-require "simpleweather.php";
+echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
 
-echo "Loaded MAKEWEATHER.PHP V0.2 (c) Nathan Dane, 2019\r\n";
-
+//makeweather();
 function makeweather()
 {
-	
-	$inhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gfhyzzs9j");
-	$abhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gfnt07u1s");
-	$edhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcvwr3zrw");
-	$behtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcey94cuf");
-	$nehtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcybg0rne");
-	$mahtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcw2hzs1u");	// Get the latest weather, keep the html in the memory for later
-	$sthtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcqkrv0ge");
-	$cahtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/u1214b469");
-	$crhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcjszmp44");
-	$lohtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcpvj0v07");
-	$exhtml=file_get_html("https://www.metoffice.gov.uk/mobile/forecast/gcj2x8gt4");
-	weatherMap($inhtml,$abhtml,$edhtml,$behtml,$nehtml,$mahtml,$sthtml,$cahtml,$crhtml,$lohtml,$exhtml);
-	weatherRegional($behtml);
-	weatherHeadlines($behtml);
-	weatherNational($behtml);
-	weatherFront($behtml);
-}
-
-function weatherFront($html)
-{
-	$region=getWeather($html);
-	$region=myTruncate2($region[3],35," ");
-	$region=str_pad($region,35);
-	$region=strtoupper($region);
-	
-	$forecast=$html->find('div[data-content-id="1"]');	// Headline weather
-	$headline=$forecast[0]->find('p');
-	$headline="WEATHER NEWS:B".$headline[0]->plaintext;
-	$headline=explode('\r\n',wordwrap($headline,39,'\r\n'));
-	$headline2=str_pad($headline[1],35);
-	$headline2.="C401";
-	
-	$body=array(
-	"OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4    \r\n",
-	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}    \r\n",
-	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
-	"OL,4,M$regionC402\r\n",
-	"OL,6,CUKD````````````````````````````````````\r\n",
-	"OL,7,FForecast Maps  C401FWeather WarningC405\r\n",
-	"OL,8,FRegions        C402FUK Cities 5 DayC406\r\n",
-	"OL,9,FNational       C403FUK Review      C407\r\n",
-	"OL,10,FCurrent        C404FEvents         C408\r\n",
-	"OL,11,                    FInshore Waters C409\r\n",
-	"OL,12,CFIVE DAY FORECASTSD````````````````````\r\n",
-	"OL,13,FEurope         C410FS America      C413\r\n",
-	"OL,14,FAfrica         C411FAsia           C414\r\n",
-	"OL,15,FN America      C412FAustralasia    C415\r\n",
-	"OL,16,CEXTRAD`````````````````````````````````\r\n",
-	"OL,17,FWeather News   C416FFlood Warnings C419\r\n",
-	"OL,18,FPollution IndexC417FSurfing        C429\r\n",
-	"OL,19,FSun Index      C419FSkiing         C420\r\n",
-	"OL,20,                    FPollen         C426\r\n",
-	"OL,21,C$headline[0]\r\n",
-	"OL,22,B$headline2\r\n",
-	"OL,23,D]G     From the BBC Weather Centre     \r\n",
-	"OL,24,AMaps  BWarnings  COutlook  FMain Menu  \r\n",
-	"FL,401,405,403,100,100,199\r\n");
-	
-	file_put_contents(PAGEDIR.'/'.PREFIX."400.tti",array_merge(pageInserter("Weather Front Page"),pageHeader(400,'0000'),intHeader(),$body));
-}
-
-function weatherNational($html)
-{
-	$line=7;
-	$i=0;
-	$iheader=intHeader();
-	$out=array();
-	$restof=array(
-	"OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4    \r\n",
-	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}    \r\n",
-	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
-	"OL,5, UK WEATHER OUTLOOK                     \r\n",
-	"OL,23,D]G        From the Met Office          \r\n",
-	"OL,24,AUK cities BSport CTrav Head FMain Menu \r\n",
-	"FL,404,300,430,100,100,100\r\n");
-	
-	$forecast=$html->find('div[data-content-id="1"]');	// Headline weather
-	$paragraphs=$forecast[0]->find('p');
-	$headlines=$forecast[0]->find('h4');
-	array_shift($paragraphs);
-	array_shift($headlines);
-	foreach($headlines as $key=>$headline)
+	libxml_use_internal_errors(true);
+	$regions=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/sitelist?key=".met_office_api);
+	foreach($regions->Location as $region)	// Gets all the regional forecasts. Don't run this too often or you'll hit the limit!
 	{
-		$paragraph=$paragraphs[$key];
-		
-		$title=outputLine($line," ",str_replace(':', '',$headline->plaintext),22);	// Page title
-		$line+=$title[0];
-		$intro=outputLine($line,"F",$paragraph->plaintext,22);	// Intro
-		$line+=$intro[0];
-		$out=array_merge($out,$title[1],$intro[1]);
-		$line++;
-		if($i==1)
-		{
-			$out=array_merge($out,array("OL,4,                                    1/2\r\n"),$restof,pageHeader(403,'0002','c000'),$iheader);
-			$line=7;
-		}
-		$i++;
+		$id=$region['id'];
+		$area=$region['name'];
+		$$area=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/$id?key=".met_office_api);
 	}
-	$out=array_merge(pageInserter("National Weather",35),pageHeader(403,'0001','c000'),$iheader,$out,
-	array("OL,4,                                    2/2\r\n"),$restof);
-	file_put_contents(PAGEDIR.'/'.PREFIX."403.tti",$out);
+	//weatherMap();
+	//weatherRegional($ni);
+	
+	file_put_contents(PAGEDIR.'/'.PREFIX."401.tti",array_merge(pageInserter("Weather Map"),pageHeader(401,"0001"),intHeader(),
+	drawMap(weatherData($ta),weatherData($ni),weatherData($ee),weatherData($wl),weatherData($dg),weatherData($sw),weatherData($he),
+	weatherData($se),weatherData($em),weatherData($ne),weatherData($wm),1),pageHeader(401,"0002"),intHeader(),drawMap(weatherData($ta,2),
+	weatherData($ni,2),weatherData($ee,2),weatherData($wl,2),weatherData($dg,2),weatherData($sw,2),weatherData($he,2),weatherData($se,2),
+	weatherData($em,2),weatherData($ne,2),weatherData($wm,2),2)));
 }
 
-function weatherHeadlines($regionhtml)
+function getTemp($in)
 {
-	$region=getWeather($regionhtml);
-	$region=myTruncate2($region[3], 35, ",");
-	
-	$forecast=$regionhtml->find('div[data-content-id="1"]');	// Headline weather
-	$headline=$forecast[0]->find('p');
-	$headline=myTruncate2($headline[0]->plaintext, 35, ",");
-	
-	file_put_contents("makeweather/headlines.txt","Weather	$headline	401\r\nNorthern Ireland Weather	$region	402");
+	$in=substr($in,(strrpos($in,".",-5)+10));
+	$in=substr($in,(strrpos($in," ")+1));
+	$in=str_replace('.', '',$in);
+	return $in;
 }
 
-function weatherRegional($html)
+function weatherRegional($xml)
 {
-	function getRegional($html,$day=0)
+	function getRegional($xml,$day=1,$ht,$lt)
 	{
 		$a=1;
-		$regional=getWeather($html,$day);
-		$para=explode('\r\n',wordwrap($regional[5],19,'\r\n'));
+		$summary=$xml->FcstPeriods->Period->Paragraph[$day];
+		$para=substr($summary,0,(strrpos($summary,".",-5)+1));
+		
+		$para=explode('\r\n',wordwrap($para,19,'\r\n'));
 		$para=array_pad($para,13,' ');
 		foreach($para as $text)
 		{
@@ -142,11 +60,10 @@ function weatherRegional($html)
 			$a++;
 		}
 		
-		$title=str_replace(':', '',(strtoupper($regional[4])));	// title
-		$ht=$regional[0];	// max temp
-		$lt=$regional[1];	// min temp
-		$dir=$regional[7];	// wind dir
-		$spd = $regional[8];	// wind spd
+		$title=str_replace(':', '',(strtoupper($xml->FcstPeriods->Period->Paragraph[$day]['title'])));	// title
+		
+		$dir= 'dir';	// wind dir
+		$spd = 'sp';	// wind spd
 		$spd.='mph';	// Add MPH
 		
 		$A=1;
@@ -155,17 +72,27 @@ function weatherRegional($html)
 		"OL,8,B${$A++}S5CSTATISTICS       \r\n",
 		"OL,9,B${$A++}S5C \r\n",
 		"OL,10,B${$A++}S5G   Maximum       \r\n",
-		"OL,11,B${$A++}S5GTemperatureC$ht"."C \r\n",
+		"OL,11,B${$A++}S5GTemperatureC$ht"." \r\n",
 		"OL,12,B${$A++}S5G                 \r\n",
 		"OL,13,B${$A++}S5G   Minumum       \r\n",
-		"OL,14,B${$A++}S5GTemperatureC$lt"."C \r\n",
+		"OL,14,B${$A++}S5GTemperatureC$lt"." \r\n",
 		"OL,15,B${$A++}S5C                 \r\n",
-		"OL,16,B${$A++}S5G       Wind      \r\n",
-		"OL,17,B${$A++}S5G  DirectionC$dir \r\n",
-		"OL,18,B${$A++}S5G                 \r\n",
-		"OL,19,B${$A++}S5G       Wind      \r\n",
-		"OL,20,B${$A++}S5G      SpeedC$spd\r\n");
+		"OL,16,B${$A++}S5G\r\n",
+		"OL,17,B${$A++}S5G\r\n",
+		"OL,18,B${$A++}S5G                 \r\n",	// Unfortunatley, we can't get wind speed/direction from this feed
+		"OL,19,B${$A++}S5G\r\n",
+		"OL,20,B${$A++}S5G\r\n");
 		return $output;
+	}
+	if(preg_match('/\bMaximum\b/',$xml->FcstPeriods->Period->Paragraph[1]))
+	{
+		$ht=getTemp($xml->FcstPeriods->Period->Paragraph[1]);
+		$lt=getTemp($xml->FcstPeriods->Period->Paragraph[2]);
+	}
+	elseif(preg_match('/\bMinimum\b/',$xml->FcstPeriods->Period->Paragraph[1]))
+	{
+		$ht=getTemp($xml->FcstPeriods->Period->Paragraph[2]);
+		$lt=getTemp($xml->FcstPeriods->Period->Paragraph[1]);
 	}
 	$header=array("OL,1,Wh,,lh,,lh,,lT||,<<l,,|,,|,,<l<l,,<,,l||\r\n",
 	"OL,2,Wj 1nj 1nj =nT]Sjj5shw{4k7juz5sjw{%  \r\n",
@@ -175,27 +102,44 @@ function weatherRegional($html)
 	"OL,23,D]GNATIONALC Main menuG100CWeatherG 400 "."\r\n",
 	"OL,24,AOutlookB NIrelTravC Trav HeadFMain Menu"."\r\n",
 	"FL,403,437,430,100,F,199\r\n");
-	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,'0001'),intHeader(),$header
-	,getRegional($html,$day=0),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,'0002'),intHeader()
-	,$header,getRegional($html,$day=1),array("OL,21,                                    2/2 \r\n"),$footer));
+	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,0001),intHeader(),$header
+	,getRegional($xml,$day=1,$ht,$lt),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,0002),intHeader()
+	,$header,getRegional($xml,$day=2,$ht,$lt),array("OL,21,                                    2/2 \r\n"),$footer));
 }
 
-// The following is an example of the worst code in the history of the world. It should be handled with caution.
-function weatherMap($inhtml,$abhtml,$edhtml,$behtml,$nehtml,$mahtml,$sthtml,$cahtml,$crhtml,$lohtml,$exhtml)
+function weatherData($xml,$type=1)
 {
+	$temp=getTemp($xml->FcstPeriods->Period->Paragraph[$type]);
+	$forecast=$xml->FcstPeriods->Period->Paragraph[$type];
+	
+	if(false !== ($breakpoint = strpos($forecast, "."))) {
+		$forecast = substr($forecast, 0, $breakpoint);
+	}
+	
+	if(false !== ($breakpoint = strpos($forecast, ","))) {
+		$forecast = substr($forecast, 0, $breakpoint);
+	}
+	
+	$temp=str_replace('C', '',$temp);
+	$temp=str_pad($temp,2,"0",STR_PAD_LEFT);
+	
+	//echo "$temp $forecast \r\n";		//debug
+	return array($temp,$temp,$forecast,"","Heading","","time");	// Emulate Simpleweather.php for now
+}
+
 function findWeather($weather)
 {
-	$output=array();	// All the weather comparison stuff that was here was useless and kept breaking so it's gone.
-	$weather=ucwords($weather);
-	$weather = str_replace(' Night', '', $weather);
-	if (strpos($weather, 'Rain') !== false) 
-		$weather = str_replace(' Shower', '', $weather);
-	$weather = str_replace(' Day', '', $weather);
-	$output=array($weather);
+	$output=array();
+	$possible=array("Clear","Sunny","Cloudy","Mist","Fog","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry","Cloud");
+	foreach((preg_split('/\s+/', $weather)) as $word)
+	{
+		$word=ucfirst($word);
+		if(in_array($word,$possible)) $output=array_merge($output,array($word));
+	}
 	return $output;
 }
 
-function writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
+function drawMap($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
 {
 	$red="Q";
 	$green="R";
@@ -228,7 +172,7 @@ function writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
 			$units++;
 		$return=array_intersect(findWeather(${$cities[$tens]}[2]),findWeather(${$cities[$units]}[2]));
 		if (!empty($return))
-			array_push($places,(array($tens,$units,$return)));	// Add all similar areas to the array
+			array_push($places,(array($tens,$units,array_values($return))));	// Add all similar areas to the array
 		if($units==10)
 		{
 			$units=$tens+1;	// No need to compare things twice
@@ -238,6 +182,7 @@ function writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
 			$units++;
 	}
 	$grouptitle=array();
+	//print_r($places);				// debug
 	foreach($places as $area)
 	{
 		$arrayname=$area[2][0];
@@ -307,8 +252,11 @@ function writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
 				$no=4;
 				break;
 		}
+		//echo "test line: ".${$test}[2]."\r\n";	//debug
 		$extra=findweather(${$test}[2]);
-		array_push($weather,(array(($no-1),$extra[0],$colours[0])));
+		//print_r($extra);	//debug
+		array_push($weather,(array(($no-1),$extra[0],$colours[0])));	// 
+		//print_r($weather);		//debug
 		$area='a'.($no);
 		$$area=$colours[0];
 		if (count($colours)>1)
@@ -476,43 +424,4 @@ function writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
 	"OL,23,D]G        From the Met Office          \r\n",
 	"OL,24,AN.Ire WeathBSportCTrav Head FMain Menu \r\n",
 	"FL,402,300,430,100,0,199\r\n");
-}
-
-$page=array();
-$inserter=pageInserter("Weathermap P401");	// Get all the headers 
-$pheader=pageHeader(401,0001);
-$iheader=intHeader();
-
-$IN=getWeather($inhtml,0,1);
-$AB=getWeather($abhtml,0,1);
-$ED=getWeather($edhtml,0,1);
-$BE=getWeather($behtml,0,1);
-$NE=getWeather($nehtml,0,1);
-$MA=getWeather($mahtml,0,1);	// Get the next time
-$ST=getWeather($sthtml,0,1);
-$CA=getWeather($cahtml,0,1);
-$CR=getWeather($crhtml,0,1);
-$LO=getWeather($lohtml,0,1);
-$EX=getWeather($exhtml,0,1);
-$page1=writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,1);
-
-$IN=getWeather($inhtml,1);
-$AB=getWeather($abhtml,1);
-$ED=getWeather($edhtml,1);
-$BE=getWeather($behtml,1);
-$NE=getWeather($nehtml,1);
-$MA=getWeather($mahtml,1);	// Get the next time
-$ST=getWeather($sthtml,1);
-$CA=getWeather($cahtml,1);
-$CR=getWeather($crhtml,1);
-$LO=getWeather($lohtml,1);
-$EX=getWeather($exhtml,1);
-$page2=writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,2);
-
-$page=array_merge($inserter,$pheader,$iheader,$page1,pageHeader(401,'0002'),$iheader,$page2);
-
-file_put_contents(PAGEDIR.'/'.PREFIX."401.tti",$page);
-
-//writePage($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,2);
-
 }

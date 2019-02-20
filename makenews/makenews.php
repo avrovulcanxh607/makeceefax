@@ -374,7 +374,11 @@ function makenews()
 			echo $url."\r\n";
 			$name="news".$count;
 			$$name=getNews($url,4);
-			if ($$name===false) continue 1;	// Don't even try to run a failed page
+			if ($$name===false) 
+			{
+				echo "simplenews.php detected a problem with this page\r\n";
+				continue 1;	// Don't even try to run a failed page
+			}
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));	// Make the ordinary pages while downloading
 			$stories[$count]=$$name;
 			$count+=2;
