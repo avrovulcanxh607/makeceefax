@@ -123,18 +123,24 @@ function weatherData($xml,$type=1)
 	$temp=str_replace('C', '',$temp);
 	$temp=str_pad($temp,2,"0",STR_PAD_LEFT);
 	
+	$title=str_replace(':', '',($xml->FcstPeriods->Period->Paragraph[$type]['title']));
+	
 	//echo "$temp $forecast \r\n";		//debug
-	return array($temp,$temp,$forecast,"","Heading","","time");	// Emulate Simpleweather.php for now
+	return array($temp,$temp,$forecast,"",$title,"");	// Emulate simpleweather.php for now
 }
 
 function findWeather($weather)
 {
 	$output=array();
-	$possible=array("Clear","Sunny","Cloudy","Mist","Fog","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry","Cloud");
+	
+	$nouns=array();
+	$adjectives=array("Clear","Sunny","Cloudy","Mist","Fog","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry");
+	$verbs=array();
+	
 	foreach((preg_split('/\s+/', $weather)) as $word)
 	{
 		$word=ucfirst($word);
-		if(in_array($word,$possible)) $output=array_merge($output,array($word));
+		if(in_array($word,$adjectives)) $output=array_merge($output,array($word));
 	}
 	return $output;
 }
@@ -394,8 +400,7 @@ function drawMap($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
 		}
 	$temp=0;				// If its nighttime, get the minimum temp, otherwise get max
 	if ($s=='2') $temp=1;
-	$title=$AB[4].' '.$AB[6];
-	$title=str_replace(':', '', $title);
+	$title=$AB[4];
 	$title=str_pad($title,40,' ',STR_PAD_BOTH);	// Centered Title
 	$title=substr($title,3);
 	return array(
