@@ -17,6 +17,8 @@ function sportHeader($header)
 function sportFooter($header,$mpp)
 {
 	$mpp++;
+	if ($mpp == 316)
+		$mpp=324;
 	return array(
 	"OL,22,D]CCEEFAX FOOTBALL SECTION PAGE 302\r\n",
 	"OL,23,D]CBBC WEBSITE: bbc.co.uk/football\r\n",

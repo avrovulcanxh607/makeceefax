@@ -9,8 +9,9 @@
 require "sportconfig.php";
 require "simplesport.php";
 require "sportheaders.php";
+require "leaguetable.php";
 
-echo "Loaded MAKESPORT.PHP V0.1 (c) Nathan Dane, 2019\r\n";
+echo "Loaded MAKESPORT.PHP V0.2 (c) Nathan Dane, 2019\r\n";
 
 function makesport()
 {
@@ -44,6 +45,8 @@ function sportFootball()
 		}
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX."302.tti",(footballIndex($sportdata)));
+	file_put_contents(PAGEDIR.'/'.PREFIX."324.tti",(footballLeague(324)));	// Premier League
+	file_put_contents(PAGEDIR.'/'.PREFIX."325.tti",(footballLeague(325,"https://www.bbc.co.uk/sport/football/championship/table")));	//championship
 	}
 }
 
@@ -113,4 +116,63 @@ function footballIndex($data)
 		$OL++;
 	}
 	return array_merge($inserter,$pheader,$iheader,$header,$titles,$footer);
+}
+
+function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-league/table")
+{
+	$OL=8;
+	$inserter=pageInserter("Football League Table");	// Get all the headers 
+	$pheader=pageHeader($mpp,"0001");	// Hard coded for now
+	$iheader=intHeader();
+	$nheader=sportHeader("Football");
+	$footer=array("OL,22,D]CFootballG302CFront pageG100CTV  G600 \r\n",
+	"OL,23,D]CRugby   G370CMotorsportG360CGolfG330 \r\n",
+	"OL,24,ANext page  BFootball CHeadlines FSport \r\n",
+	"FL,".($mpp+1).",302,301,300,f,320\r\n");
+	$data=leagueTable($url);
+	$league=$data[0];
+	$date=$data[1];
+	$table=$data[2];
+	$league=strtoupper($league);
+	$league=str_replace("TABLE","",$league);
+	
+	$date=substr($date,strpos($date,"updated"));
+	$date=str_replace(" at","",$date);
+	$date=str_replace("updated ","",$date);
+	$date=date("M d H:i", strtotime($date));
+	
+	$page=array_merge($inserter,$pheader,$iheader,$nheader,array("OL,4, B$league\r\n","OL,6, G$date    P  W  D  L   F   A Pts\r\n"));
+	
+	foreach($table as $key=>$row)
+	{
+		if($key%2==0)
+			$colour="G";
+		else
+			$colour="F";
+		$key=str_pad($colour.($key+1),4," ",STR_PAD_LEFT);
+		
+		$name=$row[0];
+		$name=str_replace("Crystal Palace","C Palace",$name);
+		$name=str_replace("Huddersfield","H'field",$name);
+		$name=str_pad($name,12," ",STR_PAD_RIGHT);
+		$name=substr($name,0,12);
+		
+		$p=str_pad($row[1],2," ",STR_PAD_LEFT);
+		$w=str_pad($row[2],2," ",STR_PAD_LEFT);
+		$d=str_pad($row[3],2," ",STR_PAD_LEFT);
+		$l=str_pad($row[4],2," ",STR_PAD_LEFT);
+		$f=str_pad($row[5],2," ",STR_PAD_LEFT);
+		$a=str_pad($row[6],2," ",STR_PAD_LEFT);
+		$pts=str_pad($row[7],3," ",STR_PAD_LEFT);
+		
+		$page=array_merge($page,array("OL,$OL,$key $name $p $w $d $l  $f  $a $pts\r\n"));
+		$OL++;
+		if($OL>20)
+		{
+			$page=array_merge($page,$footer,$inserter,pageHeader($mpp,"0002"),$iheader,$nheader,array("OL,4, B$league\r\n","OL,6, G$date    P  W  D  L   F   A Pts\r\n"));
+			$OL=8;
+		}
+	}
+	
+	return array_merge($page,$footer);
 }

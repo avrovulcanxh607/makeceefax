@@ -19,6 +19,17 @@ echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
 function makeweather()
 {
 	libxml_use_internal_errors(true);
+	
+	$time = file_get_contents("makeweather/last.upd");
+	$date=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxfcs/regionalforecast/xml/capabilities?key=".met_office_api);
+	$date=$date[0]["issuedAt"];
+	if ($date==$time) 
+	{
+		echo "Weather Up-to-date\r\n";
+		return;
+	}
+	file_put_contents("makeweather/last.upd",$date);
+	
 	$regions=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/sitelist?key=".met_office_api);
 	foreach($regions->Location as $region)	// Gets all the regional forecasts. Don't run this too often or you'll hit the limit!
 	{
@@ -26,8 +37,8 @@ function makeweather()
 		$area=$region['name'];
 		$$area=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/$id?key=".met_office_api);
 	}
-	//weatherMap();
-	//weatherRegional($ni);
+
+	weatherRegional($ni);
 	
 	file_put_contents(PAGEDIR.'/'.PREFIX."401.tti",array_merge(pageInserter("Weather Map"),pageHeader(401,"0001"),intHeader(),
 	drawMap(weatherData($ta),weatherData($ni),weatherData($ee),weatherData($wl),weatherData($dg),weatherData($sw),weatherData($he),
@@ -61,10 +72,6 @@ function weatherRegional($xml)
 		}
 		
 		$title=str_replace(':', '',(strtoupper($xml->FcstPeriods->Period->Paragraph[$day]['title'])));	// title
-		
-		$dir= 'dir';	// wind dir
-		$spd = 'sp';	// wind spd
-		$spd.='mph';	// Add MPH
 		
 		$A=1;
 		$output=array(
@@ -132,16 +139,35 @@ function weatherData($xml,$type=1)
 function findWeather($weather)
 {
 	$output=array();
+	$verb=false;
+	$previous='';
 	
-	$nouns=array();
-	$adjectives=array("Clear","Sunny","Cloudy","Mist","Fog","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry");
-	$verbs=array();
+	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry");	// Words that usually stand alone
+	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
+	$verbs=array("Clearing");	// Words that follow nouns
 	
 	foreach((preg_split('/\s+/', $weather)) as $word)
 	{
 		$word=ucfirst($word);
-		if(in_array($word,$adjectives)) $output=array_merge($output,array($word));
+		if(in_array($word,$adjectives))
+		{
+			$output=array_merge($output,array($word)); 
+			continue;
+		}
+		if(in_array($word,$nouns)) 
+		{
+			$verb=true;
+			$previous=$word;
+			//echo "noun! "; //debug
+			continue;
+		}
+		if(in_array($word,$verbs) && $verb)
+		{
+			$verb=false;
+			$output=array_merge($output,array("$previous $word"));
+		}
 	}
+	//print_r($output);		//debug
 	return $output;
 }
 
