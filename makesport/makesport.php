@@ -45,9 +45,9 @@ function sportFootball()
 		}
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX."302.tti",(footballIndex($sportdata)));
+	}
 	file_put_contents(PAGEDIR.'/'.PREFIX."324.tti",(footballLeague(324)));	// Premier League
 	file_put_contents(PAGEDIR.'/'.PREFIX."325.tti",(footballLeague(325,"https://www.bbc.co.uk/sport/football/championship/table")));	//championship
-	}
 }
 
 function sportPage($page,$mpp,$header="test")
