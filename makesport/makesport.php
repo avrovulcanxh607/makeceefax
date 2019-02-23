@@ -46,8 +46,12 @@ function sportFootball()
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX."302.tti",(footballIndex($sportdata)));
 	}
-	file_put_contents(PAGEDIR.'/'.PREFIX."324.tti",(footballLeague(324)));	// Premier League
-	file_put_contents(PAGEDIR.'/'.PREFIX."325.tti",(footballLeague(325,"https://www.bbc.co.uk/sport/football/championship/table")));	//championship
+	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_1[0].".tti",(footballLeague(league_table_1[0],league_table_1[1])));
+	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_2[0].".tti",(footballLeague(league_table_2[0],league_table_2[1])));
+	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_3[0].".tti",(footballLeague(league_table_3[0],league_table_3[1])));
+	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_4[0].".tti",(footballLeague(league_table_4[0],league_table_4[1])));
+	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_5[0].".tti",(footballLeague(league_table_5[0],league_table_5[1])));
+	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_6[0].".tti",(footballLeague(league_table_6[0],league_table_6[1])));
 }
 
 function sportPage($page,$mpp,$header="test")
