@@ -3,7 +3,7 @@
 # Enable them at your own risk.
 news
 finance
-sport
+#sport
 weather
 #entertainment
 #tvlistings

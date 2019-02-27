@@ -5,31 +5,32 @@
 	makeweather.php is part of makeceefax.php
 	Nathan Dane, 2018
 */
+require "api.php";
+
+echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
+
 /*	// Case the script needs to be run on its own
 define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
 define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
 define ("INTHEAD",true);	// Do you want to use the internal page header?
 require "../common.php";
+makeweather();
 */
-require "api.php";
 
-echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
-
-//makeweather();
 function makeweather()
 {
 	libxml_use_internal_errors(true);
-	
+	/*
 	$time = file_get_contents("makeweather/last.upd");
 	$date=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxfcs/regionalforecast/xml/capabilities?key=".met_office_api);
 	$date=$date[0]["issuedAt"];
-	if ($date==$time) 
+	if (false)//($date==$time) They don't seem to update this very often.
 	{
 		echo "Weather Up-to-date\r\n";
 		return;
 	}
 	file_put_contents("makeweather/last.upd",$date);
-	
+	*/
 	$regions=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/sitelist?key=".met_office_api);
 	foreach($regions->Location as $region)	// Gets all the regional forecasts. Don't run this too often or you'll hit the limit!
 	{
@@ -142,7 +143,8 @@ function findWeather($weather)
 	$verb=false;
 	$previous='';
 	
-	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry");	// Words that usually stand alone
+	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry",
+	"Fine","Bright");	// Words that usually stand alone
 	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
 	$verbs=array("Clearing");	// Words that follow nouns
 	
@@ -284,9 +286,9 @@ function drawMap($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
 				$no=4;
 				break;
 		}
-		//echo "test line: ".${$test}[2]."\r\n";	//debug
+		echo "test line: ".${$test}[2]."\r\n";	//debug
 		$extra=findweather(${$test}[2]);
-		//print_r($extra);	//debug
+		print_r($extra);	//debug
 		array_push($weather,(array(($no-1),$extra[0],$colours[0])));	// 
 		//print_r($weather);		//debug
 		$area='a'.($no);
