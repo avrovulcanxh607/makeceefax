@@ -3,9 +3,10 @@
 	makeweather.php 
 	Creates Ceefax Magazine 4 from https://www.metoffice.gov.uk/mobile/forecast/
 	makeweather.php is part of makeceefax.php
-	Nathan Dane, 2018
+	Nathan Dane, 2019
 */
 require "api.php";
+require "weatherconfig.php";
 
 echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
 
@@ -14,6 +15,7 @@ define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
 define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
 define ("INTHEAD",true);	// Do you want to use the internal page header?
 require "../common.php";
+require "../fix.php";
 makeweather();
 */
 
@@ -31,6 +33,7 @@ function makeweather()
 	}
 	file_put_contents("makeweather/last.upd",$date);
 	*/
+	
 	$regions=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/sitelist?key=".met_office_api);
 	foreach($regions->Location as $region)	// Gets all the regional forecasts. Don't run this too often or you'll hit the limit!
 	{
@@ -38,14 +41,219 @@ function makeweather()
 		$area=$region['name'];
 		$$area=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/$id?key=".met_office_api);
 	}
-
+	
 	weatherRegional($ni);
+	weatherUKoutlook($uk);
+	weatherUKfiveday();
 	
 	file_put_contents(PAGEDIR.'/'.PREFIX."401.tti",array_merge(pageInserter("Weather Map"),pageHeader(401,"0001"),intHeader(),
 	drawMap(weatherData($ta),weatherData($ni),weatherData($ee),weatherData($wl),weatherData($dg),weatherData($sw),weatherData($he),
 	weatherData($se),weatherData($em),weatherData($ne),weatherData($wm),1),pageHeader(401,"0002"),intHeader(),drawMap(weatherData($ta,2),
 	weatherData($ni,2),weatherData($ee,2),weatherData($wl,2),weatherData($dg,2),weatherData($sw,2),weatherData($he,2),weatherData($se,2),
 	weatherData($em,2),weatherData($ne,2),weatherData($wm,2),2)));
+	
+}
+
+function weathertostr($in)
+{
+	switch($in)
+	{
+		case 0 : ;
+			return "Clear";
+		case 1 : ;
+			return "Sunny";
+		case 2 : ;
+		case 3 : ;
+			return "pt cldy";
+		case 5 : ;
+			return "mist";
+		case 6 : ;
+			return "fog";
+		case 7 : ;
+			return "cloudy";
+		case 8 : ;
+			return "ovrcast";
+		case 9 : ;
+		case 10 : ;
+		case 12 : ;
+			return "lt rain";
+		case 11 : ;
+			return "drizzle";
+		case 13 : ;
+		case 14 : ;
+		case 15 : ;
+			return "hy rain";
+		case 16 : ;
+		case 17 : ;
+		case 18 : ;
+			return "sleet";
+		case 19 : ;
+		case 20 : ;
+		case 21 : ;
+			return "hail";
+		case 22 : ;
+		case 23 : ;
+		case 24 : ;
+			return "lt snow";
+		case 25 : ;
+		case 26 : ;
+		case 27 : ;
+			return "hy snow";
+		case 28 : ;
+		case 29 : ;
+		case 30 : ;
+			return "thunder";
+		default;
+			return "n/a";
+	}
+}
+
+function c2f($in)
+{
+	$out=$in*9/5+32;
+	$out=substr(trim($out),0,2);
+	$out=str_pad($out,2,' ',STR_PAD_LEFT);
+	return $out;
+}
+
+function converterBar($mintemp,$maxtemp)
+{
+	$line1= "OL,22,D]GC= ".(str_pad($mintemp,2,' ',STR_PAD_LEFT))." ".(str_pad(($mintemp+2),2,' ',STR_PAD_LEFT))." ".str_pad(($mintemp+4),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+6),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+8),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+10),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+12),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+14),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+16),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+18),2,' ',STR_PAD_LEFT)." ".str_pad(($mintemp+20),2,' ',STR_PAD_LEFT)." \r\n";
+	$line2= "OL,23,D]GF= ".c2f($mintemp)." ".c2f($mintemp+2)." ".c2f($mintemp+4)." ".c2f($mintemp+6)." ".c2f($mintemp+8)." ".c2f($mintemp+10)." ".c2f($mintemp+12)." ".c2f($mintemp+14)." ".c2f($mintemp+16)." ".c2f($mintemp+18)." ".c2f($mintemp+20)." \r\n";
+	return array($line1,$line2);
+}
+
+function weatherUKfiveday()
+{
+	$header=array("OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4    \r\n",
+	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}    \r\n",
+	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
+	"OL,6,Bmax for 0600-1800   min for 1800-0600  \r\n",
+	"OL,7,C    max minGC          Cmax minGC      \r\n");
+	$footer=array("OL,24,AReview  B Sport  CTrav Head FMain Menu \r\n",
+	"FL,406,600,430,100,100,199\r\n");
+
+	$i=1;
+	$ss=1;
+	$mintemp=100;
+	$maxtemp=-100;
+	$page=pageInserter("UK 5 Day Weather",30);
+	$subpage=(count(five_day_forecast)/4);
+	foreach(five_day_forecast as $id)
+	{
+		$data=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/datatype/$id?res=daily&key=".met_office_api);
+		$oe=0;
+		$name=$data->DV->Location['name'];
+		$output[$i][]="G".str_pad(ucwords(strtolower($name)),19);
+		foreach($data->DV->Location->Period as $day)
+		{
+			$odate=$day["value"];
+			$htemp=$day->Rep["Dm"];
+			$ltemp=$day->Rep[1]["Nm"];
+			$weather=$day->Rep["W"];
+			
+			$date=date("D",strtotime($odate));
+			$htemp=str_pad($htemp,2," ",STR_PAD_LEFT);
+			$ltemp=str_pad($ltemp,2," ",STR_PAD_LEFT);
+			if($ltemp<$mintemp)
+				$mintemp=$ltemp;
+			if($htemp<$maxtemp)
+				$maxtemp=$htemp;
+			$weather=str_pad(weathertostr($weather),7);
+			
+			if($oe%2==0)$colour="F";
+			else $colour="G";
+			$output[$i][]="$colour$date  $htemp  $ltemp $weather";
+			if($oe==0) $pdate=date("j M",strtotime($odate));
+			$oe++;
+		}
+		if($i%4==0)
+		{
+			$temppage=array();
+			for($OL=8;$OL<21;$OL++)
+			{
+				$element=$OL-8;
+				$city=1;
+				if($element>5 && $OL<15) {
+					$element-=6;
+					$city=3;
+				}
+				elseif($element>5 && $OL>14) {
+					$element-=7;
+					$city=3;
+				}
+				if($OL==14) $OL++;
+				$temppage=array_merge($temppage,array("OL,$OL,".$output[$city][$element].$output[$city+1][$element]."\r\n"));
+			}
+			$counter="";
+			if($subpage>1)
+				$counter="$ss/$subpage";
+			$dateline=array("OL,4,                                    $counter\r\n",
+			"OL,5,CUK FIVE DAY FORECAST FROM $pdate\r\n");
+			$page=array_merge($page,pageHeader(406,"000$ss"),intHeader(),$header,$dateline,$temppage,converterBar($mintemp,$maxtemp),$footer);
+			$ss++;
+			$i=0;
+			$output=array();
+		}
+		$i++;
+	}
+	file_put_contents(PAGEDIR.'/'.PREFIX."406.tti",$page);
+}
+
+function weatherUKoutlook($xml)
+{
+	$OL=7;
+	$header=array("OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4    \r\n",
+	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}    \r\n",
+	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
+	"OL,5, UK WEATHER OUTLOOK                     \r\n");
+	$footer=array("OL,23,D]G        From the Met Office          \r\n",
+	"OL,24,AUK cities BSport CTrav Head FMain Menu \r\n",
+	"FL,404,300,430,100,100,100\r\n");
+	$out=array_merge(pageInserter("UK Weather Outlook",30),pageHeader(403,"0001","c000"),intHeader(),$header);
+	for($i=1; $i<3; $i++)
+	{
+		$title=$xml->FcstPeriods->Period[0]->Paragraph[$i]["title"];
+		$paragraph=$xml->FcstPeriods->Period[0]->Paragraph[$i];
+		if($OL>22)
+		{
+			$out=array_merge($out,$footer,$header);
+			$OL=7;
+		}
+		$title=str_replace(":","",$title);
+		$return1=outputLine($OL,"G",$title,23);
+		$OL+=$return1[0];
+		$return2=outputLine($OL,"F",$paragraph,23);
+		$OL+=$return2[0];
+		if(is_array($return1[1]) && is_array($return2[1]))
+		{
+			$OL++;
+			$out=array_merge($out,$return1[1],$return2[1]);
+		}
+	}
+	$out=array_merge($out,$footer,pageHeader(403,"0002","c000"),intHeader(),$header);
+	$OL=7;
+	for($i=0; $i<2; $i++)
+	{
+		$title=$xml->FcstPeriods->Period[1]->Paragraph[$i]["title"];
+		$paragraph=$xml->FcstPeriods->Period[1]->Paragraph[$i];
+		if($OL>22)
+		{
+			$out=array_merge($out,$footer,pageHeader(403,"0002","c000"),intHeader(),$header);
+			$OL=7;
+		}
+		$title=str_replace(":","",$title);
+		$return1=outputLine($OL,"G",$title,23);
+		$OL+=$return1[0];
+		$return2=outputLine($OL,"F",$paragraph,23);
+		$OL+=$return2[0];
+		if(is_array($return1[1]) && is_array($return2[1]))
+		{
+			$OL++;
+			$out=array_merge($out,$return1[1],$return2[1]);
+		}
+	}
+	file_put_contents(PAGEDIR.'/'.PREFIX."403.tti",array_merge($out,$footer));
 }
 
 function getTemp($in)
@@ -110,8 +318,8 @@ function weatherRegional($xml)
 	"OL,23,D]GNATIONALC Main menuG100CWeatherG 400 "."\r\n",
 	"OL,24,AOutlookB NIrelTravC Trav HeadFMain Menu"."\r\n",
 	"FL,403,437,430,100,F,199\r\n");
-	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,0001),intHeader(),$header
-	,getRegional($xml,$day=1,$ht,$lt),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,0002),intHeader()
+	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,"0001"),intHeader(),$header
+	,getRegional($xml,$day=1,$ht,$lt),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,"0002"),intHeader()
 	,$header,getRegional($xml,$day=2,$ht,$lt),array("OL,21,                                    2/2 \r\n"),$footer));
 }
 
@@ -144,7 +352,7 @@ function findWeather($weather)
 	$previous='';
 	
 	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry",
-	"Fine","Bright");	// Words that usually stand alone
+	"Fine","Bright","Damp");	// Words that usually stand alone
 	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
 	$verbs=array("Clearing");	// Words that follow nouns
 	

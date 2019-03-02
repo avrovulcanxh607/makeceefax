@@ -55,6 +55,8 @@ function newsHeader($title="default")
 	case "Surrey" : ;
 	case "Humberside" : ;
 	case "Derby" : ;
+	case "Dorset" : ;
+	case "Hereford & Worcester" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",
@@ -68,6 +70,7 @@ function newsHeader($title="default")
 	case "Hearts" : ;
 	case "South Scotland" : ;
 	case "Scotland politics" : ;
+	case "Highlands & Islands" : ;
 		$region="Scotland";
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kD]Sx,h<$|l4l<h4 x,th|0|h<t \r\n",
