@@ -318,7 +318,7 @@ function weatherRegional($xml)
 	"OL,23,D]GNATIONALC Main menuG100CWeatherG 400 "."\r\n",
 	"OL,24,AOutlookB NIrelTravC Trav HeadFMain Menu"."\r\n",
 	"FL,403,437,430,100,F,199\r\n");
-	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather"),pageHeader(402,"0001"),intHeader(),$header
+	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather",30),pageHeader(402,"0001"),intHeader(),$header
 	,getRegional($xml,$day=1,$ht,$lt),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,"0002"),intHeader()
 	,$header,getRegional($xml,$day=2,$ht,$lt),array("OL,21,                                    2/2 \r\n"),$footer));
 }
@@ -352,7 +352,7 @@ function findWeather($weather)
 	$previous='';
 	
 	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry",
-	"Fine","Bright","Damp");	// Words that usually stand alone
+	"Fine","Bright","Damp","Wet","Windy","Murky","Showery","Heavy");	// Words that usually stand alone
 	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
 	$verbs=array("Clearing");	// Words that follow nouns
 	
