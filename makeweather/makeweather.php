@@ -10,30 +10,9 @@ require "weatherconfig.php";
 
 echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
 
-/*	// Case the script needs to be run on its own
-define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
-define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
-define ("INTHEAD",true);	// Do you want to use the internal page header?
-require "../common.php";
-require "../fix.php";
-makeweather();
-*/
-
 function makeweather()
 {
 	libxml_use_internal_errors(true);
-	/*
-	$time = file_get_contents("makeweather/last.upd");
-	$date=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxfcs/regionalforecast/xml/capabilities?key=".met_office_api);
-	$date=$date[0]["issuedAt"];
-	if (false)//($date==$time) They don't seem to update this very often.
-	{
-		echo "Weather Up-to-date\r\n";
-		return;
-	}
-	file_put_contents("makeweather/last.upd",$date);
-	*/
-	
 	$regions=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/sitelist?key=".met_office_api);
 	foreach($regions->Location as $region)	// Gets all the regional forecasts. Don't run this too often or you'll hit the limit!
 	{
@@ -352,7 +331,7 @@ function findWeather($weather)
 	$previous='';
 	
 	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry",
-	"Fine","Bright","Damp","Wet","Windy","Murky","Showery","Heavy");	// Words that usually stand alone
+	"Fine","Bright","Damp","Wet","Windy","Murky","Showery","Heavy","Drier");	// Words that usually stand alone
 	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
 	$verbs=array("Clearing");	// Words that follow nouns
 	
