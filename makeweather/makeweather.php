@@ -330,8 +330,8 @@ function findWeather($weather)
 	$verb=false;
 	$previous='';
 	
-	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Sleet","Hail","Snow","Thunder","Dry",
-	"Fine","Bright","Damp","Wet","Windy","Murky","Showery","Heavy","Drier");	// Words that usually stand alone
+	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Showers","Sleet","Hail","Snow","Thunder","Dry",
+	"Fine","Bright","Damp","Wet","Windy","Winds","Murky","Showery","Heavy","Drier","Blustery");	// Words that usually stand alone
 	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
 	$verbs=array("Clearing");	// Words that follow nouns
 	

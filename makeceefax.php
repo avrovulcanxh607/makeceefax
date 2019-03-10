@@ -4,6 +4,7 @@
 	Generates a Ceefax service from various 'modules' which make specific magazines
 	Nathan Dane, 2019
 */
+$time_start=microtime(true);
 // Settings. See the Wiki for details @todo
 define ("VERSION","V1.1");
 define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
@@ -48,6 +49,8 @@ foreach ($moduledir as $function)	// Run each available module's initial functio
 	echo "$function finished\r\n";
 }
 
+$time_end=microtime(true);
+$execution_time=($time_end-$time_start);
 $time=date("H:i:s d-m-Y");
-echo "MAKECEEFAX.PHP finished at $time\r\n";	// Closing statement. Useful for logging (but not much else!)
+echo "MAKECEEFAX.PHP finished at $time, took ".$execution_time." seconds\r\n";	// Closing statement. Useful for logging (but not much else!)
 ?>
