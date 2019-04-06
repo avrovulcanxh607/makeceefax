@@ -279,6 +279,7 @@ function sciTech($pages)
 	$i=0;
 	$inserter=pageInserter("Sci-Tech ".scitechp, 15);
 	$outp=array_merge($inserter);
+	$length=count($pages);
 	foreach ($pages as $page)
 	{
 		$line=4;
@@ -296,7 +297,7 @@ function sciTech($pages)
 			if ($ln>21)
 				break;
 			$ln++;
-			$out=outputLine($ln,"F",$element,22);
+			$out=outputLine($ln,"F",$element,21);
 			if ($out[1] !== false)
 			{
 				foreach($out[1] as $line)
@@ -306,7 +307,8 @@ function sciTech($pages)
 			}
 			$ln+=$out[0];
 		}
-		$footer=array("OL,22,D]CHeadlines G101CIndexG102CSport  G300 \r\n",
+		$footer=array("OL,21,                                    ".($i+1)."/$length \r\n",
+		"OL,22,D]CHeadlines G101CIndexG102CSport  G300 \r\n",
 		"OL,23,D]CFront PageG100CTV   G600CWeatherG400 \r\n",
 		"OL,24,ALocalNewsBHeadlinesCNews IndxFMain Menu\r\n",
 		"FL,160,101,102,100,8ff,100\r\n");
@@ -441,6 +443,11 @@ function makenews()
 			echo $url."\r\n";
 			$name="tech".$count;
 			$$name=getNews($url,4);
+			if ($$name===false) 
+			{
+				echo "simplenews.php detected a problem with this page\r\n";
+				continue 1;	// Don't even try to run a failed page
+			}
 			$scistories[]=$$name;
 			$count++;
 			if ($count>5) break;	// Stop after we get the pages that we want

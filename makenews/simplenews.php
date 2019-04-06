@@ -53,7 +53,10 @@ function getNews($url,$limit)
 	{
 		if($i<$limit && $found==true)
 		{
-			$paragraph[]=$para->plaintext;
+			if($intro===false && $i==0)
+				$intro=$para->plaintext;
+			else
+				$paragraph[]=$para->plaintext;
 			$i++;
 		}
 		if (strpos($para,"introduction"))

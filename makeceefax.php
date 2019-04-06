@@ -51,6 +51,6 @@ foreach ($moduledir as $function)	// Run each available module's initial functio
 
 $time_end=microtime(true);
 $execution_time=($time_end-$time_start);
-$time=date("H:i:s d-m-Y");
+$time=date("H:i:s");
 echo "MAKECEEFAX.PHP finished at $time, took ".$execution_time." seconds\r\n";	// Closing statement. Useful for logging (but not much else!)
 ?>

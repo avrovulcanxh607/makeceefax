@@ -306,7 +306,7 @@ function weatherData($xml,$type=1)
 {
 	$temp=getTemp($xml->FcstPeriods->Period->Paragraph[$type]);
 	$forecast=$xml->FcstPeriods->Period->Paragraph[$type];
-	
+	/*
 	if(false !== ($breakpoint = strpos($forecast, "."))) {
 		$forecast = substr($forecast, 0, $breakpoint);
 	}
@@ -314,7 +314,7 @@ function weatherData($xml,$type=1)
 	if(false !== ($breakpoint = strpos($forecast, ","))) {
 		$forecast = substr($forecast, 0, $breakpoint);
 	}
-	
+	*/
 	$temp=str_replace('C', '',$temp);
 	$temp=str_pad($temp,2,"0",STR_PAD_LEFT);
 	
@@ -330,8 +330,9 @@ function findWeather($weather)
 	$verb=false;
 	$previous='';
 	
-	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Showers","Sleet","Hail","Snow","Thunder","Dry",
-	"Fine","Bright","Damp","Wet","Windy","Winds","Murky","Showery","Heavy","Drier","Blustery");	// Words that usually stand alone
+	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Showers","Sleet","Hail","Snow",	// Weather Words
+	"Thunder","Dry","Fine","Bright","Damp","Wet","Windy","Winds","Murky","Showery","Drier","Blustery","Cloud","Sunshine","Frost","Chilly",
+	"Clearing","Brightening");	// Words that usually stand alone
 	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
 	$verbs=array("Clearing");	// Words that follow nouns
 	
@@ -360,7 +361,7 @@ function findWeather($weather)
 	return $output;
 }
 
-function drawMap($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)
+function drawMap($AB,$BE,$CA,$CR,$ED,$EX,$IN,$LO,$MA,$NE,$ST,$s)	// this all needs cleaned up
 {
 	$red="Q";
 	$green="R";
