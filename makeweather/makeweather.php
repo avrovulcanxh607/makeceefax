@@ -200,14 +200,14 @@ function weatherUKoutlook($xml)
 			$OL=7;
 		}
 		$title=str_replace(":","",$title);
-		$return1=outputLine($OL,"G",$title,23);
+		$return1=outputLine($OL,"G",$title,22);
 		$OL+=$return1[0];
-		$return2=outputLine($OL,"F",$paragraph,23);
+		$return2=outputLine($OL,"F",$paragraph,22);
 		$OL+=$return2[0];
 		if(is_array($return1[1]) && is_array($return2[1]))
 		{
 			$OL++;
-			$out=array_merge($out,$return1[1],$return2[1]);
+			$out=array_merge($out,$return1[1],$return2[1],array("OL,4,                                    1/2 \r\n"));
 		}
 	}
 	$out=array_merge($out,$footer,pageHeader(403,"0002","c000"),intHeader(),$header);
@@ -229,7 +229,7 @@ function weatherUKoutlook($xml)
 		if(is_array($return1[1]) && is_array($return2[1]))
 		{
 			$OL++;
-			$out=array_merge($out,$return1[1],$return2[1]);
+			$out=array_merge($out,$return1[1],$return2[1],array("OL,4,                                    2/2 \r\n"));
 		}
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX."403.tti",array_merge($out,$footer));
