@@ -6,3 +6,5 @@
 */
 
 define("newsreelmpp","152");
+
+define("spnumbers",false);	// False if not required, otherwise the line number

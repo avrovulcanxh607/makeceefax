@@ -48,10 +48,11 @@ function weatherCurrent()
 	"OL,24,AWarningsB NIreTV CTrav Head FMain Menu\r\n",
 	"FL,405,600,430,100,100,100\r\n");
 
+	$mintemp=100;
+	$maxtemp=-100;
+	$c="G";
 	foreach(current_uk_obs_id as $key => $location)
 	{
-		$mintemp=100;
-		$maxtemp=-100;
 		$current=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/xml/$location?key=".met_office_api."&res=hourly");
 		$period=count($current->DV->Location);
 		$rep=count($current->DV->Location->Period[$period]);	// Always get the latest one
@@ -70,21 +71,21 @@ function weatherCurrent()
 		if($temp>$maxtemp)
 			$maxtemp=$temp;
 		
-		if($key % 2 == 0)
-			$c="F";
-		else
+		if($c=="F")
 			$c="G";
-		
+		else
+			$c="F";
+		$rf="  ";
 		switch ($tend)
 		{
 		case "R" : ;
-			$rf="FR"."$c";
+			$rf="FR";
 			break;
 		case "S" : ;
-			$rf="GS"."$c";
+			$rf="GS";
 			break;
 		case "F" : ;
-			$rf="BF"."$c";
+			$rf="BF";
 			break;
 		}
 		
@@ -95,7 +96,7 @@ function weatherCurrent()
 		$weather=str_pad($weather,7,' ');
 		$name=str_pad(current_uk_obs_nm[$key],13,' ');
 		
-		$lines[]="$name $temp $dir $spd  $press$rf$weather\r\n";
+		$lines[]="$name $temp $dir $spd  $press$rf$c$weather\r\n";
 	}
 	$count=count($lines);
 	$subpages=(int) ($count / 9);
@@ -103,7 +104,7 @@ function weatherCurrent()
 		$subpages++;
 	$OL=9;
 	$ss=1;
-	$out=array_merge(pageInserter("UK Current Weather",30),pageHeader(404,"0001","c000"),intHeader(),$header);
+	$out=array_merge(pageInserter("UK Current Weather",30),pageHeader(404,"0001","8000"),intHeader(),$header);
 	foreach($lines as $key=>$line)
 	{
 		if($key % 2 == 0)
@@ -117,7 +118,7 @@ function weatherCurrent()
 		{
 			$out=array_merge($out,array("OL,4,                                    $ss/$subpages \r\n",
 			"OL,5,CCURRENT UK WEATHER: Report at $time\r\n"),converterBar($mintemp,$maxtemp),$footer,
-			pageHeader(404,"000".($ss+1),"c000"),intHeader(),$header);
+			pageHeader(404,"000".($ss+1),"8000"),intHeader(),$header);
 			$OL=9;
 			$ss++;
 		}
