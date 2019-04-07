@@ -12,6 +12,7 @@ echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
 
 function makeweather()
 {
+	
 	libxml_use_internal_errors(true);
 	$regions=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/sitelist?key=".met_office_api);
 	foreach($regions->Location as $region)	// Gets all the regional forecasts. Don't run this too often or you'll hit the limit!
@@ -31,6 +32,99 @@ function makeweather()
 	weatherData($ni,2),weatherData($ee,2),weatherData($wl,2),weatherData($dg,2),weatherData($sw,2),weatherData($he,2),weatherData($se,2),
 	weatherData($em,2),weatherData($ne,2),weatherData($wm,2),2)));
 	
+	weatherCurrent();
+	
+}
+
+function weatherCurrent()
+{
+	$header=array("OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4\r\n",
+	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}\r\n",
+	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
+	"OL,7,C            temp   wind  pres\r\n",
+	"OL,8,                C    mph    mB\r\n");
+	
+	$footer=array("OL,20,C   pressureFRCrisingGSCsteadyBFCfalling\r\n",
+	"OL,24,AWarningsB NIreTV CTrav Head FMain Menu\r\n",
+	"FL,405,600,430,100,100,100\r\n");
+
+	foreach(current_uk_obs_id as $key => $location)
+	{
+		$mintemp=100;
+		$maxtemp=-100;
+		$current=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/xml/$location?key=".met_office_api."&res=hourly");
+		$period=count($current->DV->Location);
+		$rep=count($current->DV->Location->Period[$period]);	// Always get the latest one
+		$rep--;
+		
+		$temp=round($current->DV->Location->Period[$period]->Rep[$rep]['T']);
+		$dir=$current->DV->Location->Period[$period]->Rep[$rep]['D'];
+		$spd=$current->DV->Location->Period[$period]->Rep[$rep]['S'];
+		$press=$current->DV->Location->Period[$period]->Rep[$rep]['P'];
+		$tend=$current->DV->Location->Period[$period]->Rep[$rep]['Pt'];
+		$weather=weathertostr($current->DV->Location->Period[$period]->Rep[$rep]['W']);
+		$time=date("Hi",strtotime($current->DV['dataDate']));
+		
+		if($mintemp>$temp)
+			$mintemp=$temp;
+		if($temp>$maxtemp)
+			$maxtemp=$temp;
+		
+		if($key % 2 == 0)
+			$c="F";
+		else
+			$c="G";
+		
+		switch ($tend)
+		{
+		case "R" : ;
+			$rf="FR"."$c";
+			break;
+		case "S" : ;
+			$rf="GS"."$c";
+			break;
+		case "F" : ;
+			$rf="BF"."$c";
+			break;
+		}
+		
+		$press=str_pad($press,4,' ',STR_PAD_LEFT);
+		$spd=str_pad($spd,2,' ',STR_PAD_LEFT);
+		$dir=str_pad($dir,3,' ',STR_PAD_LEFT);
+		$temp=str_pad($temp,2,' ',STR_PAD_LEFT);
+		$weather=str_pad($weather,7,' ');
+		$name=str_pad(current_uk_obs_nm[$key],13,' ');
+		
+		$lines[]="$name $temp $dir $spd  $press$rf$weather\r\n";
+	}
+	$count=count($lines);
+	$subpages=(int) ($count / 9);
+	if($count % 9 != 0)
+		$subpages++;
+	$OL=9;
+	$ss=1;
+	$out=array_merge(pageInserter("UK Current Weather",30),pageHeader(404,"0001","c000"),intHeader(),$header);
+	foreach($lines as $key=>$line)
+	{
+		if($key % 2 == 0)
+			$c="F";
+		else
+			$c="G";
+		
+		$out=array_merge($out,array("OL,$OL,$c$line"));
+		$OL++;
+		if($OL>18)
+		{
+			$out=array_merge($out,array("OL,4,                                    $ss/$subpages \r\n",
+			"OL,5,CCURRENT UK WEATHER: Report at $time\r\n"),converterBar($mintemp,$maxtemp),$footer,
+			pageHeader(404,"000".($ss+1),"c000"),intHeader(),$header);
+			$OL=9;
+			$ss++;
+		}
+	}
+	$out=array_merge($out,array("OL,4,                                    $ss/$subpages \r\n",
+	"OL,5,CCURRENT UK WEATHER: Report at $time\r\n"),converterBar($mintemp,$maxtemp),$footer);
+	file_put_contents(PAGEDIR.'/'.PREFIX."404.tti",$out);
 }
 
 function weathertostr($in)
@@ -38,9 +132,9 @@ function weathertostr($in)
 	switch($in)
 	{
 		case 0 : ;
-			return "Clear";
+			return "clear";
 		case 1 : ;
-			return "Sunny";
+			return "sunny";
 		case 2 : ;
 		case 3 : ;
 			return "pt cldy";
