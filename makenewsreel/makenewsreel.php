@@ -54,7 +54,29 @@ function makenewsreel()
 					$out=array_merge($out,array($line));
 				elseif($OL>0 && $OL<24 && spnumbers==$OL)
 				{
-					$out=array_merge($out,array("OL,$OL,$subnumber \r\n"));
+					if(overwrite)
+					{
+						$number="G".($ss-1)."/$smax ";
+						$line4count=str_replace("","",$line);
+						$linlen=strlen($line4count);
+						$linlen-=2;
+						$pad=(45-$linlen);
+						if($pad>0)
+						{
+							$pad=str_repeat(" ",$pad);
+							$newline=rtrim($line,"\r\n").$pad;
+							$newline=substr($newline,0,(strlen($newline)-strlen($number)));
+						}
+						else
+						{
+							$length=(strlen($number)+2);
+							$newline=substr($line,0,-$length);
+							$newline=rtrim($newline,"\r\n");
+						}
+						$out=array_merge($out,array("$newline$number\r\n"));
+					}
+					else
+						$out=array_merge($out,array("OL,$OL,$subnumber \r\n"));
 					$nld=true;
 				}
 			}

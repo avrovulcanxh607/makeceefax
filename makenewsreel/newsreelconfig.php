@@ -8,3 +8,4 @@
 define("newsreelmpp","152");
 
 define("spnumbers",false);	// False if not required, otherwise the line number
+define("overwrite",true);	// Do you want the line overwritten or replaced?
