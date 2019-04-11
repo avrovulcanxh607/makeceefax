@@ -99,8 +99,8 @@ function weatherCurrent()
 		$lines[]="$name $temp $dir $spd  $press$rf$c$weather\r\n";
 	}
 	$count=count($lines);
-	$subpages=(int) ($count / 9);
-	if($count % 9 != 0)
+	$subpages=(int) ($count / 10);
+	if($count % 10 != 0)
 		$subpages++;
 	$OL=9;
 	$ss=1;
