@@ -107,13 +107,6 @@ function weatherCurrent()
 	$out=array_merge(pageInserter("UK Current Weather",30),pageHeader(404,"0001","8000"),intHeader(),$header);
 	foreach($lines as $key=>$line)
 	{
-		if($key % 2 == 0)
-			$c="F";
-		else
-			$c="G";
-		
-		$out=array_merge($out,array("OL,$OL,$c$line"));
-		$OL++;
 		if($OL>18)
 		{
 			$out=array_merge($out,array("OL,4,                                    $ss/$subpages \r\n",
@@ -122,6 +115,13 @@ function weatherCurrent()
 			$OL=9;
 			$ss++;
 		}
+		if($key % 2 == 0)
+			$c="F";
+		else
+			$c="G";
+		
+		$out=array_merge($out,array("OL,$OL,$c$line"));
+		$OL++;
 	}
 	$out=array_merge($out,array("OL,4,                                    $ss/$subpages \r\n",
 	"OL,5,CCURRENT UK WEATHER: Report at $time\r\n"),converterBar($mintemp,$maxtemp),$footer);
