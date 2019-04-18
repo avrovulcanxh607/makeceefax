@@ -8,7 +8,7 @@
 function fix_text($text)
 {
 	$fix_remove=array();
-	$fix_replace=array('é'=>'e','á'=>'a','Ó'=>'O','£'=>'#','’'=>'\'','ó'=>'o','‘'=>'\'');
+	$fix_replace=array('é'=>'e','á'=>'a','Ó'=>'O','£'=>'#','’'=>'\'','ó'=>'o','‘'=>'\'','&amp;'=>'&','ç'=>'c','í'=>'i');
 	
 	$text=strtr($text, $fix_replace);
 	$text=strip_euro($text);
