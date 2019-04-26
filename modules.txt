@@ -5,7 +5,7 @@ news
 finance
 sport
 weather
-#entertainment
+entertainment
 #tvlistings
 frontpage
 newsreel
