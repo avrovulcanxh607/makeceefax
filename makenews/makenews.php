@@ -3,7 +3,7 @@
 	makenews.php 
 	Creates Ceefax Magazine 1 from https://www.bbc.co.uk/news
 	makenews.php is part of makeceefax.php
-	Nathan Dane, 2018
+	Nathan Dane, 2019
 */
 require "simplenews.php";	// You should have got simplenews.php with this module
 require "newsheader.php";

@@ -2,6 +2,7 @@
 # Note that some modules are intentionally disabled as they are in development;
 # Enable them at your own risk.
 news
+bush
 finance
 sport
 weather
