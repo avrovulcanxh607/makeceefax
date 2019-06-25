@@ -9,7 +9,7 @@ require "simplenews.php";	// You should have got simplenews.php with this module
 require "newsheader.php";
 require "newsconfig.php";	// No point in 'including' this stuff, the script won't run without it anyway
 
-echo "Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2019\r\n";
 
 function newsPage($page,$mpp)	// Makes all the actual stories, P104-124 & 161-169
 {
@@ -338,6 +338,7 @@ function makenews()
 	if (!$runnews || !donews) echo "UK/World News Up-to-date\r\n";	// If nothing's changed, don't even bother
 	else	// Unfortunately, if somthing has, we have to read in all the pages. Not Efficiant!
 	{
+	echo "Generating News Stories...\r\n";
 	file_put_contents("makenews/ukrss.txt",$ukxml->channel->lastBuildDate);
 	file_put_contents("makenews/worldrss.txt",$worldxml->channel->lastBuildDate);
 	foreach($ukxml->channel->item as $chan) {
@@ -388,11 +389,13 @@ function makenews()
 		}
 	}
 	ksort($stories);
+	echo "Generating News Stories...Done\r\nGenerating News Indexes and others...";
 	file_put_contents(PAGEDIR.'/'.PREFIX.headlinesp.".tti",(newsHeadlines($stories)));	// Make the Headlines page 101
 	file_put_contents(PAGEDIR.'/'.PREFIX.indexp.".tti",(newsIndex($stories)));	// Make the UK/World index page
 	file_put_contents(PAGEDIR.'/'.PREFIX.summaryp.".tti",(newsSummary($stories)));	// Make the Summary page
 	file_put_contents(PAGEDIR.'/'.PREFIX.latestp.".tti",(newsLatest($stories)));	// Make the Latest page
 	file_put_contents(PAGEDIR.'/'.PREFIX.tickerp.".tti",(newsTicker($stories)));	// Make the Ticker page
+	echo "Done\r\n";
 	}
 	
 	$count=firstreg;
@@ -405,6 +408,7 @@ function makenews()
 	if ($time == $xml->channel->lastBuildDate || !doregnews) echo REGION." News Up-to-date\r\n";
 	else
 	{
+	echo "Generating Local News Stories...\r\n";
 	file_put_contents("makenews/rrss.txt",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
 		// Don't want video/sport stories. They don't render too well on teletext
@@ -422,6 +426,7 @@ function makenews()
 		}
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX.regionalp.".tti",(newsHeadlines($rstories,true)));	// Make the regional front page
+	echo "Generating Local News Stories...Done\r\n";
 	}
 	
 	$count=0;
@@ -432,6 +437,7 @@ function makenews()
 	if ($time == $xml->channel->lastBuildDate) echo "Sci-Tech News Up-to-date\r\n";
 	else
 	{
+	echo "Generating Science/Technology Stories...\r\n";
 	$scistories=array();
 	file_put_contents("makenews/scitechrss.txt",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
@@ -454,5 +460,6 @@ function makenews()
 		}
 	}
 	file_put_contents(PAGEDIR.'/'.PREFIX.scitechp.".tti",(sciTech($scistories)));	// Make the Sci-Tech page
+	echo "Generating Science/Technology Stories...Done\r\n";
 	}
 }

@@ -9,7 +9,6 @@
 require "sportconfig.php";
 require "simplesport.php";
 require "sportheaders.php";
-require "leaguetable.php";
 
 echo "Loaded MAKESPORT.PHP V0.2 (c) Nathan Dane, 2019\r\n";
 
@@ -28,30 +27,36 @@ function sportFootball()
 	if ($time == $xml->channel->lastBuildDate) echo "Football News Up-to-date\r\n";
 	else
 	{
-	file_put_contents("makesport/football.rss",$xml->channel->lastBuildDate);
-	foreach($xml->channel->item as $chan) {
-		if (strncmp($chan->link,"http://www.bbc.co.uk/sport/av/",30) && 
-		!strncmp($chan->link,"http://www.bbc.co.uk/sport/football/",36))
-		{
-			$url=$chan->link;
-			//$url="http://www.bbc.co.uk/sport/46816207";
-			echo $url."\r\n";
-			$name="sport".$count;
-			$$name=getSport($url,4);
-			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(sportPage($$name,$count)));
-			$sportdata[]=$$name;
-			$count++;
-			if ($count>315) break;	// Stop after we get the pages that we want
+		echo "Generating Football Stories...\r\n";
+		file_put_contents("makesport/football.rss",$xml->channel->lastBuildDate);
+		foreach($xml->channel->item as $chan) {
+			if (strncmp($chan->link,"http://www.bbc.co.uk/sport/av/",30) && 
+			!strncmp($chan->link,"http://www.bbc.co.uk/sport/football/",36))
+			{
+				$url=$chan->link;
+				echo $url."\r\n";
+				$name="sport".$count;
+				$$name=getSport($url,4);
+				file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(sportPage($$name,$count)));
+				$sportdata[]=$$name;
+				$count++;
+				if ($count>315) break;	// Stop after we get the pages that we want
+			}
 		}
+		file_put_contents(PAGEDIR.'/'.PREFIX."302.tti",(footballIndex($sportdata)));
+		echo "Generating Football Stories...Done\r\n";
 	}
-	file_put_contents(PAGEDIR.'/'.PREFIX."302.tti",(footballIndex($sportdata)));
+	if(leaguetable)
+	{
+		echo "Generating Football League Tables...";
+		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_1[0].".tti",(footballLeague(league_table_1[0],league_table_1[1])));
+		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_2[0].".tti",(footballLeague(league_table_2[0],league_table_2[1])));
+		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_3[0].".tti",(footballLeague(league_table_3[0],league_table_3[1])));
+		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_4[0].".tti",(footballLeague(league_table_4[0],league_table_4[1])));
+		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_5[0].".tti",(footballLeague(league_table_5[0],league_table_5[1])));
+		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_6[0].".tti",(footballLeague(league_table_6[0],league_table_6[1])));
+		echo "Done\r\n";
 	}
-	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_1[0].".tti",(footballLeague(league_table_1[0],league_table_1[1])));
-	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_2[0].".tti",(footballLeague(league_table_2[0],league_table_2[1])));
-	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_3[0].".tti",(footballLeague(league_table_3[0],league_table_3[1])));
-	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_4[0].".tti",(footballLeague(league_table_4[0],league_table_4[1])));
-	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_5[0].".tti",(footballLeague(league_table_5[0],league_table_5[1])));
-	file_put_contents(PAGEDIR.'/'.PREFIX.league_table_6[0].".tti",(footballLeague(league_table_6[0],league_table_6[1])));
 }
 
 function sportPage($page,$mpp,$header="test")
@@ -179,4 +184,23 @@ function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-
 	}
 	
 	return array_merge($page,$footer);
+}
+
+function leagueTable($url="https://www.bbc.co.uk/sport/football/premier-league/table")
+{
+	$html=file_get_html($url);
+	$leaguetable=array();
+	$table=$html->find("table");
+	$rows=$table[0]->find("tr");
+	array_shift($rows);
+	array_pop($rows);
+	foreach($rows as $row)
+	{
+		$data=$row->find("td");
+		array_push($leaguetable,array($data[2]->plaintext,$data[3]->plaintext,$data[4]->plaintext,
+		$data[5]->plaintext,$data[6]->plaintext,$data[7]->plaintext,$data[8]->plaintext,$data[10]->plaintext));
+	}
+	$time=$html->find("time",0)->plaintext;
+	$league=$html->find("h1",0)->plaintext;
+	return array($league,$time,$leaguetable);
 }

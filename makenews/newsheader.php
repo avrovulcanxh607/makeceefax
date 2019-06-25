@@ -60,6 +60,7 @@ function newsHeader($title="default")
 	case "Hampshire & Isle of Wight" : ;
 	case "Nottingham" : ;
 	case "Oxford" : ;
+	case "Tees" : ;
 		$return=array(
 		"OL,1,Wj#3kj#3kj#3kT]S    h4h4|,|h<<|h<$\r\n",
 		"OL,2,Wj \$kj \$kj 'kT]S    j7k5pj55jw1\r\n",

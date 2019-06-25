@@ -8,7 +8,7 @@
 require "api.php";
 require "weatherconfig.php";
 
-echo "Loaded MAKEWEATHER.PHP V2.0 (c) Nathan Dane, 2019\r\n";
+echo "Loaded MAKEWEATHER.PHP V2.1 (c) Nathan Dane, 2019\r\n";
 
 function makeweather()
 {
@@ -22,12 +22,57 @@ function makeweather()
 		$$area=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/txt/wxobs/regionalforecast/xml/$id?key=".met_office_api);
 	}
 	
+	weatherFront($uk,$ni);
 	weatherMap();
 	weatherRegional($ni);
 	weatherUKoutlook($uk);
 	weatherUKfiveday();
 	weatherCurrent();
+	file_put_contents("makeweather/headlines.txt","Weather	".$uk->FcstPeriods->Period->Paragraph[0]."	401");
+}
+
+function weatherFront($uk,$reg)
+{
+	$headline=$uk->FcstPeriods->Period->Paragraph[0];
+	$region=$reg->FcstPeriods->Period->Paragraph[0];
 	
+	$region=myTruncate2($region,35,".");
+	$region=myTruncate2($region,35," ");
+	$region=str_pad($region,35);
+	$region=strtoupper($region);
+	
+	$headline="WEATHER NEWS:B".$headline;
+	$headline=explode('\r\n',wordwrap($headline,39,'\r\n'));
+	$headline2=str_pad($headline[1],35);
+	$headline2.="C401";
+	
+	$body=array(
+	"OL,1,Wj#3kj#3kj#3kT]S |hh4|$|l4l<h4|h<h<4    \r\n",
+	"OL,2,Wj \$kj \$kj 'kT]S ozz%1k5j5j7jwj7}    \r\n",
+	"OL,3,W\"###\"###\"###T///-,,/,.,-.-.-.,-,-.,////\r\n",
+	"OL,4,M$regionC402\r\n",
+	"OL,6,CUKD````````````````````````````````````\r\n",
+	"OL,7,FForecast Maps  C401FWeather WarningC405\r\n",
+	"OL,8,FRegions        C402FUK Cities 5 DayC406\r\n",
+	"OL,9,FNational       C403FUK Review      C407\r\n",
+	"OL,10,FCurrent        C404FEvents         C408\r\n",
+	"OL,11,                    FInshore Waters C409\r\n",
+	"OL,12,CFIVE DAY FORECASTSD````````````````````\r\n",
+	"OL,13,FEurope         C410FS America      C413\r\n",
+	"OL,14,FAfrica         C411FAsia           C414\r\n",
+	"OL,15,FN America      C412FAustralasia    C415\r\n",
+	"OL,16,CEXTRAD`````````````````````````````````\r\n",
+	"OL,17,FWeather News   C416FFlood Warnings C419\r\n",
+	"OL,18,FPollution IndexC417FSurfing        C429\r\n",
+	"OL,19,FSun Index      C419FSkiing         C420\r\n",
+	"OL,20,                    FPollen         C426\r\n",
+	"OL,21,C$headline[0]\r\n",
+	"OL,22,B$headline2\r\n",
+	"OL,23,D]G     From the BBC Weather Centre     \r\n",
+	"OL,24,AMaps  BWarnings  COutlook  FMain Menu  \r\n",
+	"FL,401,405,403,100,100,199\r\n");
+	
+	file_put_contents(PAGEDIR.'/'.PREFIX."400.tti",array_merge(pageInserter("Weather Front Page"),pageHeader(400,'0000'),intHeader(),$body));
 }
 
 function weatherCurrent()
@@ -411,43 +456,6 @@ function weatherData($xml,$type=1)
 	
 	//echo "$temp $forecast \r\n";		//debug
 	return array($temp,$temp,$forecast,"",$title,"");	// Emulate simpleweather.php for now
-}
-
-function findWeather($weather)
-{
-	$output=array();
-	$verb=false;
-	$previous='';
-	
-	$adjectives=array("Clear","Sunny","Cloudy","Misty","Foggy","Overcast","Rain","Drizzle","Shower","Showers","Sleet","Hail","Snow",	// Weather Words
-	"Thunder","Dry","Fine","Bright","Damp","Wet","Windy","Winds","Murky","Showery","Drier","Blustery","Cloud","Sunshine","Frost","Chilly",
-	"Clearing","Brightening");	// Words that usually stand alone
-	$nouns=array("Cloud");	// Words we expect to be followed by a verb, e.g. "Clearing", "Moving", etc
-	$verbs=array("Clearing");	// Words that follow nouns
-	
-	foreach((preg_split('/\s+/', $weather)) as $word)
-	{
-		$word=ucfirst($word);
-		if(in_array($word,$adjectives))
-		{
-			$output=array_merge($output,array($word)); 
-			continue;
-		}
-		if(in_array($word,$nouns)) 
-		{
-			$verb=true;
-			$previous=$word;
-			//echo "noun! "; //debug
-			continue;
-		}
-		if(in_array($word,$verbs) && $verb)
-		{
-			$verb=false;
-			$output=array_merge($output,array("$previous $word"));
-		}
-	}
-	//print_r($output);		//debug
-	return $output;
 }
 
 function weatherMap()

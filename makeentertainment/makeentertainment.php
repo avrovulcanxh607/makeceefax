@@ -40,6 +40,7 @@ function makeentertainment()
 			}
 		}
 		file_put_contents(PAGEDIR.'/'.PREFIX."501.tti",(entertaimentIndex($entstories)));
+		file_put_contents("makeentertainment/headlines.txt","Entertainment News	".$entstories[0][0]."	502");
 	}
 }
 

@@ -38,7 +38,7 @@ $i=1;
 foreach ($modules as $key=>$module)
 {
 	$module=trim($module);
-	if(file_exists("make$module/headlines.txt"))	// Make sure the module exists before trying to load it
+	if(file_exists("make$module/headlines.txt"))	// Make sure the file exists before trying to load it
 	{
 		$headlines=file("make$module/headlines.txt");
 		foreach ($headlines as $page)
@@ -53,10 +53,10 @@ foreach ($modules as $key=>$module)
 			
 			$headline=array("OL,5,C$title[0]\r\n","OL,6,M$title[1]C$title[2]\r\n");
 			$i++;
-			if(ROWADAPT && $i>2)	// If Row adaptive mode is enabled, only send the full page once. 
-				$out=array_merge($out,$pheader,$iheader,$headline,$fastext);
-			else
-				$out=array_merge($out,$pheader,$iheader,$headline,$restof,$fastext);	// Append the subpage to the last one
+			//if(ROWADAPT && $i>2)	// If Row adaptive mode is enabled, only send the full page once. 
+				//$out=array_merge($out,$pheader,$iheader,$headline,$fastext);
+			//else
+			$out=array_merge($out,$pheader,$iheader,$headline,$restof,$fastext);	// Append the subpage to the last one
 		}
 	}
 }

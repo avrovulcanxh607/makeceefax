@@ -2,12 +2,12 @@
 /*
 	makefinance.php
 	Generates the Finance Magazine 2 for Ceefax
-	Nathan Dane, 2018
+	Nathan Dane, 2019
 */
 
 require "financeconfig.php";
 
-echo "Loaded MAKEFINANCE.PHP V0.1 (c) Nathan Dane, 2018\r\n";
+echo "Loaded MAKEFINANCE.PHP V0.1 (c) Nathan Dane, 2019\r\n";
 
 function makeFinance()
 {
