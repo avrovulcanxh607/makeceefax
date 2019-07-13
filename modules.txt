@@ -7,6 +7,6 @@ finance
 sport
 weather
 entertainment
-#tvlistings
+listings
 frontpage
 newsreel

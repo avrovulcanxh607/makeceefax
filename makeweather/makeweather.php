@@ -93,6 +93,11 @@ function weatherCurrent()
 	foreach(current_uk_obs_id as $key => $location)
 	{
 		$current=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/xml/$location?key=".met_office_api."&res=hourly");
+		if($current===false)
+		{
+			echo "Current Weather: simplexml couldn't load the file.\r\n";
+			continue;
+		}
 		$period=count($current->DV->Location);
 		$rep=count($current->DV->Location->Period[$period]);	// Always get the latest one
 		$rep--;
@@ -254,7 +259,7 @@ function weatherUKfiveday()
 	$subpage=(count(five_day_forecast)/4);
 	foreach(five_day_forecast as $id)
 	{
-		$data=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/datatype/$id?res=daily&key=".met_office_api);
+		$data=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/xml/$id?res=daily&key=".met_office_api);
 		$oe=0;
 		$name=$data->DV->Location['name'];
 		$output[$i][]="G".str_pad(ucwords(strtolower($name)),19);
