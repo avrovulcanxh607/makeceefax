@@ -43,7 +43,7 @@ function weatherFront($uk,$reg)
 	
 	$headline="WEATHER NEWS:B".$headline;
 	$headline=explode('\r\n',wordwrap($headline,39,'\r\n'));
-	$headline2=str_pad($headline[1],35);
+	$headline2=myTruncate2(str_pad($headline[1],35),35," ");
 	$headline2.="C401";
 	
 	$body=array(
