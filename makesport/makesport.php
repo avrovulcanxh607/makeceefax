@@ -37,6 +37,11 @@ function sportFootball()
 				echo $url."\r\n";
 				$name="sport".$count;
 				$$name=getSport($url,4);
+				if ($$name===false) 
+				{
+					echo "simplesport.php detected a problem with this page\r\n";
+					continue 1;	// Don't even try to run a failed page
+				}
 				file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(sportPage($$name,$count)));
 				$sportdata[]=$$name;
 				$count++;
@@ -49,12 +54,12 @@ function sportFootball()
 	if(leaguetable)
 	{
 		echo "Generating Football League Tables...";
-		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_1[0].".tti",(footballLeague(league_table_1[0],league_table_1[1])));
-		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_2[0].".tti",(footballLeague(league_table_2[0],league_table_2[1])));
-		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_3[0].".tti",(footballLeague(league_table_3[0],league_table_3[1])));
-		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_4[0].".tti",(footballLeague(league_table_4[0],league_table_4[1])));
-		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_5[0].".tti",(footballLeague(league_table_5[0],league_table_5[1])));
-		file_put_contents(PAGEDIR.'/'.PREFIX.league_table_6[0].".tti",(footballLeague(league_table_6[0],league_table_6[1])));
+		footballLeague(league_table_1[0],league_table_1[1]);
+		footballLeague(league_table_2[0],league_table_2[1]);
+		footballLeague(league_table_3[0],league_table_3[1]);
+		footballLeague(league_table_4[0],league_table_4[1]);
+		footballLeague(league_table_5[0],league_table_5[1]);
+		footballLeague(league_table_6[0],league_table_6[1]);
 		echo "Done\r\n";
 	}
 }
@@ -129,6 +134,7 @@ function footballIndex($data)
 
 function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-league/table")
 {
+	$lasttime=file_get_contents("makesport/$mpp.rss");
 	$OL=8;
 	$inserter=pageInserter("Football League Table");	// Get all the headers 
 	$pheader=pageHeader($mpp,"0001");	// Hard coded for now
@@ -142,6 +148,9 @@ function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-
 	$league=$data[0];
 	$date=$data[1];
 	$table=$data[2];
+	if($lasttime == $date)
+		return;
+	file_put_contents("makesport/$mpp.rss",$date);
 	$league=strtoupper($league);
 	$league=str_replace("TABLE","",$league);
 	
@@ -183,7 +192,7 @@ function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-
 		}
 	}
 	
-	return array_merge($page,$footer);
+	file_put_contents(PAGEDIR.'/'.PREFIX."$mpp.tti",array_merge($page,$footer));
 }
 
 function leagueTable($url="https://www.bbc.co.uk/sport/football/premier-league/table")

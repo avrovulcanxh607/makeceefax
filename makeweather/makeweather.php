@@ -93,14 +93,20 @@ function weatherCurrent()
 	foreach(current_uk_obs_id as $key => $location)
 	{
 		$current=simplexml_load_file("http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/xml/$location?key=".met_office_api."&res=hourly");
-		if($current===false)
+		if(!$current)
 		{
-			echo "Current Weather: simplexml couldn't load the file.\r\n";
+			echo "weatherCurrent: simplexml couldn't load the file.\r\n";
 			continue;
 		}
 		$period=count($current->DV->Location);
 		$rep=count($current->DV->Location->Period[$period]);	// Always get the latest one
+		if($rep==0) 
+		{
+			echo "weatherCurrent: $location isn't working, skipping it\r\n";
+			continue;
+		}
 		$rep--;
+		//echo "$rep\r\n";//debug
 		
 		$temp=round($current->DV->Location->Period[$period]->Rep[$rep]['T']);
 		$dir=$current->DV->Location->Period[$period]->Rep[$rep]['D'];
@@ -441,28 +447,6 @@ function weatherRegional($xml)
 	,$header,getRegional($xml,$day=2,$ht,$lt),array("OL,21,                                    2/2 \r\n"),$footer));
 }
 
-function weatherData($xml,$type=1)
-{
-	$temp=getTemp($xml->FcstPeriods->Period->Paragraph[$type]);
-	$forecast=$xml->FcstPeriods->Period->Paragraph[$type];
-	/*
-	if(false !== ($breakpoint = strpos($forecast, "."))) {
-		$forecast = substr($forecast, 0, $breakpoint);
-	}
-	
-	if(false !== ($breakpoint = strpos($forecast, ","))) {
-		$forecast = substr($forecast, 0, $breakpoint);
-	}
-	*/
-	$temp=str_replace('C', '',$temp);
-	$temp=str_pad($temp,2,"0",STR_PAD_LEFT);
-	
-	$title=str_replace(':', '',($xml->FcstPeriods->Period->Paragraph[$type]['title']));
-	
-	//echo "$temp $forecast \r\n";		//debug
-	return array($temp,$temp,$forecast,"",$title,"");	// Emulate simpleweather.php for now
-}
-
 function weatherMap()
 {
 	$evening=0;
@@ -582,7 +566,7 @@ function drawMap($period=0,$rep=0,$s=1)
 	$a3=$red;
 	$a4=$red;
 	$a6=$red;	// All areas are red to begin with
-	$a5=$red;
+	$a5=$red;	// Yay for re-using old code!
 	$a8=$red;
 	$a7=$red;
 	$a9=$red;
@@ -609,7 +593,7 @@ function drawMap($period=0,$rep=0,$s=1)
 		{
 			switch($areaname)
 			{
-			case 350347 : ;	// Convert cities to numbers.
+			case '350347' : ;	// Convert cities to numbers.
 				$no=11;
 				break;
 			case '352876' : ;

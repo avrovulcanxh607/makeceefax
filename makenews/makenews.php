@@ -419,6 +419,11 @@ function makenews()
 			echo $url."\r\n";
 			$name="reg".$count;
 			$$name=getNews($url,4);
+			if ($$name===false) 
+			{
+				echo "simplenews.php detected a problem with this page\r\n";
+				continue 1;	// Don't even try to run a failed page
+			}
 			file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(newsPage($$name,$count)));
 			$rstories[]=$$name;
 			$count++;

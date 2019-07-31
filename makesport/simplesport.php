@@ -49,7 +49,8 @@ function getSport($url,$limit)
 	if($intro==false)$found=true;
 	$intro=htmlspecialchars_decode($intro);
 	
-	if($found==true)$html=$html->find('div[id="orb-modules"]');
+	if($found==true)$html=$html->find('div[id="orb-modules"]',0);
+	if(!$html) return false;	// Something has went desperately wrong
 	
 	$paragraph='';
 	$i=0;

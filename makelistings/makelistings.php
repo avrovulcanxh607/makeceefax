@@ -32,7 +32,7 @@ function processData($channel="bbc1_n_ireland",$day=0)
 	foreach($xml->channel->item as $item)	// Read in all the programmes
 	{
 		$title=fix_text($item->title);
-		$description=fix_text($item->description);
+		$description=$item->description;
 		
 		$time=substr($title,0,strpos($title,' :'));	// Extract the time from the title
 		$name=substr($title,strpos($title,': ')+2);
@@ -96,7 +96,7 @@ function processPage($listings,$mpp,$name,$today=true)
 		$pages=array_merge($pages,$return[0]);
 		if($today)
 		{
-			$desc=wordwrap($listing[2],34,"\r\n",true);
+			$desc=wordwrap(fix_text($listing[2]),34,"\r\n",true);
 			$desc=explode("\r\n",$desc);
 			$count=count($desc);
 			if($count<(20-$OL))
