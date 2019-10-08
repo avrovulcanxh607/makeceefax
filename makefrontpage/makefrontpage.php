@@ -17,7 +17,7 @@ $restof=array(
 "OL,3,Wj %jj %jj 'kT]Supjpjpj j 55jT \r\n",
 "OL,4,W\"###\"###\"###T##########################\r\n",
 "OL,8,D```````````````````````````````````````\r\n",
-"OL,9,CA-Z INDEX     G199CNEWS HEADLINES  G101\r\n",
+"OL,9,A]GFormula One now on Ceefax: See P360\r\n",
 "OL,10,CBBC INFO      G695CNEWS FOR REGION G160\r\n",
 "OL,11,CCHESS         G568CNEWSROUND       G570\r\n",
 "OL,12,CCOMMUNITYGBBC2G650CRADIO      GBBC1G640\r\n",
@@ -33,7 +33,7 @@ $restof=array(
 "OL,22,C\r\n",
 "OL,23,D]CCeefax: The world at your fingertips \r\n",
 "OL,24,AHeadlines  BSport CN.Ire TV FA-Z Index \r\n");
-$fastext=array("FL,101,300,600,199,F,199\r\n");
+$fastext=array("FL,101,300,600,199,8FF,199\r\n");
 $i=1;
 foreach ($modules as $key=>$module)
 {
@@ -54,8 +54,8 @@ foreach ($modules as $key=>$module)
 			$headline=array("OL,5,C$title[0]\r\n","OL,6,M$title[1]C$title[2]\r\n");
 			$i++;
 			//if(ROWADAPT && $i>2)	// If Row adaptive mode is enabled, only send the full page once. 
-				//$out=array_merge($out,$pheader,$iheader,$headline,$fastext);
-			//else
+				//$out=array_merge($out,$pheader,$iheader,$headline,$fastext);	// has the distinct disadvantage of looking like its broken
+				//else
 			$out=array_merge($out,$pheader,$iheader,$headline,$restof,$fastext);	// Append the subpage to the last one
 		}
 	}

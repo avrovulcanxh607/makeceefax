@@ -30,7 +30,7 @@ function makeFinance()
 	"OL,21,F   Exchange RatesG240F   IndexG199\r\n",
 	"OL,22,M] A FULL CITY SERVICE ON BBC2 200\r\n",
 	"OL,24,AShares BExchanges CTourRates FMain Menu\r\n",
-	"FL,220,240,244,100,100,199\r\n"));
+	"FL,220,240,244,100,8FF,199\r\n"));
 	//$p2=str_get_html($p2);					// Convert the string back to DOM
 	$winners=$p2->find("span[class=greenarrow]");	// Find all the winners/losers
 	$losers=$p2->find("span[class=redarrow]");

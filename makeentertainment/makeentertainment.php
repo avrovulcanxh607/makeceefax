@@ -80,7 +80,7 @@ function entertaimentPage($page,$mpp)	// Makes all the actual stories, wonder if
 	"OL,22,C]DTV    520  Lottery   555  Music 530\r\n",
 	"OL,23,C]DFilms 540  Newsround 570  Games 550\r\n",
 	"OL,24,ANext NewsB FilmIndexCTV IndexFEntsIndex\r\n",
-	"FL,".($mpp+1).",540,520,500,F,199\r\n");
+	"FL,".($mpp+1).",540,520,500,8FF,199\r\n");
 	return array_merge($inserter,$pheader,$iheader,$nheader,$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
 }
 
@@ -100,7 +100,7 @@ function entertaimentIndex($pages)
 	"OL,22,C]DTV    520  Lottery   555  Music 530\r\n",
 	"OL,23,C]DFilms 540  Newsround 570  Games 550\r\n",
 	"OL,24,ANext NewsBMusicIndeCNewsroundFEntsIndex\r\n",
-	"FL,502,530,570,500,8ff,199\r\n");
+	"FL,502,530,570,500,8FF,199\r\n");
 	$page=array_merge($inserter,$pheader,$iheader,$header);
 	foreach($pages as $story)
 	{

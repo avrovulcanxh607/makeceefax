@@ -168,7 +168,7 @@ function newsIndex($pages)	// UK/World Index P102
 		unset($sstitles[1]);	// Remove the last three that we did.
 		unset($sstitles[2]);	// Probably better way to do this.
 		$sstitles = array_values($sstitles);
-		$fastext=array("FL,103,104,160,100,F,199\r\n");
+		$fastext=array("FL,103,104,160,100,8FF,199\r\n");
 		if(ROWADAPT && $i>0)
 			$page=array_merge($page,$pheader,$iheader,$lines,$fastext);	// Append the subpage to the last one
 		else
@@ -235,7 +235,7 @@ function newsLatest($pages)
 		$lines[]="OL,22,KKF$headline[1]\r\n";
 		$lines[]="OL,23,KKD````````````````````````````` ]G".($i+1)."/9\r\n";
 		$lines[]="OL,24,KKATickerB Latest CHeadlinesFMain Menu\r\n";
-		$lines[]="FL,151,".(104+$i).",101,100,100,100\r\n";
+		$lines[]="FL,151,".(104+$i).",101,100,8FF,100\r\n";
 		$out=array_merge($out,$pheader,$iheader,$lines);
 		$i++;
 		if ($i>8) break;
@@ -266,7 +266,7 @@ function newsTicker($pages)
 		$lines[]="OL,22,KKC$headline[0]\r\n";
 		$lines[]="OL,23,KKD`````````````````` ]GHeadlines 101\ \r\n";
 		$lines[]="OL,24,KKANewsreel BN.IreTV CExtra FMain Menu\r\n";
-		$lines[]="FL,152,600,140,100,100,100\r\n";
+		$lines[]="FL,152,600,140,100,8FF,100\r\n";
 		$out=array_merge($out,$pheader,$iheader,$lines);
 		$i++;
 		if ($i>8) break;
@@ -311,7 +311,7 @@ function sciTech($pages)
 		"OL,22,D]CHeadlines G101CIndexG102CSport  G300 \r\n",
 		"OL,23,D]CFront PageG100CTV   G600CWeatherG400 \r\n",
 		"OL,24,ALocalNewsBHeadlinesCNews IndxFMain Menu\r\n",
-		"FL,160,101,102,100,8ff,100\r\n");
+		"FL,160,101,102,100,8FF,100\r\n");
 		$outp=array_merge($outp,$pheader,$iheader,$nheader,$title[1],$intro[1],$para,$footer);	// Merge them all in an array to export as page
 		$i++;
 		if ($i > 5) break;
@@ -411,7 +411,6 @@ function makenews()
 	echo "Generating Local News Stories...\r\n";
 	file_put_contents("makenews/rrss.txt",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
-		// Don't want video/sport stories. They don't render too well on teletext
 		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) 
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))
 		{
@@ -446,7 +445,6 @@ function makenews()
 	$scistories=array();
 	file_put_contents("makenews/scitechrss.txt",$xml->channel->lastBuildDate);
 	foreach($xml->channel->item as $chan) {
-		// Don't want video/sport stories. They don't render too well on teletext
 		if (strcasecmp($chan->title,"in pictures") && strncmp($chan->link,"https://www.bbc.co.uk/sport/",28) 
 		&& strncmp($chan->link,"https://www.bbc.co.uk/news/av/",30))
 		{

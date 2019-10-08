@@ -171,7 +171,7 @@ function newsFooter($region,$mpp,$type="normal")
 			$FT='OL,24,AIn Depth BNews IndxCHeadlinesFMain Menu'."\r\n";
 		else
 			$FT='OL,24,ANext NewsBNews IndxCHeadlinesFMain Menu'."\r\n";
-		$FL="FL,$next,102,101,100,F,199\r\n";
+		$FL="FL,$next,102,101,100,8FF,199\r\n";
 	}
 	if ($type == "normal" && $region)
 	{
@@ -201,7 +201,7 @@ function newsHeadlinesfooter($region=false)
 		"OL,22,T]G$regionCHeadlinesG160CSport   G390\r\n",
 		"OL,23,D]GNATIONALC Main menuG100CWeatherG 400\r\n",
 		"OL,24,ANext PageBTop StoryCReg SportFMain Menu\r\n",
-		"FL,161,161,390,100,F,199\r\n");
+		"FL,161,161,390,100,8FF,199\r\n");
 	}
 	else
 	{
@@ -209,7 +209,7 @@ function newsHeadlinesfooter($region=false)
 		"OL,22,W]DGet BBC News on your mobile phone 153\r\n",
 		"OL,23,D]CCATCH UP WITH N. IRELAND NEWS    G160\r\n",
 		"OL,24,ANews IndexBTop StoryCTV/RadioFMain Menu\r\n",
-		"FL,102,104,600,100,F,199\r\n");
+		"FL,102,104,600,100,8FF,199\r\n");
 	}
 }
 
@@ -227,6 +227,6 @@ function newsSummaryFooter()
 	"OL,22,D]CNews indexG102CExtraG140CWeather G400\r\n",
 	"OL,23,D]CFront pageG100CTV   G600CChildrenG500\r\n",
 	"OL,24,A1st storyBNews IndxCHeadlinesFMain Menu\r\n",
-	"FL,104,102,101,100,F,199\r\n");
+	"FL,104,102,101,100,8FF,199\r\n");
 }
 ?>

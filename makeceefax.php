@@ -5,6 +5,11 @@
 	Nathan Dane, 2019
 */
 $time_start=microtime(true);
+function shutdown()
+{
+	unlink("active.mcx");
+}
+register_shutdown_function('shutdown');
 // Settings. See the Wiki for details @todo
 define ("VERSION","V1.1");
 define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
@@ -19,6 +24,9 @@ require "simple_html_dom.php";
 
 echo "MAKECEEFAX.PHP ".VERSION." (c) Nathan Dane, 2019\r\n";
 echo "Saving to ".PAGEDIR."/\r\n\r\n";
+
+if(file_exists("active.mcx"))exit("MAKECEEFAX is already running\r\n");
+file_put_contents("active.mcx","");
 
 // Load Modules
 $moduledir=file_get_contents("modules.txt");	// If there's no modules.txt, show's over. Need redundancy

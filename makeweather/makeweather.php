@@ -70,7 +70,7 @@ function weatherFront($uk,$reg)
 	"OL,22,B$headline2\r\n",
 	"OL,23,D]G     From the BBC Weather Centre     \r\n",
 	"OL,24,AMaps  BWarnings  COutlook  FMain Menu  \r\n",
-	"FL,401,405,403,100,100,199\r\n");
+	"FL,401,405,403,100,8FF,199\r\n");
 	
 	file_put_contents(PAGEDIR.'/'.PREFIX."400.tti",array_merge(pageInserter("Weather Front Page"),pageHeader(400,'0000'),intHeader(),$body));
 }
@@ -85,7 +85,7 @@ function weatherCurrent()
 	
 	$footer=array("OL,20,C   pressureFRCrisingGSCsteadyBFCfalling\r\n",
 	"OL,24,AWarningsB NIreTV CTrav Head FMain Menu\r\n",
-	"FL,405,600,430,100,100,100\r\n");
+	"FL,405,600,430,100,8FF,100\r\n");
 
 	$mintemp=100;
 	$maxtemp=-100;
@@ -255,7 +255,7 @@ function weatherUKfiveday()
 	"OL,6,Bmax for 0600-1800   min for 1800-0600  \r\n",
 	"OL,7,C    max minGC          Cmax minGC      \r\n");
 	$footer=array("OL,24,AReview  B Sport  CTrav Head FMain Menu \r\n",
-	"FL,406,600,430,100,100,199\r\n");
+	"FL,406,600,430,100,8FF,199\r\n");
 
 	$i=1;
 	$ss=1;
@@ -333,7 +333,7 @@ function weatherUKoutlook($xml)
 	"OL,5, UK WEATHER OUTLOOK                     \r\n");
 	$footer=array("OL,23,D]G        From the Met Office          \r\n",
 	"OL,24,AUK cities BSport CTrav Head FMain Menu \r\n",
-	"FL,404,300,430,100,100,100\r\n");
+	"FL,404,300,430,100,8FF,100\r\n");
 	$out=array_merge(pageInserter("UK Weather Outlook",30),pageHeader(403,"0001","c000"),intHeader(),$header);
 	for($i=1; $i<3; $i++)
 	{
@@ -441,7 +441,7 @@ function weatherRegional($xml)
 	$footer=array('OL,22,T]GN IRELANDCHeadlinesG160CSport   G390 '."\r\n",
 	"OL,23,D]GNATIONALC Main menuG100CWeatherG 400 "."\r\n",
 	"OL,24,AOutlookB NIrelTravC Trav HeadFMain Menu"."\r\n",
-	"FL,403,437,430,100,F,199\r\n");
+	"FL,403,437,430,100,8FF,199\r\n");
 	file_put_contents(PAGEDIR.'/'.PREFIX."402.tti",array_merge(pageInserter("Regional Weather",30),pageHeader(402,"0001"),intHeader(),$header
 	,getRegional($xml,$day=1,$ht,$lt),array("OL,21,                                    1/2 \r\n"),$footer,pageHeader(402,"0002"),intHeader()
 	,$header,getRegional($xml,$day=2,$ht,$lt),array("OL,21,                                    2/2 \r\n"),$footer));
@@ -693,7 +693,7 @@ function drawMap($period=0,$rep=0,$s=1)
 	"OL,22,            Z$a10"."8?' \"'    \"    $lo2\r\n",
 	"OL,23,D]G        From the Met Office          \r\n",
 	"OL,24,AN.Ire WeathBSportCTrav Head FMain Menu \r\n",
-	"FL,402,300,430,100,0,199\r\n");
+	"FL,402,300,430,100,8FF,199\r\n");
 }
 
 function mapText($text,$target,$colour)

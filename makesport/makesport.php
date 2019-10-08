@@ -15,6 +15,7 @@ echo "Loaded MAKESPORT.PHP V0.2 (c) Nathan Dane, 2019\r\n";
 function makesport()
 {
 	sportFootball();
+	formulaOne();
 }
 
 function sportFootball()
@@ -73,7 +74,7 @@ function sportPage($page,$mpp,$header="test")
 	$pheader=pageHeader($mpp);
 	$iheader=intHeader();
 	$nheader=sportHeader($page[4]);
-	$title=outputLine($line,"C",$page[0],21);	// Page title
+	$title=outputLine($line,"B",$page[0],21);	// Page title
 	$line+=$title[0];
 	$intro=outputLine($line," ",$page[5],21);	// Intro
 	$ln=$line;
@@ -110,7 +111,7 @@ function footballIndex($data)
 	"OL,22,D]CRESULTS AND FIXTURES SECTIONG339 \r\n",
 	"OL,23,D]CBBC WEBSITE: bbc.co.uk/football\r\n",
 	"OL,24,ATop story  BRegional CHeadlines FSport\r\n",
-	"FL,303,300,301,300,F,199\r\n");
+	"FL,303,300,301,300,8FF,199\r\n");
 	$i=0;
 	$OL=4;
 	foreach($data as $page)
@@ -143,7 +144,7 @@ function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-
 	$footer=array("OL,22,D]CFootballG302CFront pageG100CTV  G600 \r\n",
 	"OL,23,D]CRugby   G370CMotorsportG360CGolfG330 \r\n",
 	"OL,24,ANext page  BFootball CHeadlines FSport \r\n",
-	"FL,".($mpp+1).",302,301,300,f,320\r\n");
+	"FL,".($mpp+1).",302,301,300,8FF,320\r\n");
 	$data=leagueTable($url);
 	$league=$data[0];
 	$date=$data[1];
@@ -212,4 +213,76 @@ function leagueTable($url="https://www.bbc.co.uk/sport/football/premier-league/t
 	$time=$html->find("time",0)->plaintext;
 	$league=$html->find("h1",0)->plaintext;
 	return array($league,$time,$leaguetable);
+}
+
+function formulaOne()
+{
+	$count=361;
+	$rssfeed="http://feeds.bbci.co.uk/sport/formula1/rss.xml";	// BBC Football stories
+	$time = file_get_contents("makesport/formula1.rss");
+	$rawFeed = file_get_contents($rssfeed);
+	$xml = new SimpleXmlElement($rawFeed);
+	if ($time == $xml->channel->lastBuildDate) echo "Formula One News Up-to-date\r\n";
+	else
+	{
+		echo "Generating Formula One Stories...\r\n";
+		file_put_contents("makesport/formula1.rss",$xml->channel->lastBuildDate);
+		foreach($xml->channel->item as $chan) {
+			if (strncmp($chan->link,"http://www.bbc.co.uk/sport/av/",30) && 
+			!strncmp($chan->link,"http://www.bbc.co.uk/sport/formula1/",36))
+			{
+				$url=$chan->link;
+				echo $url."\r\n";
+				$name="sport".$count;
+				$$name=getSport($url,4);
+				if ($$name===false) 
+				{
+					echo "simplesport.php detected a problem with this page\r\n";
+					continue 1;	// Don't even try to run a failed page
+				}
+				file_put_contents(PAGEDIR.'/'.PREFIX."$count.tti",(sportPage($$name,$count)));
+				$sportdata[]=$$name;
+				$count++;
+				if ($count>369) break;	// Stop after we get the pages that we want
+			}
+		}
+		file_put_contents(PAGEDIR.'/'.PREFIX."360.tti",(f1Index($sportdata)));
+		echo "Generating Formula One Stories...Done\r\n";
+	}
+}
+
+function f1Index($data)
+{
+	$inserter=pageInserter("Formula 1 Index");	// Get all the headers 
+	$pheader=pageHeader(360);	// Hard coded for now
+	$iheader=intHeader();
+	$header=array(
+	"OL,1,Wj#3kj#3kj#3kT]Rh,hlhl <<4444hl hlhlh$  \r\n",
+	"OL,2,Wj \$kj \$kj 'kT]Rj#jzj#5555u5ujk jzjjj1  \r\n",
+	"OL,3,W\"###\"###\"###T//-/-,-/....,.,--/-,---.//\r\n");
+	$footer=array(
+	"OL,22,D]CCEEFAX MOTORSPORT SECTION PAGE 360   \r\n",
+	"OL,23,D]CBBC WEBSITE: bbc.co.uk/motorsport    \r\n",
+	"OL,24,ANext page  BM/sport  CHeadlines FSport \r\n",
+	"FL,361,360,301,300,8FF,300\r\n");
+	$i=0;
+	$OL=4;
+	foreach($data as $page)
+	{
+		$mpp=(361+$i);	// Hard code for now
+		if ($i<1) 	// Only the first headline is double height, then they're cyan
+			$textcol='M';	// Double Height
+		else
+			$textcol='F';	// Cyan
+		$cut=strpos($page[0], ':');
+		$cut+=2;
+		$headline=substr($page[0],$cut);
+		$headline=myTruncate2($headline, 35, " ");	// Cut the headline to 35 chars, but at word breaks
+		$headline=substr(str_pad($headline,35),0,35);
+		$headline.='G';	// White
+		$titles[]="OL,$OL,$textcol$headline$mpp\r\n";	// On all subpages
+		$i++;
+		$OL+=2;
+	}
+	return array_merge($inserter,$pheader,$iheader,$header,$titles,$footer);
 }

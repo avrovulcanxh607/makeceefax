@@ -190,25 +190,25 @@ function listingsFooter($name,$today=true)
 			"OL,22,F]DS=Subtitles  AD=Audio Description  \r\n",
 			"OL,23,D]FBBC1A601FBBC2A602F C4A604FOn nowA606 \r\n",
 			"OL,24,ABBC2    BUTV     CCh 4   FNow & Next  \r\n",
-			"FL,602,603,604,606,F,600\r\n");
+			"FL,602,603,604,606,8FF,600\r\n");
 		case "bbc2":
 			return array(
 			"OL,22,F]DS=Subtitles  AD=Audio Description  \r\n",
 			"OL,23,D]FBBC1A601FBBC2A602F C4A604FOn nowA606 \r\n",
 			"OL,24,ACh 4    BCh 5  CNow and Next FTV Links\r\n",
-			"FL,604,605,606,615,F,600\r\n");
+			"FL,604,605,606,615,8FF,600\r\n");
 		case "ch4":
 			return array(
 			"OL,22,F]DS=Subtitles  AD=Audio Description  \r\n",
 			"OL,23,D]FBBC1A601FBBC2A602F C4A604FOn nowA606 \r\n",
 			"OL,24,ACh 5   BNow & NextC TV LinksFN.Irel. TV\r\n",
-			"FL,605,606,615,600,F,600\r\n");
+			"FL,605,606,615,600,8FF,600\r\n");
 		case "ch5":
 			return array(
 			"OL,22,F]DS=Subtitles  AD=Audio Description  \r\n",
 			"OL,23,D]FBBC1A601FBBC2A602F C4A604FOn nowA606 \r\n",
 			"OL,24,ANow & NextB  Prime  CBBC1  FN.Irel. TV \r\n",
-			"FL,606,607,601,600,F,600\r\n");
+			"FL,606,607,601,600,8FF,600\r\n");
 	}
 }
 
