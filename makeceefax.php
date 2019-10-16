@@ -11,7 +11,7 @@ function shutdown()
 }
 register_shutdown_function('shutdown');
 // Settings. See the Wiki for details @todo
-define ("VERSION","V1.1");
+define ("VERSION","V1.2");
 define ("PAGEDIR","/home/pi/ceefax");	// Where do you want your teletext files?
 define ("PREFIX","AUTO");	// What do you want the filename prefix to be?
 define ("REGION","Northern Ireland");	// What UK TV Region are you in? 
@@ -60,5 +60,5 @@ foreach ($moduledir as $function)	// Run each available module's initial functio
 $time_end=microtime(true);
 $execution_time=($time_end-$time_start);
 $time=date("H:i:s");
-echo "MAKECEEFAX.PHP finished at $time, took ".$execution_time." seconds\r\n";	// Closing statement. Useful for logging (but not much else!)
+echo "MAKECEEFAX.PHP finished at $time, took ".$execution_time." seconds";	// Closing statement. Useful for logging (but not much else!)
 ?>

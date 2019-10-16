@@ -10,7 +10,7 @@ require "sportconfig.php";
 require "simplesport.php";
 require "sportheaders.php";
 
-echo "Loaded MAKESPORT.PHP V0.2 (c) Nathan Dane, 2019\r\n";
+echo "Loaded MAKESPORT.PHP V0.4 (c) Nathan Dane, 2019\r\n";
 
 function makesport()
 {
@@ -123,7 +123,10 @@ function footballIndex($data)
 			$textcol='M';	// Double Height
 		else
 			$textcol='F';	// Cyan
-		$headline=myTruncate2($page[0], 35, " ");	// Cut the headline to 35 chars, but at word breaks
+		$cut=strpos($page[0], ':');
+		$cut+=2;
+		$headline=substr($page[0],$cut);
+		$headline=myTruncate2($headline, 35, " ");	// Cut the headline to 35 chars, but at word breaks
 		$headline=substr(str_pad($headline,35),0,35);
 		$headline.='G';	// White
 		$titles[]="OL,$OL,$textcol$headline$mpp\r\n";	// On all subpages
@@ -186,6 +189,11 @@ function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-
 		
 		$page=array_merge($page,array("OL,$OL,$key $name $p $w $d $l  $f  $a $pts\r\n"));
 		$OL++;
+		if($row[8]&&$OL<21)
+		{
+			$page=array_merge($page,array("OL,$OL,B---------------------------------------\r\n"));
+			$OL++;
+		}
 		if($OL>20)
 		{
 			$page=array_merge($page,$footer,$inserter,pageHeader($mpp,"0002"),$iheader,$nheader,array("OL,4, B$league\r\n","OL,6, G$date    P  W  D  L   F   A Pts\r\n"));
@@ -206,9 +214,14 @@ function leagueTable($url="https://www.bbc.co.uk/sport/football/premier-league/t
 	array_pop($rows);
 	foreach($rows as $row)
 	{
+		//echo "\r\n".$row->class."\r\n";
+		if($row->class=="gs-o-table__row--break")
+			$break=true;
+		else
+			$break=false;
 		$data=$row->find("td");
 		array_push($leaguetable,array($data[2]->plaintext,$data[3]->plaintext,$data[4]->plaintext,
-		$data[5]->plaintext,$data[6]->plaintext,$data[7]->plaintext,$data[8]->plaintext,$data[10]->plaintext));
+		$data[5]->plaintext,$data[6]->plaintext,$data[7]->plaintext,$data[8]->plaintext,$data[10]->plaintext,$break));
 	}
 	$time=$html->find("time",0)->plaintext;
 	$league=$html->find("h1",0)->plaintext;

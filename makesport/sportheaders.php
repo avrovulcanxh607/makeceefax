@@ -22,6 +22,15 @@ function sportHeader($header)
 		case "Wales" : ;
 		case "Republic of Ireland" : ;
 		case "European Football" : ;
+		case "England" : ;
+		case "Celtic" : ;
+		case "Man Utd" : ;
+		case "Sunderland" : ;
+		case "Barnsley" : ;
+		case "Crystal Palace" : ;
+		case "Scotland" : ;
+		case "Women's Football" : ;
+		case "Norwich" : ;
 			return array(
 			"OL,1,Wj#3kj#3kj#3kT]R h<h<|h<|(|$|l4|l4| |\r\n",
 			"OL,2,Wj \$kj \$kj 'kT]R j7juju  {4k500\r\n",
@@ -32,6 +41,7 @@ function sportHeader($header)
 			"OL,2,Wj \$kj \$kj 'kT]Rj#jzj#5555u5ujk jzjjj1  \r\n",
 			"OL,3,W\"###\"###\"###T//-/-,-/....,.,--/-,---.//\r\n");
 		default :
+			echo "sportHeader: $header not recognised\r\n";
 			return array(
 			"OL,1,Wj#3kj#3kj#3kT]R   h<,h<|h<|h<|(|$      \r\n",
 			"OL,2,Wj \$kj \$kj 'kT]R   bsj7#juj7}        \r\n",

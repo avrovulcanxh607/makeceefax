@@ -87,3 +87,13 @@ function myTruncate2($string, $limit, $break=" ", $pad="")
 	}
 	return $string . $pad;
 }
+
+/*
+	void savePage(int MPP, array DATA)
+	Save a teletext page
+*/
+function savePage($mpp,$data)
+{
+	if(!is_array($data)) return false;
+	file_put_contents(PAGEDIR.'/'.PREFIX.$mpp.".tti",$data);
+}
