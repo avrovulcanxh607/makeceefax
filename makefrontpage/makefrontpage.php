@@ -17,7 +17,7 @@ $restof=array(
 "OL,3,Wj %jj %jj 'kT]Supjpjpj j 55jT \r\n",
 "OL,4,W\"###\"###\"###T##########################\r\n",
 "OL,8,D```````````````````````````````````````\r\n",
-"OL,9,A]GFormula One now on Ceefax: See P360\r\n",
+"OL,9,CA-Z INDEX     G199CNEWS HEADLINES  G101\r\n",
 "OL,10,CBBC INFO      G695CNEWS FOR REGION G160\r\n",
 "OL,11,CCHESS         G568CNEWSROUND       G570\r\n",
 "OL,12,CCOMMUNITYGBBC2G650CRADIO      GBBC1G640\r\n",

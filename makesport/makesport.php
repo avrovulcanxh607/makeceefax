@@ -140,8 +140,9 @@ function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-
 {
 	$lasttime=file_get_contents("makesport/$mpp.rss");
 	$OL=8;
+	$ss=1;
 	$inserter=pageInserter("Football League Table");	// Get all the headers 
-	$pheader=pageHeader($mpp,"0001");	// Hard coded for now
+	$pheader=pageHeader($mpp,"0001","c000");	// Hard coded for now
 	$iheader=intHeader();
 	$nheader=sportHeader("Football");
 	$footer=array("OL,22,D]CFootballG302CFront pageG100CTV  G600 \r\n",
@@ -196,7 +197,8 @@ function footballLeague($mpp,$url="https://www.bbc.co.uk/sport/football/premier-
 		}
 		if($OL>20)
 		{
-			$page=array_merge($page,$footer,$inserter,pageHeader($mpp,"0002"),$iheader,$nheader,array("OL,4, B$league\r\n","OL,6, G$date    P  W  D  L   F   A Pts\r\n"));
+			$ss++;
+			$page=array_merge($page,$footer,$inserter,pageHeader($mpp,"000$ss","c000"),$iheader,$nheader,array("OL,4, B$league\r\n","OL,6, G$date    P  W  D  L   F   A Pts\r\n"));
 			$OL=8;
 		}
 	}

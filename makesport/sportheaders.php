@@ -31,6 +31,12 @@ function sportHeader($header)
 		case "Scotland" : ;
 		case "Women's Football" : ;
 		case "Norwich" : ;
+		case "Champions League" : ;
+		case "Liverpool" : ;
+		case "Arsenal" : ;
+		case "Chelsea" : ;
+		case "Southend" : ;
+		case "Championship" : ;
 			return array(
 			"OL,1,Wj#3kj#3kj#3kT]R h<h<|h<|(|$|l4|l4| |\r\n",
 			"OL,2,Wj \$kj \$kj 'kT]R j7juju  {4k500\r\n",
