@@ -124,7 +124,6 @@ function footballIndex($data)
 		else
 			$textcol='F';	// Cyan
 		$cut=strpos($page[0], ':');
-		$cut+=2;
 		if ($cut !== false)
 		{
 			$cut+=2;
