@@ -9,7 +9,7 @@ require "simplenews.php";	// You should have got simplenews.php with this module
 require "newsheader.php";
 require "newsconfig.php";	// No point in 'including' this stuff, the script won't run without it anyway
 
-echo "Loaded MAKENEWS.PHP V0.1 (c) Nathan Dane, 2019\r\n";
+echo "Loaded MAKENEWS.PHP V0.2 (c) Nathan Dane, 2019\r\n";
 
 function newsPage($page,$mpp)	// Makes all the actual stories, P104-124 & 161-169
 {
@@ -130,7 +130,7 @@ function newsIndex($pages)	// UK/World Index P102
 			$textcol='F';	// Cyan
 		else
 			$textcol='G';	// White. Could have just done a space
-		$headline=myTruncate2($head[0], 35, " ");	// Cut the headline to 35 chars, but at word breaks
+		$headline=myTruncate2($head[0], 36, " ");	// Cut the headline to 35 chars, but at word breaks
 		$headline=substr(str_pad($headline,35),0,35);
 		$headline.='C';	// Yellow
 		$mpp=(firstnews+$i);
