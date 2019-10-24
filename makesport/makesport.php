@@ -10,7 +10,7 @@ require "sportconfig.php";
 require "simplesport.php";
 require "sportheaders.php";
 
-echo "Loaded MAKESPORT.PHP V0.4 (c) Nathan Dane, 2019\r\n";
+echo "Loaded MAKESPORT.PHP V0.5 (c) Nathan Dane, 2019\r\n";
 
 function makesport()
 {
@@ -125,7 +125,13 @@ function footballIndex($data)
 			$textcol='F';	// Cyan
 		$cut=strpos($page[0], ':');
 		$cut+=2;
-		$headline=substr($page[0],$cut);
+		if ($cut !== false)
+		{
+			$cut+=2;
+			$headline=substr($page[0],$cut);
+		}
+		else
+			$headline=$page[0];
 		$headline=myTruncate2($headline, 35, " ");	// Cut the headline to 35 chars, but at word breaks
 		$headline=substr(str_pad($headline,35),0,35);
 		$headline.='G';	// White
@@ -290,8 +296,13 @@ function f1Index($data)
 		else
 			$textcol='F';	// Cyan
 		$cut=strpos($page[0], ':');
-		$cut+=2;
-		$headline=substr($page[0],$cut);
+		if ($cut !== false)
+		{
+			$cut+=2;
+			$headline=substr($page[0],$cut);
+		}
+		else
+			$headline=$page[0];
 		$headline=myTruncate2($headline, 35, " ");	// Cut the headline to 35 chars, but at word breaks
 		$headline=substr(str_pad($headline,35),0,35);
 		$headline.='G';	// White
