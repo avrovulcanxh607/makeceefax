@@ -148,14 +148,11 @@ function newsIndex($pages)	// UK/World Index P102
 		$nheader=newsHeader('index');
 		$lines=array();
 		$footer=newsIndexFooter();
-		if(!ROWADAPT || $i<1)
+		foreach ($toptitles as $title)
 		{
-			foreach ($toptitles as $title)
-			{
-				if ($OL == 10) $OL++;	// Add the blank line 10 (Or rather, don't)
-				$lines[]="OL,$OL,$title\r\n";	// Actual line output.
-				$OL++;
-			}
+			if ($OL == 10) $OL++;	// Add the blank line 10 (Or rather, don't)
+			$lines[]="OL,$OL,$title\r\n";	// Actual line output.
+			$OL++;
 		}
 		$lines[]="OL,17,C Other news ".($i+1)."/3 \r\n";	// Subpages!
 		$OL=18;	// Shift down to line 18
@@ -169,10 +166,8 @@ function newsIndex($pages)	// UK/World Index P102
 		unset($sstitles[2]);	// Probably better way to do this.
 		$sstitles = array_values($sstitles);
 		$fastext=array("FL,103,104,160,100,8FF,199\r\n");
-		if(ROWADAPT && $i>0)
-			$page=array_merge($page,$pheader,$iheader,$lines,$fastext);	// Append the subpage to the last one
-		else
-			$page=array_merge($page,$pheader,$iheader,$nheader,$lines,$footer,$fastext);
+		
+		$page=array_merge($page,$pheader,$iheader,$nheader,$lines,$footer,$fastext);
 	}
 	return $page;	// Return the full file to be saved
 }
@@ -336,7 +331,7 @@ function makenews()
 	else
 		$runnews=true;
 	if (!$runnews || !donews) echo "UK/World News Up-to-date\r\n";	// If nothing's changed, don't even bother
-	else	// Unfortunately, if somthing has, we have to read in all the pages. Not Efficiant!
+	else	// Unfortunately, if somthing has, we have to read in all the pages. Not Efficient!
 	{
 	echo "Generating News Stories...\r\n";
 	file_put_contents("makenews/ukrss.txt",$ukxml->channel->lastBuildDate);
